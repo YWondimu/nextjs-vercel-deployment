@@ -5,18 +5,18 @@ export default function Map({currentUrl, zoom}) {
 
     return (
         <div className='map-port'>
-            <motion.div 
-                className='map-div' 
+            <motion.img
+                className='image' 
                 drag 
                 dragMomentum={false}
                 // animate={{scale: 1}}
                 animate={{scale: zoom}}
+                src={currentUrl}
+                alt=''
             >
-                <motion.div drag>
-                <img src={currentUrl} alt='' className='image' />
-                </motion.div>
+                {/* <img alt='' className='image' /> */}
                 {/* <img src={currentUrl} alt='' /> */}
-            </motion.div>
+            </motion.img>
         </div>
     );
 }
