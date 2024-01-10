@@ -55,7 +55,7 @@
 }
 
 .image {
-    clip-path: inset(2px);
+    clip-path: inset(4px);
 }
 
 .middle {
