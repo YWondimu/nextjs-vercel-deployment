@@ -1,13 +1,10 @@
 'use client'
-import Image from 'next/image'
-import Button2 from './FloorButtons.js'
 import Header from './Header.js';
 import Footer from './Footer.js';
 import Map from './Map.js';
 import FloorButtons from './FloorButtons.js';
 import Slider from './Slider.js';
 import { useState } from 'react';
-import {motion} from 'framer-motion';
 import './styles.css';
 
 export default function App() {
