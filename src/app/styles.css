@@ -54,8 +54,8 @@
     /* margin: 0 auto; */
 }
 
-.image, .test {
-    border: 1px dashed green;
+.image {
+    clip-path: inset(2px);
 }
 
 .middle {
