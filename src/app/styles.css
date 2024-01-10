@@ -1,0 +1,131 @@
+:root {
+    --top-height: 20vh;
+    --middle-height: 40vh;
+    --bottom-height: 20vh;
+}
+
+.top, .bottom {
+    width: 100%;
+    height: var(--top-height);
+    background-color: lightblue;
+    border: 2px dashed orange;
+    border-radius: 15px;
+    box-sizing: border-box; /*Ensure the border is included in width/height calculations*/
+}
+
+.button {
+    /* this seems redundant? the display property */
+    /* display: flex; */
+    justify-content: center;
+    align-items: center;
+    height: 40px;
+    width: 25px;
+    background-color: #eee;
+    border: 1px solid #ccc;
+    border-radius: 0;
+    cursor: pointer;
+    transition: background-color 0.3s ease-in-out; /* what does this do? disabling it doesn't seem to change anything. neither does changing 0.3s to 2s */
+    margin-top: -1px;
+    margin-bottom: -1px;
+}
+
+.button:first-child {
+    border-radius: 20px 20px 0 0;
+}
+
+.button:last-child {
+    border-radius: 0 0 20px 20px;
+}
+
+.button.active { /* what does thsi do?*/
+    background-color: #333;
+    color: #fff;
+}
+
+.button-list {
+    /* list-style: none; */
+    /* padding: 0; */
+    /* display: flex; */
+    /* flex-direction: column; */
+}
+
+.button-container { /*what is this for?*/
+    /* width: 200px; */
+    /* margin: 0 auto; */
+}
+
+.image, .test {
+    border: 1px dashed green;
+}
+
+.middle {
+    height: 40vw;
+    width: 95vw;
+    border: 1px dashed red;
+    padding: 0;
+    margin: 0;
+    /* using inline-flex works, it places the buttons to the right of hte image, but im not sure why */
+    display: inline-flex;
+    justify-content: space-evenly;
+    align-items: center;
+}
+.map-port {
+    overflow: hidden;
+    border: 1px solid black;
+}
+.image {
+    width: 70vw;
+    padding: 0;
+}
+.test-div {
+    display: inline;
+    width: 0px;
+    /* height: 0px; */
+    border: 1px dashed green;
+}
+.test-button {
+    /* display: inline; */
+    width: 0px;
+    font-size: 0px;
+}
+.button-container {
+    display: inline;
+    border: 1px dashed blue;
+    align-items: center;
+    width: 30px;
+    height: 100px;
+    display: flex;
+    flex-direction: column;
+    padding: 0;
+    margin: 0;
+    /* position: relative; */
+    /* right: 0px; */
+    background-color: red;
+}
+
+.button {
+    /* display: block; */
+    /* display: flex; */
+    /* flex-direction: column; */
+}
+
+/* input[type="range"] { */
+.slider-div {
+    /* position: flex; */
+    border: 1px dashed red;
+    background-color: red;
+    width: 10vw;
+    /* position: flex; */
+    /* justify-content: center; */
+    /* align-items: center; */
+
+}
+input {
+    /* position: flex; */
+    /* justify-content: center; */
+    /* align-items: center; */
+    width: 10vw;
+    appearance: slider-vertical;
+    border: 1px dashed red;
+    background-color: red;
+}
