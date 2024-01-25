@@ -15,12 +15,12 @@ export default function App() {
     let gpsError = "No Error";
     if ("geolocation" in navigator) {
       message = "geolocation available";
-      navigator.geolocation.getCurrentPosition((position) => {
+      navigator.geolocation.getCurrentPosition(function(position){
         message = 'hi';
         let latitude = position.coords.latitude;
         let longitude = position.coords.longitude;
         message = `latitude: ${latitude}, longitude: ${longitude}`;
-      }, (error) => {
+      }, function(error) {
         gpsError = "GPS error: ";
         switch(error.code) {
           case error.PERMISSION_DENIED:
@@ -67,6 +67,7 @@ export default function App() {
     let url = folder + 'floor-' + floorName + '.svg';
     setCurrentUrl(url);
     console.log('floor url: ' + url);
+    addPhoneText(getGPS());
   }
 
   // const [initIsDragging, setInitIsDragging] = useState(false);
