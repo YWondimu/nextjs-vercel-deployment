@@ -25,6 +25,7 @@ export default function App() {
         let latitude = position.coords.latitude;
         let longitude = position.coords.longitude;
         message = `latitude: ${latitude}, longitude: ${longitude}`;
+        addPhoneText(message);
         console.log("***** END GEO FCN"); //DEBUG
       }, function(error) {
       console.log("***** START ERROR FCN"); //DEBUG
