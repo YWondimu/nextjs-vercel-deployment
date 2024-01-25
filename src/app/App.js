@@ -21,8 +21,8 @@ export default function App() {
     if (event.alpha !== null) {
       const compassHeading = event.alpha;
       let message = 'Compass Heading: ' + compassHeading + ' degrees';
+      message += ' - ' + normalizeHeading(heading);
       addPhoneText(message);
-      addPhoneText(normalizeHeading(heading));
     }
   }
   const requestOrientation = () => {
