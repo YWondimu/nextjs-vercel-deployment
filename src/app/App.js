@@ -25,7 +25,7 @@ export default function App() {
       addPhoneText(normalizeHeading(heading));
     }
   }
-  useEffect(() => {
+  const requestOrientation = () => {
     console.log('DEBUG: useEffect');
     if('DeviceOrientationEvent' in window) {
       console.log('DEBUG: addEventListener');
@@ -33,12 +33,14 @@ export default function App() {
     } else {
       console.log('Device Orientation API not supported in this browser');
     }
-    return () => {
-      //cleanup, eg removing the listener
-      console.log('DEBUG: removeEventListener');
-      window.removeEventListener('deviceorientation', handleOrientation, false);
-    }
-  }, []);
+  };
+  // useEffect(() => {
+  //   return () => {
+  //     //cleanup, eg removing the listener
+  //     console.log('DEBUG: removeEventListener');
+  //     window.removeEventListener('deviceorientation', handleOrientation, false);
+  //   }
+  // }, []);
 
   const getGPS = () => {
     console.log("***** START"); //DEBUG
@@ -236,6 +238,7 @@ export default function App() {
 
     return (
       <>
+        <button onClick={requestOrientation}>use orientation</button>
         <Header phoneText={phoneText}></Header>
         {/* <div id='phone-text'>{phoneText}</div> */}
         {/* needs to be rendered on client side if passed a call back function for onclick */}
