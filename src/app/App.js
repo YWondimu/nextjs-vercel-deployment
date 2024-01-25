@@ -26,12 +26,26 @@ export default function App() {
     }
   }
   const requestOrientation = () => {
-    console.log('DEBUG: useEffect');
-    if('DeviceOrientationEvent' in window) {
-      console.log('DEBUG: addEventListener');
-      window.addEventListener('deviceorientation', handleOrientation, false);
+    console.log('DEBUG: requestOrientation');
+    // if('DeviceOrientationEvent' in window) {
+    //   console.log('DEBUG: addEventListener');
+    //   window.addEventListener('deviceorientation', handleOrientation, false);
+    // } else {
+    //   console.log('Device Orientation API not supported in this browser');
+    // }
+    if (typeof DeviceOrientationEvent.requestPermission === 'function') {
+      DeviceOrientationEvent.requestPermission()
+        .then(permissionState => {
+          if(permissionState === 'granted') {
+            window.addEventListener('deviceorientation', handleOrientation, false);
+          } else {
+            console.error('Permission to access device orientation denied')
+          }
+        }).catch(error => {
+          console.error('Error requesting device orientation permission: ', error);
+        });
     } else {
-      console.log('Device Orientation API not supported in this browser');
+      console.error('Browser does not support device orientation permissions');
     }
   };
   // useEffect(() => {
