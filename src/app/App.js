@@ -11,16 +11,24 @@ import Head from 'next/head';
 export default function App() {
 
   const getGPS = () => {
+    console.log("***** START"); //DEBUG
+    console.log("DEBUG: in getGPS, #" + new Date().getSeconds()); //DEBUG`
     let message = "";
     let gpsError = "No Error";
     if ("geolocation" in navigator) {
+      console.log("DEBUG: in getGPS IF"); //DEBUG`
       message = "geolocation available";
       navigator.geolocation.getCurrentPosition(function(position){
+      console.log("***** START GEO FCN"); //DEBUG
+        console.log("DEBUG: in getGPS getCurrentPosition"); //DEBUG`
         message = 'hi';
         let latitude = position.coords.latitude;
         let longitude = position.coords.longitude;
         message = `latitude: ${latitude}, longitude: ${longitude}`;
+        console.log("***** END GEO FCN"); //DEBUG
       }, function(error) {
+      console.log("***** START ERROR FCN"); //DEBUG
+        console.log("DEBUG: in getGPS ERROR"); //DEBUG`
         gpsError = "GPS error: ";
         switch(error.code) {
           case error.PERMISSION_DENIED:
@@ -36,12 +44,19 @@ export default function App() {
             gpsError += "unknown error";
             break;
         }
+        addPhoneText(gpsError);
+        console.log("DEBUG: in getGPS ERROR: error is " + gpsError); //DEBUG`
+        console.log("***** END ERROR FCN"); //DEBUG
       });
     } else {
+      console.log("DEBUG: in getGPS ELSE"); //DEBUG`
       message = "geolocation not available";
     }
+        
+    console.log("DEBUG: in getGPS: error is " + gpsError); //DEBUG`
 
-    return `GPS: ${message} -- Error: ${gpsError}`;
+    console.log("***** END"); //DEBUG
+    return `GPS: ${message}`;
   }
 
   // let folder = '/unb-floors/';
