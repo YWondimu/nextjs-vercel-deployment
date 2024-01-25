@@ -1,6 +1,6 @@
 :root {
     --top-height: 20vh;
-    --middle-height: 40vh;
+    --middle-height: 48vh;
     --bottom-height: 20vh;
 }
 
@@ -55,12 +55,18 @@
 }
 
 .image {
-    clip-path: inset(4px);
+    /* clip-path: inset(4px); */
+    border: 1px solid black;
 }
 
+/* svg {
+    width: 100%;
+    height: 100%;
+} */
+
 .middle {
-    height: 40vw;
-    width: 95vw;
+    height: var(--middle-height);
+    width: 99%;
     border: 1px dashed red;
     padding: 0;
     margin: 0;
@@ -72,9 +78,11 @@
 .map-port {
     overflow: hidden;
     border: 1px solid black;
+    width: 100%;
 }
 .image {
-    width: 70vw;
+    width: 100%;
+    height: var(--middle-height);
     padding: 0;
 }
 .test-div {
@@ -89,24 +97,63 @@
     font-size: 0px;
 }
 .button-container {
-    display: inline;
-    border: 1px dashed blue;
+    /* what does the below do? doesn't seem necessary */
+    /* display: inline; */
+    /* border: 1px dashed blue; */
     align-items: center;
-    width: 30px;
-    height: 100px;
+    width: 50px;
+    height: calc(var(--middle-height)*0.75);
     display: flex;
     flex-direction: column;
     padding: 0;
     margin: 0;
+    position: absolute;
+    right: 5%;
+    bottom: 30%;
     /* position: relative; */
     /* right: 0px; */
-    background-color: red;
+    /* background-color: red; */
+}
+.button-container button {
+    height: 100%;
+    width: 100%;
+    font-size: 100%;
+    font-weight: bold;
+}
+.selected {
+    /* background-color: grey; */
+    background-color: lightgrey;
+    border: 3px solid black;
+}
+.not-selected {
+    /* background-color: lightgray; */
+    /* border: 1px solid black; */
 }
 
 .button {
+    /* this is to make sure that the box lines appear even */
+    margin: 0.1px;
+    /* this removes the default highlight behaviour when a button is pressed
+    it was potentially an issue, i thought it was making the button press feel
+    slow, but it seems to be fine now */
+    /* -webkit-tap-highlight-color: transparent; */
+    /* box-sizing: border-box; */
     /* display: block; */
     /* display: flex; */
     /* flex-direction: column; */
+}
+
+html {
+    /* this prevents scrolling of the window */
+    /* applied to both html and body to account for differences in browswers,
+    according to cgpt */
+    overflow: hidden;
+}
+body {
+    /* this prevents scrolling of the bod */
+    /* applied to both html and body to account for differences in browswers,
+    according to cgpt */
+    overflow: hidden;
 }
 
 /* input[type="range"] { */
@@ -128,4 +175,24 @@ input {
     appearance: slider-vertical;
     border: 1px dashed red;
     background-color: red;
+}
+
+#test-div {
+    height: 20px;
+    max-height: 20px;
+    white-space: pre-line;
+    overflow: auto;
+    border: 1px solid black;
+    width: 100px;
+}
+
+#phone-text {
+    width: 200px;
+    max-width: 200px;
+    height: 100px;
+    max-height: 100px;
+    overflow: auto;
+    /* the below interprets newline chars as newline, instead of ignoring them,
+    which it seems is what div and p (and all html elements?) normally do */
+    white-space: pre-line;
 }
