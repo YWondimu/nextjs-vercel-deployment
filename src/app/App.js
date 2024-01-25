@@ -11,11 +11,13 @@ import Head from 'next/head';
 export default function App() {
 
   function normalizeHeading(heading) {
+      console.log('DEBUG: normalizeHeading');
       const directions = ['North', 'North-East', 'East', 'South-East', 'South', 'South-West', 'West', 'North-West'];
       const index = Math.round(heading / 45) % 8;
       return directions[index];
   }
   function handleOrientation(event) {
+    console.log('DEBUG: handleOrientation');
     if (event.alpha !== null) {
       const compassHeading = event.alpha;
       let message = 'Compass Heading: ' + compassHeading + ' degrees';
@@ -24,17 +26,19 @@ export default function App() {
     }
   }
   useEffect(() => {
+    console.log('DEBUG: useEffect');
     if('DeviceOrientationEvent' in window) {
-      
+      console.log('DEBUG: addEventListener');
+      window.addEventListener('deviceorientation', handleOrientation, false);
     } else {
       console.log('Device Orientation API not supported in this browser');
     }
     return () => {
       //cleanup, eg removing the listener
+      console.log('DEBUG: removeEventListener');
       window.removeEventListener('deviceorientation', handleOrientation, false);
     }
   }, []);
-  window.addEventListener('deviceorientation', handleOrientation, false);
 
   const getGPS = () => {
     console.log("***** START"); //DEBUG
