@@ -34,3 +34,8 @@ yarn-error.log*
 # typescript
 *.tsbuildinfo
 next-env.d.ts
+
+# certification for ssl on localhost?
+localhost.crt
+localhost.key
+
