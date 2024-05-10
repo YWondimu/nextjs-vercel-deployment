@@ -11,10 +11,10 @@ import Head from 'next/head';
 export default function App() {
 
   function normalizeHeading(heading) {
-      console.log('DEBUG: normalizeHeading');
-      const directions = ['North', 'North-East', 'East', 'South-East', 'South', 'South-West', 'West', 'North-West'];
-      const index = Math.round(heading / 45) % 8;
-      return directions[index];
+    console.log('DEBUG: normalizeHeading');
+    const directions = ['North', 'North-East', 'East', 'South-East', 'South', 'South-West', 'West', 'North-West'];
+    const index = Math.round(heading / 45) % 8;
+    return directions[index];
   }
   function handleOrientation(event) {
     console.log('DEBUG: handleOrientation');
@@ -65,7 +65,7 @@ export default function App() {
       console.log("DEBUG: in getGPS IF"); //DEBUG`
       message = "geolocation available";
       navigator.geolocation.getCurrentPosition(function(position){
-      console.log("***** START GEO FCN"); //DEBUG
+        console.log("***** START GEO FCN"); //DEBUG
         console.log("DEBUG: in getGPS getCurrentPosition"); //DEBUG`
         message = 'hi';
         let latitude = position.coords.latitude;
@@ -74,32 +74,32 @@ export default function App() {
         addPhoneText(message);
         console.log("***** END GEO FCN"); //DEBUG
       }, function(error) {
-      console.log("***** START ERROR FCN"); //DEBUG
-        console.log("DEBUG: in getGPS ERROR"); //DEBUG`
-        gpsError = "GPS error: ";
-        switch(error.code) {
-          case error.PERMISSION_DENIED:
-            gpsError += "permission denied";
-            break;
-          case error.POSITION_UNAVAILABLE:
-            gpsError += "position unavailable";
-            break;
-          case error.TIMEOUT:
-            gpsError += "timeout";
-            break;
-          default:
-            gpsError += "unknown error";
-            break;
-        }
-        addPhoneText(gpsError);
-        console.log("DEBUG: in getGPS ERROR: error is " + gpsError); //DEBUG`
-        console.log("***** END ERROR FCN"); //DEBUG
-      });
+          console.log("***** START ERROR FCN"); //DEBUG
+          console.log("DEBUG: in getGPS ERROR"); //DEBUG`
+          gpsError = "GPS error: ";
+          switch(error.code) {
+            case error.PERMISSION_DENIED:
+              gpsError += "permission denied";
+              break;
+            case error.POSITION_UNAVAILABLE:
+              gpsError += "position unavailable";
+              break;
+            case error.TIMEOUT:
+              gpsError += "timeout";
+              break;
+            default:
+              gpsError += "unknown error";
+              break;
+          }
+          addPhoneText(gpsError);
+          console.log("DEBUG: in getGPS ERROR: error is " + gpsError); //DEBUG`
+          console.log("***** END ERROR FCN"); //DEBUG
+        });
     } else {
       console.log("DEBUG: in getGPS ELSE"); //DEBUG`
       message = "geolocation not available";
     }
-        
+
     console.log("DEBUG: in getGPS: error is " + gpsError); //DEBUG`
 
     console.log("***** END"); //DEBUG
@@ -123,7 +123,7 @@ export default function App() {
   }
 
   const [currentUrl, setCurrentUrl] = useState(sourceFiles[0]);
-  
+
   const changeFloor = (e) => {
     let floorName = e.target.innerHTML;
     let url = folder + 'floor-' + floorName + '.svg';
@@ -222,7 +222,7 @@ export default function App() {
       // const scaleDampener = 0.9;
       // const scaleDampener = 1;
       let scale = ((currentTouchDist-initialTouchDist)*scaleDampener+initialTouchDist)/initialTouchDist;
-      
+
       setZoom(zoomAtTouchStart * scale);
       addPhoneText('touch move currentTouchDist: ' + currentTouchDist);
       addPhoneText('touch move scale: ' + scale);
@@ -240,7 +240,7 @@ export default function App() {
     move: onTouchMove,
     end: onTouchEnd,
   }
-:
+
   const [phoneText, setPhoneText] = useState('phone text goes here');
   const phoneTextRef = useRef(null);
   useEffect(() => {
@@ -256,19 +256,21 @@ export default function App() {
     <Top phoneText={phoneText}></Top>
     {/* <div id='phone-text'>{phoneText}</div> */}
     {/* needs to be rendered on client side if passed a call back function for onclick */}
+
     <div className='middle'>
       {/* <Image src={currentUrl} alt='' className='image' style={{width: '100%', height: '80%', }} width={1000} height={1000}  /> */}
       {/* <Image src={currentUrl} alt='' className='image' fill /> */}
       <Map dragConstraintsRef={dragConstraintsRef} position={position} touchFunctions={touchFunctions} currentUrl={currentUrl} zoom={zoom} setZoom={setZoom}></Map>
       {/* <Map currentUrl={currentUrl} zoom={zoom} setZoom={setZoom}></Map> */}
       {/* <div className='test-div'>
-	  <button className='test-button'>test</button>
+      <button className='test-button'>test</button>
       </div> */}
       {/* <FloorButtons floorNames={floorNames} sourceFiles={sourceFiles} changeFloor={changeFloor} isDraggin={isDragging} setIsDragging></FloorButtons> */}
       <FloorButtons {...floorButtonsProps}></FloorButtons>
       {/* <Slider handleZoom={handleZoom}></Slider> */}
-  </div>
-  <Bottom></Bottom>
-</>
-);
+    </div>
+
+    <Bottom></Bottom>
+    </>
+  );
 }
