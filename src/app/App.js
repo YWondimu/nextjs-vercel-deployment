@@ -1,6 +1,6 @@
 'use client'
-import Header from './Header.js';
-import Footer from './Footer.js';
+zmport Top from './Top.js';
+import Bottom from './Bottom.js';
 import Map from './Map.js';
 import FloorButtons from './FloorButtons.js';
 import Slider from './Slider.js';
@@ -148,127 +148,127 @@ export default function App() {
   }
 
   const [zoom, setZoom] = useState(0.85);
-    const handleZoom = (e) => {
-      let zoom = e.target.value;
-      let msg = 'zoom: ' + zoom;
-      console.log(msg);
-      addPhoneText(msg);
-      setZoom(zoom);
-    }
+  const handleZoom = (e) => {
+    let zoom = e.target.value;
+    let msg = 'zoom: ' + zoom;
+    console.log(msg);
+    addPhoneText(msg);
+    setZoom(zoom);
+  }
 
-    const addPhoneText = (text) => {
-      // return;
-      setPhoneText((phoneText) => phoneText + '\n' + text);
-      // const div = document.getElementById('phone-text');
-      // div.scrollTop = div.scrollHeight;
-    }
+  const addPhoneText = (text) => {
+    // return;
+    setPhoneText((phoneText) => phoneText + '\n' + text);
+    // const div = document.getElementById('phone-text');
+    // div.scrollTop = div.scrollHeight;
+  }
 
-    const [initialTouchDist, setInitialTouchDist] = useState(null);
-    const [zoomAtTouchStart, setZoomAtTouchStart] = useState(1);
+  const [initialTouchDist, setInitialTouchDist] = useState(null);
+  const [zoomAtTouchStart, setZoomAtTouchStart] = useState(1);
 
-    const dist = (p1,p2) => {
-      const deltaX = p1.x - p2.x;
-      const deltaY = p1.y - p2.y;
-      const dist = Math.sqrt(Math.pow(deltaX,2) + Math.pow(deltaY,2));
-      return dist;
+  const dist = (p1,p2) => {
+    const deltaX = p1.x - p2.x;
+    const deltaY = p1.y - p2.y;
+    const dist = Math.sqrt(Math.pow(deltaX,2) + Math.pow(deltaY,2));
+    return dist;
+  }
+  const calcTouchDist = (e) => {
+    if (e.touches.length != 2) {
+      return null;
     }
-    const calcTouchDist = (e) => {
-      if (e.touches.length != 2) {
-        return null;
-      }
-      const touch1 = e.touches[0];
-      const touch2 = e.touches[1];
-      const p1 = {x: touch1.clientX, y: touch1.clientY};
-      const p2 = {x: touch2.clientX, y: touch2.clientY};
-      return dist(p1, p2);
-    }
-    function isNumber(value) {
-      return typeof value === 'number' && !isNaN(value) && value !== null && value !== undefined;
-    }
+    const touch1 = e.touches[0];
+    const touch2 = e.touches[1];
+    const p1 = {x: touch1.clientX, y: touch1.clientY};
+    const p2 = {x: touch2.clientX, y: touch2.clientY};
+    return dist(p1, p2);
+  }
+  function isNumber(value) {
+    return typeof value === 'number' && !isNaN(value) && value !== null && value !== undefined;
+  }
 
-    const [position, setPosition] = useState({x: -30, y: 0});
-    const onTouchStart = (e) => {
-      const num = e.touches.length;
-      // addPhoneText('touch start! num: ' + num);
-      if (num == 1) {
-        let touch = e.touches[0];
-        let x = touch.clientX;
-        let y = touch.clientY;
-        addPhoneText('x: ' + x + ' y: ' + y);
-        // setPosition({x: -100, y: 0});
-        addPhoneText('pos: ' + position.x + ' ' + position.y);
-        addPhoneText(getGPS());
-      }
-      if (num == 2) {
-        const distance = calcTouchDist(e);
-        setInitialTouchDist(distance);
-        setZoomAtTouchStart(zoom);
-        // addPhoneText('touch start dist: ' + distance);
-        // addPhoneText('touch start zoom: ' + zoom);
-      }
+  const [position, setPosition] = useState({x: -30, y: 0});
+  const onTouchStart = (e) => {
+    const num = e.touches.length;
+    // addPhoneText('touch start! num: ' + num);
+    if (num == 1) {
+      let touch = e.touches[0];
+      let x = touch.clientX;
+      let y = touch.clientY;
+      addPhoneText('x: ' + x + ' y: ' + y);
+      // setPosition({x: -100, y: 0});
+      addPhoneText('pos: ' + position.x + ' ' + position.y);
+      addPhoneText(getGPS());
     }
-    const onTouchMove = (e) => {
-      const num = e.touches.length;
-      // addPhoneText('touch move! num: ' + num);
-      if (num == 2) {
-        const currentTouchDist = calcTouchDist(e);
-        // const scaleDampener = 0.5;
-        // const scaleDampener = 0.6;
-        // const scaleDampener = 0.7
-        // const scaleDampener = 0.75
-        // const scaleDampener = 0.78
-        // const scaleDampener = 0.79
-        const scaleDampener = 0.8;
-        // const scaleDampener = 0.9;
-        // const scaleDampener = 1;
-        let scale = ((currentTouchDist-initialTouchDist)*scaleDampener+initialTouchDist)/initialTouchDist;
-        
-        setZoom(zoomAtTouchStart * scale);
-        addPhoneText('touch move currentTouchDist: ' + currentTouchDist);
-        addPhoneText('touch move scale: ' + scale);
-        addPhoneText('touch move zoomAtTouchStart: ' + zoomAtTouchStart);
-        addPhoneText('touch move new zoom (zoomAtTouchStart*scale): ' + zoomAtTouchStart*scale);
-      }
+    if (num == 2) {
+      const distance = calcTouchDist(e);
+      setInitialTouchDist(distance);
+      setZoomAtTouchStart(zoom);
+      // addPhoneText('touch start dist: ' + distance);
+      // addPhoneText('touch start zoom: ' + zoom);
     }
-    const onTouchEnd = (e) => {
-      const num = e.touches.length;
-      addPhoneText('touch end! num: ' + num);
-      addPhoneText('touch end dist: ' + calcTouchDist(e));
+  }
+  const onTouchMove = (e) => {
+    const num = e.touches.length;
+    // addPhoneText('touch move! num: ' + num);
+    if (num == 2) {
+      const currentTouchDist = calcTouchDist(e);
+      // const scaleDampener = 0.5;
+      // const scaleDampener = 0.6;
+      // const scaleDampener = 0.7
+      // const scaleDampener = 0.75
+      // const scaleDampener = 0.78
+      // const scaleDampener = 0.79
+      const scaleDampener = 0.8;
+      // const scaleDampener = 0.9;
+      // const scaleDampener = 1;
+      let scale = ((currentTouchDist-initialTouchDist)*scaleDampener+initialTouchDist)/initialTouchDist;
+      
+      setZoom(zoomAtTouchStart * scale);
+      addPhoneText('touch move currentTouchDist: ' + currentTouchDist);
+      addPhoneText('touch move scale: ' + scale);
+      addPhoneText('touch move zoomAtTouchStart: ' + zoomAtTouchStart);
+      addPhoneText('touch move new zoom (zoomAtTouchStart*scale): ' + zoomAtTouchStart*scale);
     }
-    const touchFunctions = {
-      start: onTouchStart,
-      move: onTouchMove,
-      end: onTouchEnd,
-    }
+  }
+  const onTouchEnd = (e) => {
+    const num = e.touches.length;
+    addPhoneText('touch end! num: ' + num);
+    addPhoneText('touch end dist: ' + calcTouchDist(e));
+  }
+  const touchFunctions = {
+    start: onTouchStart,
+    move: onTouchMove,
+    end: onTouchEnd,
+  }
+:
+  const [phoneText, setPhoneText] = useState('phone text goes here');
+  const phoneTextRef = useRef(null);
+  useEffect(() => {
+    // phoneTextRef.current.scrollTop = phoneTextRef.current.scrollHeight;
+    const div = document.getElementById('phone-text');
+    div.scrollTop = div.scrollHeight;
+  }, [phoneText]);
 
-    const [phoneText, setPhoneText] = useState('phone text goes here');
-    const phoneTextRef = useRef(null);
-    useEffect(() => {
-      // phoneTextRef.current.scrollTop = phoneTextRef.current.scrollHeight;
-      const div = document.getElementById('phone-text');
-      div.scrollTop = div.scrollHeight;
-    }, [phoneText]);
 
-
-    return (
-      <>
-        <button onClick={requestOrientation}>use orientation</button>
-        <Header phoneText={phoneText}></Header>
-        {/* <div id='phone-text'>{phoneText}</div> */}
-        {/* needs to be rendered on client side if passed a call back function for onclick */}
-        <div className='middle'>
-            {/* <Image src={currentUrl} alt='' className='image' style={{width: '100%', height: '80%', }} width={1000} height={1000}  /> */}
-            {/* <Image src={currentUrl} alt='' className='image' fill /> */}
-            <Map dragConstraintsRef={dragConstraintsRef} position={position} touchFunctions={touchFunctions} currentUrl={currentUrl} zoom={zoom} setZoom={setZoom}></Map>
-            {/* <Map currentUrl={currentUrl} zoom={zoom} setZoom={setZoom}></Map> */}
-            {/* <div className='test-div'>
-                <button className='test-button'>test</button>
-            </div> */}
-            {/* <FloorButtons floorNames={floorNames} sourceFiles={sourceFiles} changeFloor={changeFloor} isDraggin={isDragging} setIsDragging></FloorButtons> */}
-            <FloorButtons {...floorButtonsProps}></FloorButtons>
-            {/* <Slider handleZoom={handleZoom}></Slider> */}
-        </div>
-        <Footer></Footer>
-      </>
-    );
+  return (
+    <>
+    <button onClick={requestOrientation}>use orientation</button>
+    <Top phoneText={phoneText}></Top>
+    {/* <div id='phone-text'>{phoneText}</div> */}
+    {/* needs to be rendered on client side if passed a call back function for onclick */}
+    <div className='middle'>
+      {/* <Image src={currentUrl} alt='' className='image' style={{width: '100%', height: '80%', }} width={1000} height={1000}  /> */}
+      {/* <Image src={currentUrl} alt='' className='image' fill /> */}
+      <Map dragConstraintsRef={dragConstraintsRef} position={position} touchFunctions={touchFunctions} currentUrl={currentUrl} zoom={zoom} setZoom={setZoom}></Map>
+      {/* <Map currentUrl={currentUrl} zoom={zoom} setZoom={setZoom}></Map> */}
+      {/* <div className='test-div'>
+	  <button className='test-button'>test</button>
+      </div> */}
+      {/* <FloorButtons floorNames={floorNames} sourceFiles={sourceFiles} changeFloor={changeFloor} isDraggin={isDragging} setIsDragging></FloorButtons> */}
+      <FloorButtons {...floorButtonsProps}></FloorButtons>
+      {/* <Slider handleZoom={handleZoom}></Slider> */}
+  </div>
+  <Bottom></Bottom>
+</>
+);
 }
