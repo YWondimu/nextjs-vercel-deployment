@@ -1,10 +1,8 @@
 'use client'
 
-export default function Top({phoneText}) {
+export default function Top() {
     return (
-        // <div styles={...styles} className='header'>
         <div className='top'>
-            <div id='phone-text'>{phoneText}</div>
         </div>
     );
 }
