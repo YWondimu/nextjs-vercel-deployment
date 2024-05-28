@@ -13,6 +13,9 @@
 /.next/
 /out/
 
+# next.js / second layer? mistake when creating app?
+/src/.next/
+
 # production
 /build
 
