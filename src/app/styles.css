@@ -3,8 +3,8 @@
     --middle-height: 48vh;
     --bottom-height: 20vh;
     --shadow-x: 15px;
-    --shadow-blur: 15px;
-    --shadow-color: lightgray;
+    --shadow-blur: 10px;
+    --shadow-color: gray;
 }
 
 html {
@@ -15,6 +15,10 @@ body {
 .top, .bottom {
   border: 2px solid black;
   height: 18vh;
+  z-index: 2;
+  background: red;
+  /*the below is necessary so that a stacking context is created*/
+  position: relative;
 }
 
 .top {
@@ -23,8 +27,15 @@ body {
 .bottom {
   box-shadow: 0px calc(-1*var(--shadow-x)) var(--shadow-blur) var(--shadow-color);
 }
-
 .middle {
   height: 50vh;
+  z-index: 1;
+  /*the below is necessary so that a stacking context is created*/
+  position: relative; 
+}
+
+
+.image {
+  /* border: 2px solid black; */
 }
 
