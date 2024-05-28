@@ -8,14 +8,13 @@ import { motion } from 'framer-motion';
 let folder ='/unb-floors-with-shadow/';
 // let folder ='/unb-floors/';
 let floorName = [
-  'b-zoomed',
+  'f',
   'e',
   'd',
   'c',
   'b',
 ];
 let fileLocation = folder + 'floor-' + floorName[0] + '.svg';
-
 
 // public/next.svg
 // public/unb-floors/floor-b.svg
@@ -33,12 +32,13 @@ let fileLocation = folder + 'floor-' + floorName[0] + '.svg';
 
 // let fileLocation = '';
 
+//below file location line is for debugging
 export default function Middle() {
     return (
       <>
       <div className="middle">
         {fileLocation}
-        <motion.img
+        <motion.img className="svg"
             className='image' 
             drag 
             dragMomentum={false}

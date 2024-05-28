@@ -16,7 +16,8 @@ body {
   border: 2px solid black;
   height: 18vh;
   z-index: 2;
-  background: red;
+  /*background: red;*/
+  background: white;
   /*the below is necessary so that a stacking context is created*/
   position: relative;
 }
@@ -32,10 +33,17 @@ body {
   z-index: 1;
   /*the below is necessary so that a stacking context is created*/
   position: relative; 
+  /*for debugging*/
+  border: 2px solid red;
 }
 
-
-.image {
-  /* border: 2px solid black; */
+.middle * {
+  /*center the map vertically*/
+  /*todo: there might be a better way to do this. maybe flex? maybe grid?*/
+  position: absolute;
+  top: 20%;
+  left: 0%;
+  /*for debugging*/
+  border: 2px solid black; 
 }
 
