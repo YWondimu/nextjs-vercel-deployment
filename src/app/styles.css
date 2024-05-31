@@ -8,8 +8,14 @@
 }
 
 html {
+    /* this prevents scrolling of the window */
+    /* applied to both html and body to account for differences in browswers, according to cgpt */
+    overflow: hidden;
 }
 body {
+    /* this prevents scrolling of the window */
+    /* applied to both html and body to account for differences in browswers, according to cgpt */
+    overflow: hidden;
 }
 
 .top, .bottom {
