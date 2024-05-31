@@ -37,6 +37,7 @@ body {
   border: 2px solid red;
 }
 
+ /* affects all children of middle, not middle itself*/
 .middle * {
   /*center the map vertically*/
   /*todo: there might be a better way to do this. maybe flex? maybe grid?*/
