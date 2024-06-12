@@ -2,9 +2,10 @@
     --top-height: 20vh;
     --middle-height: 48vh;
     --bottom-height: 20vh;
+
     --shadow-x: 15px;
     --shadow-blur: 10px;
-    --shadow-color: gray;
+    --shadow-color: blue;
 }
 
 html {
@@ -19,38 +20,89 @@ body {
 }
 
 .top, .bottom {
-  border: 2px solid black;
-  height: 18vh;
-  z-index: 2;
-  /*background: red;*/
-  background: white;
-  /*the below is necessary so that a stacking context is created*/
-  position: relative;
+    margin: 0px;
+    height: 18vh;
+    z-index: 2;
+    background: white;
+    /*the below is necessary so that a stacking context is created*/
+    position: absolute;
+}
+
+/*applies to all children of .bottom*/
+.bottom * {
+    margin: 0px;
+}
+/* affects all children of middle, not middle itself*/
+.middle * {
+    /*center the map vertically*/
+    /*todo: there might be a better way to do this. maybe flex? maybe grid?*/
+    position: absolute;
+    top: 20%;
+    left: 0%;
+    /*for debugging*/
+    /*border: 2px solid black; */
 }
 
 .top {
-  box-shadow: 0px var(--shadow-x) var(--shadow-blur) var(--shadow-color);
+    box-shadow: 0px var(--shadow-x) var(--shadow-blur) var(--shadow-color);
+    box-shadow: 0 2.8px 2.2px rgba(0, 0, 0, 0.034),
+    0 6.7px 5.3px rgba(0, 0, 0, 0.048),
+    0 12.5px 10px rgba(0, 0, 0, 0.06),
+    0 22.3px 17.9px rgba(0, 0, 0, 0.072),
+    0 41.8px 33.4px rgba(0, 0, 0, 0.086),
+    0 100px 80px rgba(0, 0, 0, 0.12);
+
+    border: 5px outset orange;
+
+    top: 50px;
+    left: 20px;
+    right: 20px;
+    height: 100px;
 }
 .bottom {
-  box-shadow: 0px calc(-1*var(--shadow-x)) var(--shadow-blur) var(--shadow-color);
+    /*transition: all 2s;*/
+    position: absolute;
+    box-shadow: 0px calc(-1*var(--shadow-x)) var(--shadow-blur) var(--shadow-color);
+    box-shadow: 0 -2.8px 2.2px rgba(0, 0, 0, 0.034),
+    0 -6.7px 5.3px rgba(0, 0, 0, 0.048),
+    0 -12.5px 10px rgba(0, 0, 0, 0.06),
+    0 -22.3px 17.9px rgba(0, 0, 0, 0.072),
+    0 -41.8px 33.4px rgba(0, 0, 0, 0.086),
+    0 -100px 80px rgba(0, 0, 0, 0.12);
+
+    border: 5px inset orange;
+
+    bottom: 50px;
+    left: 20px;
+    right: 20px;
+    height: 100px;
 }
 .middle {
-  height: 50vh;
-  z-index: 1;
-  /*the below is necessary so that a stacking context is created*/
-  position: relative; 
-  /*for debugging*/
-  border: 2px solid red;
-}
+    top: 0px;
+    bottom: 0px;
+    left: 0px;
+    right: 0px;
 
- /* affects all children of middle, not middle itself*/
-.middle * {
-  /*center the map vertically*/
-  /*todo: there might be a better way to do this. maybe flex? maybe grid?*/
-  position: absolute;
-  top: 20%;
-  left: 0%;
-  /*for debugging*/
-  border: 2px solid black; 
+    height: 100vh;
+    z-index: 1;
+    /*the below is necessary so that a stacking context is created*/
+    position: absolute; 
+    /*for debugging*/
+    /*border: 2px solid red;*/
+    /*why are these two necessary?*/
+    touch-action: none;
+    transform: translate(0,0);
+    /*box-shadow: inset 0px var(--shadow-x) var(--shadow-blur) var(--shadow-color);*/
+    box-shadow: inset 0px 0px 15px var(--shadow-color);
+    /*background: white;*/
+    /*box-shadow: 0 2.8px 2.2px rgba(0, 0, 0, 0.034),*/
+    /*0 6.7px 5.3px rgba(0, 0, 0, 0.048),*/
+    /*0 12.5px 10px rgba(0, 0, 0, 0.06),*/
+    /*0 22.3px 17.9px rgba(0, 0, 0, 0.072),*/
+    /*0 41.8px 33.4px rgba(0, 0, 0, 0.086),*/
+    /*0 100px 80px rgba(0, 0, 0, 0.12);*/
+    /*margin: 100px auto;*/
+    /*background: white;*/
+    /*border-radius: 5px;*/
 }
 
