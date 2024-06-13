@@ -174,7 +174,10 @@ export default function Bottom() {
         let deltaX = current.x - dragStartLocation.x;
         let deltaY = current.y - dragStartLocation.y;
         const bottomDiv = document.querySelector('.bottom');
-        bottomDiv.style.transform = `translate(${deltaX}px, ${deltaY}px)`;
+
+        //this was me attempting to implement drag, but i htink that its done better by motion
+        //TODO: clean up code to remove code that implements drag?
+        //bottomDiv.style.transform = `translate(${deltaX}px, ${deltaY}px)`;
 
         setDragPrevLocation(prev);
         setDragCurrentLocation({x:e.touches[0]?.clientX, y: e.touches[0]?.clientY});

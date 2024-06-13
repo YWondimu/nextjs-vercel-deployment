@@ -1,5 +1,6 @@
 'use client'
 import { motion } from 'framer-motion';
+import Image from 'next/image';
 
 // TODO: fix the other fiels so that tehy are "zoomed" like b-zoomed is.
 // TODO: make it so that dragging the map slides it UNDER the top and bottom divs, not above
@@ -8,11 +9,11 @@ import { motion } from 'framer-motion';
 let folder ='/unb-floors-with-shadow/';
 // let folder ='/unb-floors/';
 let floorName = [
-  'f',
-  'e',
-  'd',
-  'c',
-  'b',
+    'f',
+    'e',
+    'd',
+    'c',
+    'b',
 ];
 let fileLocation = folder + 'floor-' + floorName[0] + '.svg';
 
@@ -35,19 +36,59 @@ let fileLocation = folder + 'floor-' + floorName[0] + '.svg';
 //below file location line is for debugging
 export default function Middle() {
     return (
-      <>
-      <div className="middle">
-        {fileLocation}
-        <motion.img className="svg"
-            className='image' 
-            drag 
-            dragMomentum={false}
-            // animate={{scale: 1}}
-            src={fileLocation}
-            alt=''
-        >
-        </motion.img>
-      </div>
-      </>
+        <>
+
+            <motion.div
+                //className="svg image"
+                className='middle' 
+                drag 
+                dragMomentum={false}
+                dragElastic={0}
+                dragTransition={{bounceStiffness: 600, bounceDamping:20, timeConstant: 0}}
+                //dragTransition={{ timeConstant: 0 }}
+                // animate={{scale: 1}}
+                src={fileLocation}
+                alt=''
+                style={{
+                    willChange: "transform",
+                    transitionDelay: "0ms",
+                }}
+                //dragConstraints={{left: -50, right: 50, top: -50, bottom: 50 }}
+            >
+                {fileLocation}
+                <canvas></canvas>
+                <Image 
+                    className="image svg"
+                    src={fileLocation} 
+                    alt=""
+                    width={400}
+                    height={500}
+                />
+            </motion.div>
+            {/*
+            <div className="middle"
+            >
+            </div>
+            <motion.img 
+                className="svg image"
+                //className='image' 
+                drag 
+                dragMomentum={false}
+                dragElastic={0}
+                dragTransition={{bounceStiffness: 600, bounceDamping:20, timeConstant: 0}}
+                //dragTransition={{ timeConstant: 0 }}
+                // animate={{scale: 1}}
+                src={fileLocation}
+                alt=''
+                style={{
+                    willChange: "transform",
+                    transitionDelay: "0ms",
+                }}
+                //dragConstraints={{left: -50, right: 50, top: -50, bottom: 50 }}
+            >
+            </motion.img>
+            */}
+        </>
     );
 }
+

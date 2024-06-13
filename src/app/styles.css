@@ -17,33 +17,39 @@ body {
     /* this prevents scrolling of the window */
     /* applied to both html and body to account for differences in browswers, according to cgpt */
     overflow: hidden;
+    /*min-height: 100dvh;*/
+    /*min-height: -webkit-fill-available;*/
+    /*border: 5px solid red;*/
 }
 
+.manual-viewport {
+    /*Q: why does this have to be relative and not absolute for children to use it properly when they use absolute?*/
+    /*when I make it absolute, it does a weird thing with its width, everything becomes narrow*/
+    /*position: absolute;*/
+    position: relative;
+    height: 100svh;
+}
+
+/*------------------ TOP, BOTTOM ------------------*/
 .top, .bottom {
     margin: 0px;
     height: 18vh;
     z-index: 2;
     background: white;
+
     /*the below is necessary so that a stacking context is created*/
     position: absolute;
+    /*--------------- PANEL HORIZONTAL POSITION ---------------*/
+    left: 40px;
+    right: 40px;
+    height: 100px;
 }
-
-/*applies to all children of .bottom*/
-.bottom * {
-    margin: 0px;
-}
-/* affects all children of middle, not middle itself*/
-.middle * {
-    /*center the map vertically*/
-    /*todo: there might be a better way to do this. maybe flex? maybe grid?*/
-    position: absolute;
-    top: 20%;
-    left: 0%;
-    /*for debugging*/
-    /*border: 2px solid black; */
-}
-
 .top {
+    /*--------------- PANEL VERTICAL POSITION AND BORDER ---------------*/
+    top: 50px;
+    border: 5px outset orange;
+
+    /*--------- SHADOW ----------*/
     box-shadow: 0px var(--shadow-x) var(--shadow-blur) var(--shadow-color);
     box-shadow: 0 2.8px 2.2px rgba(0, 0, 0, 0.034),
     0 6.7px 5.3px rgba(0, 0, 0, 0.048),
@@ -51,17 +57,13 @@ body {
     0 22.3px 17.9px rgba(0, 0, 0, 0.072),
     0 41.8px 33.4px rgba(0, 0, 0, 0.086),
     0 100px 80px rgba(0, 0, 0, 0.12);
-
-    border: 5px outset orange;
-
-    top: 50px;
-    left: 20px;
-    right: 20px;
-    height: 100px;
 }
 .bottom {
-    /*transition: all 2s;*/
-    position: absolute;
+    /*--------------- PANEL VERTICAL POSITION AND BORDER ---------------*/
+    bottom: 50px;
+    border: 5px inset orange;
+
+    /*--------- SHADOW ----------*/
     box-shadow: 0px calc(-1*var(--shadow-x)) var(--shadow-blur) var(--shadow-color);
     box-shadow: 0 -2.8px 2.2px rgba(0, 0, 0, 0.034),
     0 -6.7px 5.3px rgba(0, 0, 0, 0.048),
@@ -69,31 +71,27 @@ body {
     0 -22.3px 17.9px rgba(0, 0, 0, 0.072),
     0 -41.8px 33.4px rgba(0, 0, 0, 0.086),
     0 -100px 80px rgba(0, 0, 0, 0.12);
-
-    border: 5px inset orange;
-
-    bottom: 50px;
-    left: 20px;
-    right: 20px;
-    height: 100px;
 }
+
 .middle {
+    position: absolute; 
     top: 0px;
     bottom: 0px;
     left: 0px;
     right: 0px;
 
-    height: 100vh;
+    /*height: 100vh;*/
     z-index: 1;
+
     /*the below is necessary so that a stacking context is created*/
-    position: absolute; 
     /*for debugging*/
     /*border: 2px solid red;*/
     /*why are these two necessary?*/
-    touch-action: none;
-    transform: translate(0,0);
+    /*touch-action: none;*/
+    /*transform: translate(0,0);*/
     /*box-shadow: inset 0px var(--shadow-x) var(--shadow-blur) var(--shadow-color);*/
-    box-shadow: inset 0px 0px 15px var(--shadow-color);
+
+    /*box-shadow: inset 0px 0px 15px var(--shadow-color);*/
     /*background: white;*/
     /*box-shadow: 0 2.8px 2.2px rgba(0, 0, 0, 0.034),*/
     /*0 6.7px 5.3px rgba(0, 0, 0, 0.048),*/
@@ -106,3 +104,102 @@ body {
     /*border-radius: 5px;*/
 }
 
+/*------------------ CHILDREN OF BOTTOM ------------------*/
+.bottom * {
+    margin: 0px;
+}
+/*------------------ CHILDREN OF MIDDLE ------------------*/
+.middle * {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    /*Q: why is the child not placed against the left border without this?*/
+    left: 0px;
+    /*top: 0px;*/
+    /*bottom: 0px;*/
+    /*left: 0px;*/
+    /*right: 0px;*/
+
+    /*center the map vertically*/
+    /*todo: there might be a better way to do this. maybe flex? maybe grid?*/
+    /*position: absolute;*/
+    /*top: 20%;*/
+    /*left: 0%;*/
+    /*for debugging*/
+    /*border: 2px solid black; */
+}
+canvas {
+    /*border: 1px solid purple;*/
+    /*height: 100%;*/
+}
+
+/*------------------ BORDERS MADE OUT OF DIVS ------------------*/
+
+.border-top, .border-bottom, .border-right, .border-left {
+    background: orange;
+    position: absolute;
+    z-index: 2;
+    --border-thickness: 10px;
+}
+
+.border-top, .border-bottom {
+    height: var(--border-thickness);
+    width: 100%;
+}
+.border-left, .border-right {
+    width: var(--border-thickness);
+    height: 100%;
+}
+
+.border-top {
+    top: 0px;
+}
+.border-bottom {
+    bottom: 0px;
+    /*TODO: this is a hack, remove or fix*/
+    height: calc(5px + var(--border-thickness));
+}
+.border-left {
+    left: 0px;
+}
+.border-right {
+    right: 0px;
+}
+
+/*.border-top {*/
+/*    background: red;*/
+/*    top: 10px;*/
+/*}*/
+/*.border-bottom {*/
+/*    background: blue;*/
+/*    bottom: 10px;*/
+/*}*/
+
+/*------------------ DEBUGGING ------------------*/
+.svg {
+    /*border: 1px solid red;*/
+}
+.image {
+    /*border: 1px solid purple;*/
+    /*border: 5px solid orange;*/
+}
+
+* {
+    box-sizing: border-box;
+}
+.manual-viewport {
+    /*border: 10px solid red;*/
+}
+.top {
+    /*border: 5px solid green;*/
+}
+.middle {
+    /*border: 5px solid red;*/
+    /*border: 5px solid purple;*/
+}
+.bottom {
+    /*border: 5px solid yellow;*/
+}
+canvas {
+    /*border: 5px solid blue;*/
+}
