@@ -296,7 +296,13 @@ export default function Bottom() {
     }
 
     return (
-        <div style={style} className='bottom' onTouchStart={handleTouchStart} onTouchMove={handleTouchMove} onTouchEnd={handleTouchEnd}>
+        <div 
+            style={style} 
+            className='bottom' 
+            onTouchStart={handleTouchStart} 
+            onTouchMove={handleTouchMove} 
+            onTouchEnd={handleTouchEnd}
+        >
             <p>{text}</p>
             <p>start x: {dragStartLocation.x} y: {dragStartLocation.y}</p>
             <p>current x: {dragCurrentLocation.x} y: {dragCurrentLocation.y}</p>

@@ -153,11 +153,11 @@ canvas {
 
 .border-top {
     top: 0px;
+    /*TODO: this is a hack, remove or fix*/
+    height: calc(10px + var(--border-thickness));
 }
 .border-bottom {
     bottom: 0px;
-    /*TODO: this is a hack, remove or fix*/
-    height: calc(5px + var(--border-thickness));
 }
 .border-left {
     left: 0px;
@@ -202,6 +202,8 @@ canvas {
 }
 canvas {
     /*border: 5px solid blue;*/
+    /*background: red;*/
+}
 
 /*NOTE: this is to stop users from the annoying text select effect.*/
 /*CONTEXT: for example, when a user holds down a button, if the button has text, then the text will be highlighted*/
@@ -218,4 +220,78 @@ button {
     -webkit-tap-highlight-color: transparent;
 }
 
+button {
+    /*background-color: orange;*/
+    /*transition: color 1s 0.1s;*/
+}
+
+
+.add_button {
+    /*background-color:#3bb3e0;*/
+
+    font-family: 'Open Sans', sans-serif;
+    font-size:12px;
+    text-decoration:none;
+    color:#fff;
+
+    position:relative;
+    padding:10px 20px;
+    margin-left:35px;
+
+    border-left:solid 1px #2ab7ec;
+
+    /*q: what does this do?*/
+    background-image: linear-gradient(0deg, rgb(44,160,202) 0%, rgb(62,184,229) 100%);
+    /*background-color: linear-gradient(bottom, red 0%, blue 100%);*/
+    /*background: linear-gradient(bottom, red, blue);*/
+    /*background-color: red;*/
+
+    /*border-top-right-radius: 5px;*/
+    /*border-bottom-right-radius: 5px;*/
+    box-shadow: inset 0px 1px 0px #2ab7ec, 0px 5px 0px 0px #156785, 0px 10px 5px #999;
+    border: 0px;
+}
+
+.add_button.pressed {
+    top:3px;
+    /*q: what does this do?*/
+    /*background-image: linear-gradient(bottom, rgb(62,184,229) 0%, rgb(44,160,202) 100%);*/
+    background-image: linear-gradient(0deg, rgb(62,184,229) 0%, rgb(44,160,202) 100%);
+    box-shadow: inset 0px 1px 0px #2ab7ec, 0px 2px 0px 0px #156785, 0px 5px 3px #999;
+}
+
+.add_button::before {
+    /*background-color: #2561b4;*/
+    /*background-image: linear-gradient(bottom, rgb(10,94,125) 0%, rgb(14,139,184) 100%);*/
+    background-image: linear-gradient(0deg, rgb(10,94,125) 0%, rgb(14,139,184) 100%);
+    content:"Add";
+    width:40px;
+    /*q: what is this for?*/
+    max-height:27px;
+    height:100%;
+
+    position:absolute;
+    /*q: what does this do?*/
+    display:block;
+
+    padding-top:8px;
+    top:0px;
+    left:-36px;
+
+    font-size:16px;
+    font-weight:bold;
+    color:#8fd1ea;
+    text-shadow:1px 1px 0px #07526e;
+
+    /*border: 1px solid black;*/
+    border-right:solid 1px #07526e;
+    border-top-left-radius: 5px;
+    border-bottom-left-radius: 5px;
+    box-shadow:inset 0px 1px 0px #2ab7ec, 0px 5px 0px 0px #032b3a, 0px 10px 5px #999 ;
+    /*box-shadow: inset 0px 1px 0px #2ab7ec, 0px 5px 0px 0px #156785, 0px 10px 5px #999;*/
+}
+
+.add_button.pressed::before {
+    top:-3px;
+    box-shadow:inset 0px 1px 0px #2ab7ec, 0px 5px 0px 0px #032b3a, 1px 1px 0px 0px #044a64, 2px 2px 0px 0px #044a64, 2px 5px 0px 0px #044a64, 6px 4px 2px #0b698b, 0px 10px 5px #999 ;
 }
