@@ -202,4 +202,20 @@ canvas {
 }
 canvas {
     /*border: 5px solid blue;*/
+
+/*NOTE: this is to stop users from the annoying text select effect.*/
+/*CONTEXT: for example, when a user holds down a button, if the button has text, then the text will be highlighted*/
+/*or if the user presses down on any part of the app, then something gets highlighted. so annoying (to me)*/
+/*CONS: if users want to copy a word on the app, they can't. i don't  think this is a big issue.*/
+.prevent_select {
+    -webkit-user-select: none; /* Safari */
+    -ms-user-select: none; /* IE 10 and IE 11 */
+    user-select: none; /* Standard syntax */
+}
+button {
+    /*to prevent flash while clicking*/
+    -webkit-tap-highlight-color: transparent;
+    -webkit-tap-highlight-color: transparent;
+}
+
 }
