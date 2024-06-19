@@ -1,6 +1,8 @@
 'use client'
 import { useState } from 'react';
-export default function Top({isPressed, setIsPressed}) {
+import ToggleButton from './ToggleButton';
+
+export default function Top({ isPressed, setIsPressed }) {
     const [tappedWhenPressed, setTappedWhenPressed] = useState(false);
     const handleTouchStart = (e) => {
         if (isPressed) {
@@ -24,21 +26,62 @@ export default function Top({isPressed, setIsPressed}) {
     }
     return (
         <div className='top prevent_select'>
-        {/*
+            {/*
         <div className='top'>
         */}
-            <button className="add_button" onTouchStart={handleTouchStart} onTouchEnd={handleTouchEnd} onTouch>
-                RM
-            </button>
-            <div className="button_type">
-                Show
+            <div className="button_row">
+                <button className="button_type">
+                    Show
+                </button>
+                <ToggleButton className="button">
+                    RM
+                </ToggleButton>
+                <ToggleButton className="button">
+                    RM
+                </ToggleButton>
+                <ToggleButton className="button">
+                    WC
+                </ToggleButton>
+                <ToggleButton className="button">
+                    S/E
+                </ToggleButton>
+                <ToggleButton className="button last_button">
+                    FTN
+                </ToggleButton>
+                {/*
+                <button className="a_demo_three">
+                    hello
+                </button>
+                */}
             </div>
-            <button className="button" onTouchStart={handleTouchStart} onTouchEnd={handleTouchEnd} onTouch>
-                RM
-            </button>
-            <button className="button" onTouchStart={handleTouchStart} onTouchEnd={handleTouchEnd} onTouch>
-                WC
-            </button>
+            <div className="button_row">
+                <button className="button_type">
+                    Add
+                </button>
+                <ToggleButton className="button">
+                    RM
+                </ToggleButton>
+                <ToggleButton className="button">
+                    RM
+                </ToggleButton>
+                <ToggleButton className="button">
+                    WC
+                </ToggleButton>
+                <ToggleButton className="button">
+                    S/E
+                </ToggleButton>
+                <ToggleButton className="button last_button">
+                    FTN
+                </ToggleButton>
+            </div>
         </div>
     );
 }
+//room
+//washroom
+//stairs
+//fountinas
+//vending machines
+//library?
+//benches?
+//exits?
