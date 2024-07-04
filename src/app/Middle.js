@@ -69,7 +69,7 @@ export default function Middle({isPressed}) {
         const ctx = canvas.getContext('2d');
 
         // TODO: when should I resize? probably should move this
-        resizeCanvas(canvas);
+        //resizeCanvas(canvas);
 
         //resolution check
         if (false) {
@@ -137,6 +137,8 @@ export default function Middle({isPressed}) {
         drawPoints(canvas);
     }, [listOfPoints]);
 
+    //for hide button
+
     return (
         <>
 
@@ -148,7 +150,7 @@ export default function Middle({isPressed}) {
                 dragMomentum={false}
                 dragElastic={0}
                 dragTransition={{bounceStiffness: 600, bounceDamping:20, timeConstant: 0}}
-                //dragTransition={{ timeConstant: 0 }}
+                //dragTransition={{ timeConstant: 0 }}midd
                 // animate={{scale: 1}}
                 src={fileLocation}
                 alt=''
@@ -158,15 +160,21 @@ export default function Middle({isPressed}) {
                 }}
                 //dragConstraints={{left: -50, right: 50, top: -50, bottom: 50 }}
             >
-                {fileLocation}
+                {/*
+                    fileLocation
+                */}
                 <Image 
                     className="image svg"
                     src={fileLocation} 
                     alt=""
                     width={400}
                     height={500}
+                    //width={20}
+                    //height={25}
                 />
                 <canvas 
+                    className="canvas"
+                    id="canvas"
                 >
                 </canvas>
             </motion.div>

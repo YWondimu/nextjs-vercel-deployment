@@ -1,6 +1,14 @@
 /*NOTE: the button css was HEAVILY inspired (copied and tweaked) from here:*/
 /*https://tympanus.net/codrops/2012/01/11/css-buttons-with-pseudo-elements/*/
 
+
+
+
+
+
+
+
+/*||-------------------- ROOT, HTML, BODY ---------------------*/
 :root {
     --top-height: 20vh;
     --middle-height: 48vh;
@@ -9,6 +17,25 @@
     --shadow-x: 15px;
     --shadow-blur: 10px;
     --shadow-color: blue;
+
+    /*------ Z INDEXES IN VIEWPORT ------*/
+    --z-index-for-borders: 2;
+    --z-index-for-panels: 2;
+    --z-index-for-middle: 1;
+    --z-index-for-panel-hiding-button: 2;
+    /*-----------------------------------*/
+
+    /*------ Z INDEXES IN BUTTON ROW ------*/
+    /*this allows shadow to be shown ON the pressed button*/
+    --z-index-for-toggle-button-labels: 2;
+    --z-index-for-toggle-buttons: 2;
+    --z-index-for-pressed-toggle-buttons: 1;
+    /*-----------------------------------*/
+
+
+    /*-------------- BORDERS MADE OUT OF DIVS --------------*/
+    --main-outer-border-thickness: 10px;
+    /*------------------------------------------------------*/
 }
 
 html {
@@ -20,24 +47,185 @@ body {
     /* this prevents scrolling of the window */
     /* applied to both html and body to account for differences in browswers, according to cgpt */
     overflow: hidden;
-    /*min-height: 100dvh;*/
+    /*q: what does this do?*/
     /*min-height: -webkit-fill-available;*/
     /*border: 5px solid red;*/
 }
+/*-----------------------------------------------------------*/
 
+
+
+
+
+
+
+
+/*||----------------------------- VIEWPORT -----------------------------*/
 .manual-viewport {
-    /*Q: why does this have to be relative and not absolute for children to use it properly when they use absolute?*/
+    /*q: why does this have to be relative and not absolute for children to use it properly when they use absolute?*/
     /*when I make it absolute, it does a weird thing with its width, everything becomes narrow*/
     /*position: absolute;*/
     position: relative;
-    height: 100svh;
+    height: 98dvh;
+    width: 100dwh;
+    /*border: 5px solid purple;*/
+}
+/*--------------------------------------------------------------------*/
+
+
+
+
+
+
+
+
+/*||------------------ BORDERS MADE OUT OF DIVS ------------------*/
+/*NOTE: I'm using this instead of the html/css border property because i want the map to pan UNDER it,*/
+/*so i made these borders and gave them a higher z-index*/
+.border-top, .border-bottom, .border-right, .border-left {
+    background: orange;
+    position: absolute;
+    /*z-index: 2;*/
+    z-index: var(--z-index-for-borders);
+    /*--main-outer-border-thickness: 10px;*/
+}
+.border-top, .border-bottom {
+    height: var(--main-outer-border-thickness);
+    width: 100%;
+}
+.border-left, .border-right {
+    width: var(--main-outer-border-thickness);
+    height: 100%;
+}
+.border-top {
+    top: 0px;
+    /*TODO: this is a hack, remove or fix*/
+    /*height: calc(10px + var(--main-outer-border-thickness));*/
+}
+.border-bottom {
+    bottom: 0px;
+}
+.border-left {
+    left: 0px;
+}
+.border-right {
+    right: 0px;
 }
 
-/*------------------ TOP, BOTTOM ------------------*/
+/*.border-top {*/
+/*    background: red;*/
+/*    top: 10px;*/
+/*}*/
+/*.border-bottom {*/
+/*    background: blue;*/
+/*    bottom: 10px;*/
+/*}*/
+/*----------------------------------------------------------*/
+
+
+
+
+
+
+
+/*||------------------ TOP, BOTTOM ------------------*/
+    /*||------------------ ANIMATION FOR HIDING/SHOWING TOP AND BOTTOM PANNELS ------------------*/
+    @keyframes bounceIn {
+        0%, 20%, 50%, 80%, 100% {
+            transform: translateY(0);
+        }
+        40% {
+            transform: translateY(-30px);
+        }
+        60% {
+            transform: translateY(-15px);
+        }
+    }
+    @keyframes bounce {
+        0% { transform: translateY(0); }
+        2.1% { transform: translateY(-0.009%); }
+        4.4% { transform: translateY(-0.035%); }
+        12.9% { transform: translateY(-0.141%); }
+        16.7% { transform: translateY(-0.723%); }
+        24.3% { transform: translateY(-0.938%); }
+        29.9% { transform: translateY(-1.149%); }
+        32.8% { transform: translateY(-1.159%); }
+        39.6% { transform: translateY(-1.129%); }
+        43.1% { transform: translateY(-1.051%); }
+        51% { transform: translateY(-1.017%); }
+        53.8% { transform: translateY(-0.991%); }
+        57.1% { transform: translateY(-0.977%); }
+        69.8% { transform: translateY(-0.974%); }
+        76.9% { transform: translateY(-0.975%); }
+        100% { transform: translateY(-1.003%); }
+    }
+    @keyframes easeOutElastic {
+      0% { transform: translateY(0%); }
+      16% { transform: translateY(-132.27%); }
+      28% { transform: translateY(-86.88%); }
+      44% { transform: translateY(-104.63%); }
+      59% { transform: translateY(-98.36%); }
+      73% { transform: translateY(-100.58%); }
+      88% { transform: translateY(-99.8%); }
+      100% { transform: translateY(-100%); }
+    }
+    /*@keyframes easeUpElastic {*/
+    /*  0% { transform: translateY(0%); }*/
+    /*  16% { transform: translateY(-232.27%); }*/
+    /*  28% { transform: translateY(-186.88%); }*/
+    /*  44% { transform: translateY(-204.63%); }*/
+    /*  59% { transform: translateY(-198.36%); }*/
+    /*  73% { transform: translateY(-200.58%); }*/
+    /*  88% { transform: translateY(-199.8%); }*/
+    /*  100% { transform: translateY(-200%); }*/
+    /*}*/
+    @keyframes easeUpElastic {
+      0% { transform: translateY(200%); }
+      16% { transform: translateY(-32.27%); }
+      28% { transform: translateY(13.12%); }
+      44% { transform: translateY(-4.63%); }
+      59% { transform: translateY(1.64%); }
+      73% { transform: translateY(-0.58%); }
+      88% { transform: translateY(0.2%); }
+      100% { transform: translateY(0%); }
+    }
+    @keyframes easeDownElastic {
+      /*0% { transform: translateY(0%); }*/
+      0% { transform: translateY(-200%); }
+      /*16% { transform: translateY(232.27%); }*/
+      16% { transform: translateY(32.27%); }
+      /*28% { transform: translateY(186.88%); }*/
+      28% { transform: translateY(-13.12%); }
+      /*44% { transform: translateY(204.63%); }*/
+      44% { transform: translateY(4.63%); }
+      /*59% { transform: translateY(198.36%); }*/
+      59% { transform: translateY(-1.64%); }
+      /*73% { transform: translateY(200.58%); }*/
+      73% { transform: translateY(0.58%); }
+      /*88% { transform: translateY(199.8%); }*/
+      88% { transform: translateY(-0.2%); }
+      /*100% { transform: translateY(200%); }*/
+      100% { transform: translateY(0%); }
+    }
+    @keyframes goUp {
+        0% { transform: translateY(0%); }
+        100% { transform: translateY(-200%); }
+    }
+    @keyframes goDown {
+        0% { transform: translateY(0%); }
+        100% { transform: translateY(200%); }
+    }
+    /*------------------------------------------------------------------*/
 .top, .bottom {
+    /*for hide button*/
+    /*transition: top 0.6s cubic-bezier(0.5,-0.5,0.5, 1.5), bottom 0.6s cubic-bezier(0.5,-0.5,0.5, 1.5);*/
+    /*transition: top 0.6s linear(0, -0.1 20%, 0.4, 0.63, 0.75, 0.84, 0.92, 0.97, 1);*/
+    /*transition: top 0.7s ease-in-out, bottom 0.7s ease-in-out;*/
+    /*transition: top 0.7s cubic-bezier(0, 0, 0.3, 1.3, 0.8, 0.9), bottom 0.7s ease-in-out;*/
     margin: 0px;
     height: 18vh;
-    z-index: 2;
+    /*z-index: 2;*/
+    z-index: var(--z-index-for-panels);
     background: white;
 
     /*the below is necessary so that a stacking context is created*/
@@ -46,6 +234,26 @@ body {
     left: 40px;
     right: 40px;
     height: 100px;
+}
+.top.visible, .bottom.visible {
+    /*animation: bounceIn 0.6s;*/
+    /*--spring-duration: 1.333s;*/
+    /*animation: bounce var(--spring-duration) forwards;*/
+    /*animation: easeOutElastic 1s;*/
+}
+.top.invisible {
+    transition: top 0.3s ease-in-out;
+    top: -200%;
+}
+.bottom.invisible {
+    transition: bottom 0.3s ease-in-out;
+    bottom: -200%;
+}
+.top.visible {
+    animation: easeDownElastic 0.9s;
+}
+.bottom.visible {
+    animation: easeUpElastic 0.9s;
 }
 .top {
     /*--------------- PANEL VERTICAL POSITION AND BORDER ---------------*/
@@ -75,20 +283,39 @@ body {
     0 -41.8px 33.4px rgba(0, 0, 0, 0.086),
     0 -100px 80px rgba(0, 0, 0, 0.12);
 }
+    /*------------------ CHILDREN OF BOTTOM ------------------*/
+    .bottom * {
+        margin: 0px;
+    }
+    /*---------------------------------------------------------*/
+/*---------------------------------------------*/
 
+
+
+
+
+
+
+/*||---------------------------- MIDDLE -----------------------------------*/
 .middle {
     position: absolute; 
+    /*top: 0px;*/
+    /*bottom: 0px;*/
+    /*left: 0px;*/
+    /*right: 0px;*/
     top: 0px;
-    bottom: 0px;
     left: 0px;
-    right: 0px;
+    /*height: 200dvh;*/
+    /*width: 200dvw;*/
+    width: 100%;
+    height: 100%;
 
     /*height: 100vh;*/
-    z-index: 1;
+    /*z-index: 1;*/
+    z-index: var(--z-index-for-middle);
 
     /*the below is necessary so that a stacking context is created*/
     /*for debugging*/
-    /*border: 2px solid red;*/
     /*why are these two necessary?*/
     /*touch-action: none;*/
     /*transform: translate(0,0);*/
@@ -105,14 +332,11 @@ body {
     /*margin: 100px auto;*/
     /*background: white;*/
     /*border-radius: 5px;*/
-}
 
-/*------------------ CHILDREN OF BOTTOM ------------------*/
-.bottom * {
-    margin: 0px;
 }
-/*------------------ CHILDREN OF MIDDLE ------------------*/
-.middle * {
+/*||------------------ CHILDREN OF MIDDLE ------------------*/
+/*.middle * {*/
+.image, .canvas {
     position: absolute;
     width: 100%;
     height: 100%;
@@ -131,81 +355,112 @@ body {
     /*for debugging*/
     /*border: 2px solid black; */
 }
-canvas {
-    /*border: 1px solid purple;*/
-    /*height: 100%;*/
-}
+/*-----------------------------------------------------------*/
+.middle {
+    --size-of-middle-in-percent: 250%;
+    --size-of-image-in-percent: calc(100%/var(--size-of-image-in-percent));
+    --width-of-middle-in-percent: 200%;
+    --width-of-image-in-percent: calc(100%/var(--width-of-image-in-percent));
+    --height-of-middle-in-percent: 200%;
+    --height-of-image-in-percent: calc(100%/var(--height-of-image-in-percent));
 
-/*------------------ BORDERS MADE OUT OF DIVS ------------------*/
+    --mh: 500%;
+    --mw: 500%;
+    /*--mha: 25%;*/
+    /*--scale: calc(100 / 200);*/
 
-.border-top, .border-bottom, .border-right, .border-left {
-    background: orange;
-    position: absolute;
-    z-index: 2;
-    --border-thickness: 10px;
-}
-.border-top, .border-bottom {
-    height: var(--border-thickness);
-    width: 100%;
-}
-.border-left, .border-right {
-    width: var(--border-thickness);
-    height: 100%;
-}
-.border-top {
-    top: 0px;
-    /*TODO: this is a hack, remove or fix*/
-    height: calc(10px + var(--border-thickness));
-}
-.border-bottom {
-    bottom: 0px;
-}
-.border-left {
-    left: 0px;
-}
-.border-right {
-    right: 0px;
-}
+    /*100/--mh*/
+    /*--ch: 20%; */
+    --ch: 100dvh; 
+    /*100/--mw*/
+    /*--cw: 20%; */
+    /*LESSON: dvh and dvw not both dvh*/
+    --cw: 100dvw; 
+    /*100/--mh/2*/
+    /*(--mh - 100%) / 2*/
+    --ct: 10%; 
+    --ct: 0px; 
+    /*--ct: calc((var(--mh) - var(--ch)) / 2); */
+    --ct: calc(50% - var(--ch) / 2); 
+    /*100/--mw/2*/
+    /*(--mh - 100%) / 2*/
+    --cl: 10%; 
+    --cl: 0px; 
+    /*--cl: calc((var(--mw) - var(--cw)) / 2); */
+    --cl: calc(50% - var(--cw) / 2); 
 
-/*.border-top {*/
-/*    background: red;*/
-/*    top: 10px;*/
-/*}*/
-/*.border-bottom {*/
-/*    background: blue;*/
-/*    bottom: 10px;*/
-/*}*/
-
-/*------------------ DEBUGGING ------------------*/
-.svg {
-    /*border: 1px solid red;*/
+    /*height: var(--height-of-middle-in-percent);*/
+    /*width: var(--width-of-middle-in-percent);*/
+    /*top: calc( calc(var(--height-of-middle-in-percent)-100%) / 2);*/
+    height: var(--mh);
+    width: var(--mw);
+    top: calc((var(--mh) - 100%) / 2 * (-1));
+    left: calc((var(--mw) - 100%) / 2 * (-1));
+    /*top: -50%;*/
+    /*left: -50%;*/
+    /*height: 250%;*/
+    /*width: 250%;*/
+    border: 5px solid red;
+}
+.canvas {
+    border: 5px solid purple;
+    /*height: 250%;*/
+    /*width: 250%;*/
+    /*height: var(--height-of-middle-in-percent);*/
+    /*width: var(--width-of-image-in-percent);*/
+    /*height: 100dvh;*/
+    /*width: 100dvw;*/
+    /*height: 50%;*/
+    /*height: calc(var(--mh));*/
+    /*height: 50%;*/
+    /*--mh: 50%;*/
+    /*height: var(--mha);*/
+    /*height: calc(var(--scale) * var(--mh));*/
+    /*height: calc(100 / var(--mh));*/
+    height: var(--ch);
+    width: var(--cw);
+    /*width: 50%;*/
+    top: var(--ct);
+    left: var(--cl);
+    /*top: 25%;*/
+    /*left: 25%;*/
+    /*left: 20px;*/
+    /*lesson: if canvas height/widht not changing, maybe because did changes in js*/
+    /*height: 50dvh;*/
+    /*width: 50dvw;*/
 }
 .image {
-    /*border: 1px solid purple;*/
-    /*border: 5px solid orange;*/
+    border: 5px solid green;
+    /*height: 100dvh;*/
+    /*width: 100dvw;*/
+    /*height: 50%;*/
+    /*width: 50%;*/
+    height: var(--ch);
+    width: var(--cw);
+    /*height: 100dvh;*/
+    /*width: 100dvw;*/
+    top: var(--ct);
+    left: var(--cl);
+    /*top: 25%;*/
+    /*left: 25%;*/
+    /*height: 50px;*/
+    /*width: 50px;*/
+    /*height: 40%;*/
+    /*width: 40%;*/
+    /*top: 25%;*/
+    /*left: 25%;*/
+    /*height: 50dvh;*/
+    /*width: 50dvw;*/
 }
 
-* {
-    box-sizing: border-box;
-}
-.manual-viewport {
-    /*border: 10px solid red;*/
-}
-.top {
-    /*border: 5px solid green;*/
-}
-.middle {
-    /*border: 5px solid red;*/
-    /*border: 5px solid purple;*/
-}
-.bottom {
-    /*border: 5px solid yellow;*/
-}
-canvas {
-    /*border: 5px solid blue;*/
-    /*background: red;*/
-}
+/*--------------------------------------------------------------*/
 
+
+
+
+
+
+/*||--------------- BUTTONS ---------------*/
 /*NOTE: this is to stop users from the annoying text select effect.*/
 /*CONTEXT: for example, when a user holds down a button, if the button has text, then the text will be highlighted*/
 /*or if the user presses down on any part of the app, then something gets highlighted. so annoying (to me)*/
@@ -225,12 +480,13 @@ button {
     /*background-color: orange;*/
     /*transition: color 1s 0.1s;*/
 }
-
-
-.button {
+button:active {
+}
+.toggle_button {
     /*background-color:#3bb3e0;*/
 
-    z-index: 2;
+    /*z-index: 2;*/
+    z-index: var(--z-index-for-toggle-buttons);
 
     font-family: 'Open Sans', sans-serif;
     font-size:12px;
@@ -255,10 +511,9 @@ button {
     /*border-top-right-radius: 5px;*/
     /*border-bottom-right-radius: 5px;*/
     box-shadow: inset 0px 1px 0px #2ab7ec, 0px 5px 0px 0px #156785, 0px 10px 5px #999;
-
 }
 /*.button:not(.last_button) {*/
-.button:not(.last_button) {
+.toggle_button:not(.last_button) {
     box-shadow:
     inset 0px 1px 0px #2ab7ec, 
     0px 5px 0px 0px #032b3a, 
@@ -283,8 +538,9 @@ button {
     2px 5px 0px 0px #044a64;
     /*6px 4px 2px #0b698b;*/
 }
-.button.pressed {
-    z-index: 1;
+.toggle_button.pressed {
+    /*z-index: 1;*/
+    z-index: var(--z-index-for-pressed-toggle-buttons);
     top:3px;
     /*q: what does this do?*/
     /*background-image: linear-gradient(bottom, rgb(62,184,229) 0%, rgb(44,160,202) 100%);*/
@@ -308,7 +564,7 @@ button {
 	background: rgb(44,160,202);
     /*-----------*/
 }
-.button.pressed::before {
+.toggle_button.pressed::before {
     /*   top:1px;*/
     /*   content:"";*/
     /*position:absolute;*/
@@ -375,9 +631,9 @@ button {
     /*flex-direction: row;*/
     /*flex-wrap: nowrap;*/
 }
-
-.button_type {
-    z-index: 2;
+.button_label {
+    /*z-index: 2;*/
+    z-index: var(--z-index-for-toggle-button-labels);
 
     font-size:12px;
     font-weight:bold;
@@ -426,7 +682,111 @@ button {
     2px 5px 0px 0px #044a64, 
     6px 4px 2px #0b698b;
 }
+/*-----------------------------------------*/
 
+
+
+
+
+
+
+
+/*||------------- PANEL HIDING BUTTON -------------*/
+/*for hide button*/
+/*#TESTING.hide_button_top_panel {*/
+.hide_button_top_panel {
+    /*TODO: change how this button looks, its kind of not in theme for now*/
+    /*width: 100%;*/
+    position: absolute;
+    /*height: 30px;*/
+    /*width: 110px;*/
+    /*top: 10px;*/
+    /*right: 10px;*/
+    --buffer: calc(var(--main-outer-border-thickness) + 2.5px);
+    top: var(--buffer);
+    right: calc(var(--buffer) + 0px);
+    /*top: calc(var(--main-outer-border-thickness) + 2.5px);*/
+    /*right: calc(var(--main-outer-border-thickness) + 2.5px);*/
+    /*z-index: 3;*/
+    z-index: var(--z-index-for-panel-hiding-button);
+
+    /*padding: 8px;*/
+    padding: 0px 10px; 
+    height: 30px;
+    /*background: lightgray;*/
+    border: 1px solid black;
+    /*margin: 10px;*/
+
+    /*font-family: 'Open Sans', sans-serif;*/
+    /*font-size:14px;*/
+    /*text-decoration:none;*/
+    /*color:black;*/
+
+    /*---- blue styling ----*/
+    font-family: 'Open Sans', sans-serif;
+    font-size:12px;
+    text-decoration:none;
+    color:#fff;
+
+    /*position:relative;*/
+    /*padding:10px 12px;*/
+    /*margin-left:0px;*/
+    /*margin: 0px;*/
+    /*height: 35px;*/
+
+    /*border-left:solid 1px #2ab7ec;*/
+    border: 0.1px solid black;
+
+    /*q: what does this do?*/
+    background-image: linear-gradient(0deg, rgb(44,160,202) 0%, rgb(62,184,229) 100%);
+    /*background-color: linear-gradient(bottom, red 0%, blue 100%);*/
+    /*background: linear-gradient(bottom, red, blue);*/
+    /*background-color: red;*/
+
+    /*border-top-right-radius: 5px;*/
+    /*border-bottom-right-radius: 5px;*/
+    /*----------------------*/
+}
+/*q: why does using :active turn off hte onClick?*/
+.hide_button_top_panel:active {
+/*.thing:active {*/
+    /*background: green;*/
+
+    /*z-index: 1;*/
+    /*z-index: var(--z-index-for-pressed-toggle-buttons);*/
+    /*LESSON: z-index changes when active, can affect clickability.*/
+    /*top:3px;*/
+    top: var(--buffer);
+    /*q: what does this do?*/
+    /*background-image: linear-gradient(bottom, rgb(62,184,229) 0%, rgb(44,160,202) 100%);*/
+    /*color: green;*/
+    /*TODO: make this color into the same as the other one, dark blue background and gray font*/
+    background-image: linear-gradient(0deg, rgb(62,184,229) 0%, rgb(44,160,202) 100%);
+    box-shadow: 
+    inset 0px 1px 0px #2ab7ec, 
+    0px 2px 0px 0px #156785, 
+    0px 5px 3px #999;
+    /*inset 5px 0px 2px black;*/
+
+    /*-----------*/
+    /*NOTE: the below is more css i added, to make the pressed buttons more obvious*/
+    /*to remove and go back to the previous css, just remove the below*/
+	/*top:7px;*/
+	background-image: linear-gradient(bottom, rgb(100,170,30) 100%, rgb(129,212,51) 0%);
+	box-shadow: inset 0px 1px 0px #b2f17f, inset 0px -1px 0px #3d6f0d;
+	color: #156785;
+	text-shadow: 0px 1px 1px rgba(255,255,255,0.3);
+	background: rgb(44,160,202);
+    /*-----------*/
+}
+/*-----------------------------------------------*/
+
+
+
+
+
+
+/*||------------ DEMO BUTTONS ----------------*/
 .a_demo_three {
     background-color:#3bb3e0;
     font-family: 'Open Sans', sans-serif;
@@ -482,4 +842,61 @@ button {
     6px 4px 2px #0b698b, 
     0px 10px 5px #999;
 }
+
+/*--------------------------------------------*/
+
+
+
+
+
+
+
+/*||------------------ DEBUGGING ------------------*/
+.svg {
+    /*border: 1px solid red;*/
+}
+.image {
+    /*border: 1px solid purple;*/
+    /*border: 5px solid orange;*/
+}
+
+* {
+    /*box-sizing: border-box;*/
+}
+.manual-viewport {
+    /*border: 10px solid red;*/
+}
+.top {
+    /*border: 5px solid green;*/
+}
+.middle {
+    /*border: 5px solid red;*/
+    /*position: relative;*/
+    /*top: -100dvh;*/
+    /*left: -100dvw;*/
+
+    /*display: flex;*/
+    /*justify-content: center;*/
+    /*align-items: center;*/
+    /*border: 5px solid purple;*/
+    /*height: 300dvh;*/
+    /*width: 300dvw;*/
+}
+.image {
+    /*position: relative;*/
+    /*border: 5px solid red;*/
+    /*height: 100dvh;*/
+    /*width: 100dvw;*/
+    /*height: 100svh;*/
+    /*width: 100svh;*/
+}
+.bottom {
+    /*border: 5px solid yellow;*/
+}
+canvas {
+    /*border: 5px solid blue;*/
+    /*background: red;*/
+}
+/*-----------------------------------------------*/
+
 

@@ -30,22 +30,22 @@ export default function Top({ isPressed, setIsPressed }) {
         <div className='top'>
         */}
             <div className="button_row">
-                <button className="button_type">
+                <button className="button_label">
                     Show
                 </button>
-                <ToggleButton className="button">
+                <ToggleButton className="toggle_button">
                     RM
                 </ToggleButton>
-                <ToggleButton className="button">
+                <ToggleButton className="toggle_button">
                     RM
                 </ToggleButton>
-                <ToggleButton className="button">
+                <ToggleButton className="toggle_button">
                     WC
                 </ToggleButton>
-                <ToggleButton className="button">
+                <ToggleButton className="toggle_button">
                     S/E
                 </ToggleButton>
-                <ToggleButton className="button last_button">
+                <ToggleButton className="toggle_button last_button">
                     FTN
                 </ToggleButton>
                 {/*
@@ -55,22 +55,22 @@ export default function Top({ isPressed, setIsPressed }) {
                 */}
             </div>
             <div className="button_row">
-                <button className="button_type">
+                <button className="button_label">
                     Add
                 </button>
-                <ToggleButton className="button">
+                <ToggleButton className="toggle_button">
                     RM
                 </ToggleButton>
-                <ToggleButton className="button">
+                <ToggleButton className="toggle_button">
                     RM
                 </ToggleButton>
-                <ToggleButton className="button">
+                <ToggleButton className="toggle_button">
                     WC
                 </ToggleButton>
-                <ToggleButton className="button">
+                <ToggleButton className="toggle_button">
                     S/E
                 </ToggleButton>
-                <ToggleButton className="button last_button">
+                <ToggleButton className="toggle_button last_button">
                     FTN
                 </ToggleButton>
             </div>
