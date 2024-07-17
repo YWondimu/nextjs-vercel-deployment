@@ -94,7 +94,13 @@ import { FaLongArrowAltLeft, FaLongArrowAltRight, FaLongArrowAltUp, FaLongArrowA
 //import {
 //} from 'react-icons/rx';
 
-export default function Top({ isPressed, setIsPressed, mode, setMode}) {
+export default function Top({ 
+    setIsPressed, isPressed, 
+    setMode, mode,
+    setButtonInfo, buttonInfo,
+    setAdminButtonInfo, adminButtonInfo,
+
+}) {
     ////initialized mode
     //room
     //washroom: men, women, neutral
@@ -201,6 +207,82 @@ export default function Top({ isPressed, setIsPressed, mode, setMode}) {
         //);
     //};
 
+    //let lastIndex = buttonInfo.length - 1;
+    //const buttons = "test";
+    //const adminButtons = "test";
+    //const buttons = buttonInfo.map((item, index) => {
+    //    let classes = "toggle_button";
+    //    if (index === lastIndex) {
+    //        classes += " last_button";
+    //    }
+    //    let icon;
+    //    if (item.icon != null) {
+    //        icon = item.icon;
+    //    }
+    //    return (
+    //        <ToggleButton 
+    //            key={index} 
+    //            buttonInfo={buttonInfo}
+    //            setButtonInfo={setButtonInfo}
+    //        >
+    //            {icon}
+    //        </ToggleButton>
+    //    );
+    //});
+    //const adminButtons = adminButtonInfo.map((item, index) => {
+    //    let classes = "toggle_button";
+    //    if (index === lastIndex) {
+    //        classes += " last_button";
+    //    }
+    //    let icon;
+    //    if (item.icon != null) {
+    //        icon = item.icon;
+    //    }
+    //    return (
+    //        <ToggleButton 
+    //            key={index} 
+    //            buttonInfo={adminButtonInfo}
+    //            setButtonInfo={setAdminButtonInfo}
+    //        >
+    //            {icon}
+    //        </ToggleButton>
+    //    );
+    //});
+    const getToggleButtons = (rowName, buttonInfo) => {
+        let length = buttonInfo.length;
+        let buttons = [];
+        buttons.push(
+            <button className="button_label">
+                {rowName}
+            </button>
+        );
+        for (let i = 0; i < length; i++) {
+            const current = buttonInfo[i];
+            let isLastButton = false;
+            if (i === length-1) {
+                isLastButton = true;
+            }
+            //alert(classes + i);
+            const icon = current.icon !== null ? current.icon : "";
+            buttons.push(
+                <ToggleButton 
+                    key={i} 
+                    name={buttonInfo.name}
+                    buttonId={i}
+                    buttonInfo={buttonInfo}
+                    setButtonInfo={setButtonInfo}
+                    isLastButton={isLastButton}
+                >
+                    {icon}
+                </ToggleButton>
+            );
+        }
+        return buttons;
+    };
+    const buttons = getToggleButtons("Show", buttonInfo);
+    const adminButtons = getToggleButtons("Add", adminButtonInfo);
+
+
     return (
         <div className='top prevent_select'>
             {/*
@@ -208,6 +290,8 @@ export default function Top({ isPressed, setIsPressed, mode, setMode}) {
         <div className='top'>
         */}
             <div className="button_row">
+                {buttons}
+                {/*
                 <button className="button_label">
                     Show
                 </button>
@@ -238,31 +322,33 @@ export default function Top({ isPressed, setIsPressed, mode, setMode}) {
                 </div>
             </div>
             <div className="button_row">
+                {adminButtons}
+                {/*
                 <button className="button_label">
                     Add
                 </button>
-                <ToggleButton className="toggle_button">
+                <ToggleButton>
                     {
                     //room
                     <IoTextSharp style={{pointerEvents: 'none'}}/>
                     //"rooms"
                     }
                 </ToggleButton>
-                <ToggleButton className="toggle_button">
+                <ToggleButton>
                     {
                     //washroom
                     <BiMaleFemale style={{pointerEvents: 'none'}}/>
                     //"washrooms"
                     }
                 </ToggleButton>
-                <ToggleButton className="toggle_button">
+                <ToggleButton>
                     {
                     //food
                     <IoCafe style={{pointerEvents: 'none'}}/>
                     //"food etc."
                     }
                 </ToggleButton>
-                <ToggleButton className="toggle_button">
+                <ToggleButton>
                     {
                     //stairs, elevators, exits
                     <FaStairs style={{pointerEvents: 'none'}}/>
@@ -271,7 +357,7 @@ export default function Top({ isPressed, setIsPressed, mode, setMode}) {
                     //<MdOutlineStairs style={{pointerEvents: 'none'}}/>
                     }
                 </ToggleButton>
-                <ToggleButton className="toggle_button last_button">
+                <ToggleButton>
                     {
                     //room
                     <MdChair style={{pointerEvents: 'none'}}/>
@@ -281,6 +367,7 @@ export default function Top({ isPressed, setIsPressed, mode, setMode}) {
                     //<PiChair style={{pointerEvents: 'none'}}/>
                     }
                 </ToggleButton>
+                */}
             </div>
         </div>
     );

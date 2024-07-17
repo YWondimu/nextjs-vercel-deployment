@@ -897,6 +897,13 @@ canvas {
     /*border: 5px solid blue;*/
     /*background: red;*/
 }
+.bottom {
+    background-color: green;
+}
+.toggle_button {
+}
+.last_button {
+}
 .button_container {
     --border-size: 4px;
     --font-size: 15px;

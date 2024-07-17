@@ -1,7 +1,7 @@
 'use client'
 import { useState, useEffect, useRef } from 'react';
 
-export default function Bottom() {
+export default function Bottom({children}) {
     const MAX_TAP_DURATION = 400; // Maximum delay between taps in milliseconds
     const MAX_TAP_INTERVAL = 300; // Maximum delay between taps in milliseconds
 
@@ -303,6 +303,7 @@ export default function Bottom() {
             onTouchMove={handleTouchMove} 
             onTouchEnd={handleTouchEnd}
         >
+            {children}
             <p>{text}</p>
             <p>start x: {dragStartLocation.x} y: {dragStartLocation.y}</p>
             <p>current x: {dragCurrentLocation.x} y: {dragCurrentLocation.y}</p>
