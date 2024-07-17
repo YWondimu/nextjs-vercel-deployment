@@ -897,6 +897,39 @@ canvas {
     /*border: 5px solid blue;*/
     /*background: red;*/
 }
+.button_container {
+    --border-size: 4px;
+    --font-size: 15px;
+    /*--top-for-label: calc( var(--border-size));*/
+    /*--top-for-label: calc( -1 * var(--font-size) / 2 - var(--border-size) - var(--padding-for-label));*/
+    --top-for-label: calc( -1 * var(--font-size) / 2 - var(--border-size) );
+    /*--padding-for-label: 5px;*/
+    margin: 20px;
+    width: 200px;
+    height: 50px;
+    border: solid var(--border-size) black;
+    /*border: solid var(--border-size) black;*/
+    border-radius: 10px;
+}
+.button_container_label {
+    font-size: var(--font-size);
+    width: auto;
+    max-width: fit-content;
+    padding: 0px;
+    padding-left: 5px;
+    padding-right: 5px;
+    /*padding-left: var(--padding-for-label);*/
+    /*padding-right: var(--padding-for-label);*/
+
+    /*border: 1px solid black;*/
+    background-color: white;
+
+    position: relative;
+    margin-left: auto;
+    margin-right: auto;
+    top: -10px;
+    top: var(--top-for-label);
+}
 /*-----------------------------------------------*/
 
 

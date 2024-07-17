@@ -231,6 +231,11 @@ export default function Top({ isPressed, setIsPressed, mode, setMode}) {
                     hello
                 </button>
                 */}
+                <div className="button_container">
+                    <div className="button_container_label">
+                        show
+                    </div>
+                </div>
             </div>
             <div className="button_row">
                 <button className="button_label">
