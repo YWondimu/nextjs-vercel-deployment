@@ -2,12 +2,6 @@
 /*https://tympanus.net/codrops/2012/01/11/css-buttons-with-pseudo-elements/*/
 
 
-
-
-
-
-
-
 /*||-------------------- ROOT, HTML, BODY ---------------------*/
 :root {
     --top-height: 20vh;
@@ -622,6 +616,7 @@ button:active {
     /*box-shadow: 0px 0px 0px 10px red;*/
 }
 
+/*todo: dont need this anymore*/
 .button_row {
     position: relative;
     margin-top: 0px;
@@ -631,6 +626,57 @@ button:active {
     /*flex-direction: row;*/
     /*flex-wrap: nowrap;*/
 }
+.button_and_label_container {
+    /*todo: organize this, then centerbuttons on panel, then add admin buttons*/
+    --border-size: 4px;
+    --font-size: 15px;
+    --padding: 10px;
+    --top-for-label: calc( 0px - var(--font-size) / 2 - var(--border-size) ); 
+
+    /*size*/
+    margin: 20px;
+    max-width: fit-content;
+    max-height: fit-content;
+    /*border*/
+    border: solid var(--border-size) black;
+    border-radius: 10px;
+    /*contents*/
+    padding: var(--padding);
+
+    /*q: what is this for? for hte childrewn somehow?*/
+    position: relative;
+
+    left: 0;
+    right: 0;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
+.button_container_label {
+    /*size*/
+    font-size: var(--font-size);
+    max-width: fit-content;
+    padding: 0px;
+    padding-left: 5px;
+    padding-right: 5px;
+
+    /*color*/
+    background-color: white;
+
+    /*position*/
+    position: absolute;
+    /*center horizontally*/
+    /*q: why does this work?*/
+    left: 0;
+    right: 0;
+    margin-left: auto;
+    margin-right: auto;
+    /*center vertically*/
+    top: var(--top-for-label);
+}
+
+/*todo: remove the below, or put it somewhere accessible. it's not used anymore, it was for the lifted button label*/
 .button_label {
     /*z-index: 2;*/
     z-index: var(--z-index-for-toggle-button-labels);
@@ -904,39 +950,11 @@ canvas {
 }
 .last_button {
 }
-.button_container {
-    --border-size: 4px;
-    --font-size: 15px;
-    /*--top-for-label: calc( var(--border-size));*/
-    /*--top-for-label: calc( -1 * var(--font-size) / 2 - var(--border-size) - var(--padding-for-label));*/
-    --top-for-label: calc( -1 * var(--font-size) / 2 - var(--border-size) );
-    /*--padding-for-label: 5px;*/
-    margin: 20px;
-    width: 200px;
-    height: 50px;
-    border: solid var(--border-size) black;
-    /*border: solid var(--border-size) black;*/
-    border-radius: 10px;
-}
-.button_container_label {
-    font-size: var(--font-size);
-    width: auto;
-    max-width: fit-content;
-    padding: 0px;
-    padding-left: 5px;
-    padding-right: 5px;
-    /*padding-left: var(--padding-for-label);*/
-    /*padding-right: var(--padding-for-label);*/
-
-    /*border: 1px solid black;*/
-    background-color: white;
-
-    position: relative;
-    margin-left: auto;
-    margin-right: auto;
-    top: -10px;
-    top: var(--top-for-label);
+.bottom {
+    /*note: using this until I fill the bottom panel with actual things. right now it's just a diagnostic panel.*/
+    height: 100px;
 }
 /*-----------------------------------------------*/
 
-
+    /*border: 1px solid black;*/
+}

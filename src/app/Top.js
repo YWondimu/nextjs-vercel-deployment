@@ -289,8 +289,22 @@ export default function Top({
         <div className='top prevent_select' onClick={handleClick}>
         <div className='top'>
         */}
+                {/*
             <div className="button_row">
-                {buttons}
+                */}
+            <div className="button_and_label_container">
+                {/*
+                <div className="button_and_label_container">
+                */}
+                    <div className="button_container_label">
+                        show
+                    </div>
+                    <div className="button_inner_container">
+                        {buttons}
+                    </div>
+                {/*
+                </div>
+                */}
                 {/*
                 <button className="button_label">
                     Show
@@ -315,14 +329,23 @@ export default function Top({
                     hello
                 </button>
                 */}
-                <div className="button_container">
-                    <div className="button_container_label">
-                        show
-                    </div>
-                </div>
             </div>
+            <div className="button_and_label_container">
+                {/*
+                <div className="button_and_label_container">
+                */}
+                    <div className="button_container_label">
+                        add
+                    </div>
+                    <div className="button_inner_container">
+                        {adminButtons}
+                    </div>
+                {/*
+                </div>
+                */}
+            {/*
             <div className="button_row">
-                {adminButtons}
+            */}
                 {/*
                 <button className="button_label">
                     Add
