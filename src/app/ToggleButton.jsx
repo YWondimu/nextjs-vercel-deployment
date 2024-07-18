@@ -52,6 +52,15 @@ export default function ToggleButton({
             const updatedButtonInfo = buttonInfo;
             updatedButtonInfo[buttonId].isPressed = false;
             setButtonInfo(updatedButtonInfo);
+
+            //todo: chatgpt gave some tips for making this work, one of which is to use ngrok to craete an https connection on local wifi
+            //todo: once that works, add to handleTouchStart
+            if ("vibrate" in navigator) { //only attempt to vibrate if vibration supported
+                navigator.vibrate(1000);
+            } else {
+                //alert(navigator.userAgent);
+                //alert(navigator.vibrate);
+            }
         }
     }
     const className = "toggle_button" + (isLastButton ? " last_button" : "");
