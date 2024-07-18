@@ -251,11 +251,11 @@ export default function Top({
     const getToggleButtons = (rowName, buttonInfo) => {
         let length = buttonInfo.length;
         let buttons = [];
-        buttons.push(
-            <button className="button_label">
-                {rowName}
-            </button>
-        );
+        //buttons.push(
+        //    <button className="button_label">
+        //        {rowName}
+        //    </button>
+        //);
         for (let i = 0; i < length; i++) {
             const current = buttonInfo[i];
             let isLastButton = false;
@@ -279,8 +279,71 @@ export default function Top({
         }
         return buttons;
     };
+    const getAdminButtons = (rowName, buttonInfo) => {
+        let length = buttonInfo.length;
+        let buttons = [];
+        //buttons.push(
+        //    <button className="button_label">
+        //        {rowName}
+        //    </button>
+        //);
+
+        //todo: figure out the lastButton class
+        let row = [];
+        for (let i = 0; i < length; i++) {
+            const buttonOptions = buttonInfo[i];
+            let columnLength = buttonOptions.length;
+            let column = [];
+            for (let j = 0; j < columnLength; j++) {
+                let button = buttonOptions[j];
+                column.push(
+                    <ToggleButton 
+                        className="admin-button"
+                        key={j} 
+                        name={button.name}
+                        buttonId={i}
+                        buttonInfo={button}
+                        //todo: change name of setButtonInfo property for readability? might cause confusion with the "actual" setButtonInfo function, compared with setAdminButtonInfo
+                        setButtonInfo={setAdminButtonInfo}
+                        //isLastButton={isLastButton}
+                    >
+                        {button.icon}
+                    </ToggleButton>
+                );
+            }
+            row.push(
+                <div className="admin-button-column">
+                    {column}
+                </div>
+            );
+            //let isLastButton = false;
+            //if (i === length-1) {
+            //    isLastButton = true;
+            //}
+            ////alert(classes + i);
+            //const icon = current.icon !== null ? current.icon : "";
+            //buttons.push(
+            //    <ToggleButton 
+            //        key={i} 
+            //        name={buttonInfo.name}
+            //        buttonId={i}
+            //        buttonInfo={buttonInfo}
+            //        setButtonInfo={setButtonInfo}
+            //        isLastButton={isLastButton}
+            //    >
+            //        {icon}
+            //    </ToggleButton>
+            //);
+        }
+        return (
+            <div className="admin-button-row">
+                {row}
+            </div>
+        );
+    };
     const buttons = getToggleButtons("Show", buttonInfo);
-    const adminButtons = getToggleButtons("Add", adminButtonInfo);
+    //const adminButtons = getToggleButtons("Add", adminButtonInfo);
+    const adminButtons = getAdminButtons("Add", adminButtonInfo);
 
 
     return (
