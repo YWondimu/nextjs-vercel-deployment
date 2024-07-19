@@ -343,7 +343,7 @@ export default function App() {
         //});
 
         //turn on show button, if off
-        //alert(JSON.stringify(buttonInfo2));
+        //alert(JSON.stringify(buttonInfo2)); --> doesn't work
         //alert(buttonInfo2);
         //alert(categoryIndex);
         //alert(buttonInfo2[0].name);
@@ -352,22 +352,39 @@ export default function App() {
         //alert(JSON.stringify(Array.from(statesForShowButtons.entries())));
         const nameOfShowButton = buttonInfo2[categoryIndex].name;
         //alert('nameOfShowButton: ' + nameOfShowButton);
-        const addButtonIsPressed = statesForShowButtons.get(nameOfShowButton).isPressed;
+        const showButtonIsPressed = statesForShowButtons.get(nameOfShowButton).isPressed;
         //alert('isPressed: ' + isPressed);
-        if (newState.isPressed && !addButtonIsPressed ) {
+        if (newState.isPressed && !showButtonIsPressed ) {
             //alert('in if');
-            const map = new Map(statesForShowButtons);
-            map.set(nameOfShowButton, {isPressed: true});
-            setStatesForShowButtons(map);
+            const mapOfShowButtons = new Map(statesForShowButtons);
+            mapOfShowButtons.set(nameOfShowButton, newState);
+            setStatesForShowButtons(mapOfShowButtons);
         }
+        //todo: when turn off showButton, should turn off corresponding addButton
         //alert('after if');
 
         //change state of other show buttons
+        const mapOfAddButtons = new Map(statesForAddButtons);
+        for (let [key, value] of mapOfAddButtons) {
+            const newState = {isPressed: false};
+            mapOfAddButtons.set(key, newState);
+            //alert('key: ' + key);
+            //alert('newState: ' + newState.isPressed);
+        }
+        //alert(JSON.stringify(Array.from(mapOfAddButtons.entries())));
+        //mapOfAddButtons.forEach( (value, key) => {
+        //    const newState = {isPressed: false};
+        //    mapOfAddButtons.set(key, newState);
+        //});
+        //alert('newState: ' + JSON.stringify(newState));
+        mapOfAddButtons.set(buttonName, newState);
+        //alert(JSON.stringify(Array.from(mapOfAddButtons.entries())));
+        setStatesForAddButtons(mapOfAddButtons);
 
         //change state of add button
-        const map = new Map(statesForAddButtons);
-        map.set(buttonName, newState);
-        setStatesForAddButtons(map);
+        //const map = new Map(statesForAddButtons);
+        //map.set(buttonName, newState);
+        //setStatesForAddButtons(map);
     };
 
 
