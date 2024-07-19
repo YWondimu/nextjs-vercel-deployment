@@ -226,6 +226,11 @@ export default function App() {
                         icon: <GrElevator style={{pointerEvents: 'none'}}/>,
                         isPressed: false,
                     },
+                    {
+                        name: "exit",
+                        icon: <IoMdExit style={{pointerEvents: 'none'}}/>,
+                        isPressed: false,
+                    },
                 ],
         },
         {
