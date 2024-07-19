@@ -98,8 +98,12 @@ export default function Top({
     setIsPressed, isPressed, 
     setMode, mode,
     setButtonInfo, buttonInfo,
+    setButtonInfo2, buttonInfo2,
     setAdminButtonInfo, adminButtonInfo,
-
+    changeButtonStateForShowButtons,
+    changeButtonStateForAddButtons,
+    statesForShowButtons,
+    statesForAddButtons,
 }) {
     ////initialized mode
     //room
@@ -162,7 +166,6 @@ export default function Top({
     //];
     const initialMode = {};
     //setMode(initialMode);
-
 
     const [tappedWhenPressed, setTappedWhenPressed] = useState(false);
     const handleTouchStart = (e) => {
@@ -257,21 +260,35 @@ export default function Top({
         //    </button>
         //);
         for (let i = 0; i < length; i++) {
-            const current = buttonInfo[i];
+            const category = buttonInfo[i];
             let isLastButton = false;
             if (i === length-1) {
                 isLastButton = true;
             }
             //alert(classes + i);
-            const icon = current.icon !== null ? current.icon : "";
+            const name = category.name;
+            const icon = category.icon !== null ? category.icon : "";
+            //alert('name is ' + name);
+            //let debugging = false;
+            let debugging = true;
+            //if (i === length - 1) debugging = true;
             buttons.push(
                 <ToggleButton 
                     key={i} 
-                    name={buttonInfo.name}
+                    isShowButton={true}
+                    categoryIndex={i}
+                    subCategoryIndex={null}
+                    name={name}
                     buttonId={i}
                     buttonInfo={buttonInfo}
                     setButtonInfo={setButtonInfo}
                     isLastButton={isLastButton}
+
+                    //statesForShowButtons={statesForShowButtons}
+                    //statesForAddButtons={statesForAddButtons}
+                    isPressed={statesForShowButtons.get(category.name).isPressed}
+                    changeButtonState={changeButtonStateForShowButtons}
+                    debugging={debugging}
                 >
                     {icon}
                 </ToggleButton>
@@ -279,71 +296,152 @@ export default function Top({
         }
         return buttons;
     };
-    const getAdminButtons = (rowName, buttonInfo) => {
-        let length = buttonInfo.length;
-        let buttons = [];
-        //buttons.push(
-        //    <button className="button_label">
-        //        {rowName}
-        //    </button>
-        //);
-
+    //const getAdminButtons = (rowName, buttonInfo) => {
+    //    let length = buttonInfo.length;
+    //    let buttons = [];
+    //    //buttons.push(
+    //    //    <button className="button_label">
+    //    //        {rowName}
+    //    //    </button>
+    //    //);
+    //
+    //    //todo: figure out the lastButton class
+    //    let row = [];
+    //    for (let i = 0; i < length; i++) {
+    //        const buttonOptions = buttonInfo[i];
+    //        let columnLength = buttonOptions.length;
+    //        let column = [];
+    //        for (let j = 0; j < columnLength; j++) {
+    //            let button = buttonOptions[j];
+    //            column.push(
+    //                <ToggleButton 
+    //                    className="admin-button"
+    //                    key={j} 
+    //                    name={button.name}
+    //                    buttonId={i}
+    //                    buttonInfo={button}
+    //                    //todo: change name of setButtonInfo property for readability? might cause confusion with the "actual" setButtonInfo function, compared with setAdminButtonInfo
+    //                    setButtonInfo={setAdminButtonInfo}
+    //                    //isLastButton={isLastButton}
+    //                    changeButtonState={changeButtonStateForAddButtons}
+    //                    statesForShowButtons={statesForShowButtons}
+    //                >
+    //                    {button.icon}
+    //                </ToggleButton>
+    //            );
+    //        }
+    //        row.push(
+    //            <div className="admin-button-column">
+    //                {column}
+    //            </div>
+    //        );
+    //        //let isLastButton = false;
+    //        //if (i === length-1) {
+    //        //    isLastButton = true;
+    //        //}
+    //        ////alert(classes + i);
+    //        //const icon = current.icon !== null ? current.icon : "";
+    //        //buttons.push(
+    //        //    <ToggleButton 
+    //        //        key={i} 
+    //        //        name={buttonInfo.name}
+    //        //        buttonId={i}
+    //        //        buttonInfo={buttonInfo}
+    //        //        setButtonInfo={setButtonInfo}
+    //        //        isLastButton={isLastButton}
+    //        //    >
+    //        //        {icon}
+    //        //    </ToggleButton>
+    //        //);
+    //    }
+    //    return (
+    //        <div className="admin-button-row">
+    //            {row}
+    //        </div>
+    //    );
+    //};
+    const getAdminButtons2 = (rowName, buttonCategories) => {
+        let numOfCategories = buttonCategories.length;
         //todo: figure out the lastButton class
         let row = [];
-        for (let i = 0; i < length; i++) {
-            const buttonOptions = buttonInfo[i];
-            let columnLength = buttonOptions.length;
+        //for (let i = 0; i < numOfCategories; i++) {
+        buttonCategories.forEach( (category, index) => {
+            //const category = buttonCategories[i];
+            const subCategoriesArray = category.subCategories;
+            let columnLength = subCategoriesArray.length;
             let column = [];
-            for (let j = 0; j < columnLength; j++) {
-                let button = buttonOptions[j];
-                column.push(
-                    <ToggleButton 
-                        className="admin-button"
-                        key={j} 
-                        name={button.name}
-                        buttonId={i}
-                        buttonInfo={button}
-                        //todo: change name of setButtonInfo property for readability? might cause confusion with the "actual" setButtonInfo function, compared with setAdminButtonInfo
-                        setButtonInfo={setAdminButtonInfo}
-                        //isLastButton={isLastButton}
-                    >
-                        {button.icon}
-                    </ToggleButton>
-                );
-            }
+            //if (category.subtypes.length === 0) {
+            //    column.push(
+            //        <ToggleButton 
+            //            className="admin-button"
+            //            categoryIndex={i}
+            //            subCategoryIndex={null}
+            //            key={i} 
+            //            name={category.name}
+            //            buttonId={i}
+            //            //todo: change to buttonCategories or somethng, in toggle button compoennt?
+            //            buttonInfo={subCategory}
+            //            //todo: change name of setButtonInfo property for readability? might cause confusion with the "actual" setButtonInfo function, compared with setAdminButtonInfo
+            //            setButtonInfo={setAdminButtonInfo}
+            //            //isLastButton={isLastButton}
+            //        >
+            //            {subCategory.icon}
+            //        </ToggleButton>
+            //    );
+            //} else {
+            //alert('in first for loop of getAdminButtons2');
+                //for (let j = 0; j < columnLength; j++) {
+                subCategoriesArray.forEach( (subCategory, subIndex) => {
+                //alert('in second for loop of getAdminButtons2');
+                    //let subCategory = category[j];
+                    //alert(subCategory);
+                    //alert('categoryIndex: ' + index);
+                    //alert('subCategoryIndex: ' + subIndex);
+                    column.push(
+                        <ToggleButton 
+                            className="admin-button"
+                            isAddButton={true}
+                            categoryIndex={index}
+                            subCategoryIndex={subIndex}
+                            key={subIndex} 
+                            name={subCategory.name}
+                            buttonId={subIndex}
+                            //todo: change to buttonCategories or somethng, in toggle button compoennt?
+                        //todo: or just delete the below i think. if i want hte toggle button to use the info, i should pass the specific info in? 
+                        //ORRR i think i should pass the info and handle all the stuff in the toggle button? like getting hte icon and name. hmmm. ill go with the previous approach instead for now. ill pass in specific stuff. i htink. hyeah.
+                            buttonInfo={subCategory}
+                            //todo: change name of setButtonInfo property for readability? might cause confusion with the "actual" setButtonInfo function, compared with setAdminButtonInfo
+                            setButtonInfo={setAdminButtonInfo}
+                            //isLastButton={isLastButton}
+                            //statesForShowButtons={statesForShowButtons}
+                            //statesForAddButtons={statesForAddButtons}
+                            isPressed={statesForAddButtons.get(subCategory.name).isPressed}
+                            changeButtonState={changeButtonStateForAddButtons}
+                        >
+                            {subCategory.icon}
+                        </ToggleButton>
+                    );
+                //}
+                });
+            //alert('after first for loop of getAdminButtons2');
+            //}
             row.push(
                 <div className="admin-button-column">
                     {column}
                 </div>
             );
-            //let isLastButton = false;
-            //if (i === length-1) {
-            //    isLastButton = true;
-            //}
-            ////alert(classes + i);
-            //const icon = current.icon !== null ? current.icon : "";
-            //buttons.push(
-            //    <ToggleButton 
-            //        key={i} 
-            //        name={buttonInfo.name}
-            //        buttonId={i}
-            //        buttonInfo={buttonInfo}
-            //        setButtonInfo={setButtonInfo}
-            //        isLastButton={isLastButton}
-            //    >
-            //        {icon}
-            //    </ToggleButton>
-            //);
-        }
+        });
+        //}
         return (
             <div className="admin-button-row">
                 {row}
             </div>
         );
     };
-    const buttons = getToggleButtons("Show", buttonInfo);
+    const buttons = getToggleButtons("Show", buttonInfo2);
     //const adminButtons = getToggleButtons("Add", adminButtonInfo);
-    const adminButtons = getAdminButtons("Add", adminButtonInfo);
+    //const adminButtons = getAdminButtons("Add", adminButtonInfo);
+    const adminButtons = getAdminButtons2("Add", buttonInfo2);
 
 
     return (
