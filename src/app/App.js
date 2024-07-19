@@ -53,7 +53,7 @@ import { FaLongArrowAltLeft, FaLongArrowAltRight, FaLongArrowAltUp, FaLongArrowA
 
 export default function App() {
 
-    //todo: clean - delete buttonInfo and adminButtonInfo structures, replaced with buttonInfo2 (which I should rename to categories or something)
+    //todo: clean - delete buttonInfo and adminButtonInfo structures, replace with the new categories data structure
     const [buttonInfo, setButtonInfo] = useState([
         {
             name: "room",
@@ -150,7 +150,7 @@ export default function App() {
     ]);
 
     //todo: change name of buttonInfo2, and get rid of the above two structures? maybe save them in notes somewhere
-    const [buttonInfo2, setButtonInfo2] = useState([
+    const [categories, setCategories] = useState([
         {
             name: "named-location",
             icon: <IoTextSharp style={{pointerEvents: 'none'}}/>,
@@ -260,17 +260,17 @@ export default function App() {
         });
         return map;
     }
-    const [statesForShowButtons, setStatesForShowButtons] = useState(getInitialStatesForShowButtons(buttonInfo2));
+    const [statesForShowButtons, setStatesForShowButtons] = useState(getInitialStatesForShowButtons(categories));
     const changeButtonStateForShowButtons = (name, newState, categoryIndex, subCategoryIndex) => {
 
 
         //turn off corresponding add button
-        //alert(JSON.stringify(buttonInfo2)); --> doesn't work
-        //alert(buttonInfo2);
+        //alert(JSON.stringify(categories)); --> doesn't work
+        //alert(categories);
         //alert(categoryIndex);
-        //alert(buttonInfo2[0].name);
-        //alert(buttonInfo2[4].name);
-        //alert(JSON.stringify(buttonInfo2[0]);
+        //alert(categories[0].name);
+        //alert(categories[4].name);
+        //alert(JSON.stringify(categories[0]);
         //alert(JSON.stringify(Array.from(statesForShowButtons.entries())));
 
         //needs to be an array
@@ -280,7 +280,7 @@ export default function App() {
         //alert('isPressed: ' + isPressed);
         if (newState.isPressed === false) {
             //alert('1');
-            const namesOfAddButtons = buttonInfo2[categoryIndex].subCategories.map( subCategory => {
+            const namesOfAddButtons = categories[categoryIndex].subCategories.map( subCategory => {
                 return subCategory.name;
             });
             //alert('2');
@@ -309,7 +309,7 @@ export default function App() {
         //alert(name);
         //alert(JSON.stringify(newState));
         //alert('1');
-        //alert(typeof getInitialStatesForShowButtons(buttonInfo2));
+        //alert(typeof getInitialStatesForShowButtons(categories));
         //alert(typeof statesForShowButtons);
         //alert(typeof new Map());
         const mapOfShowButtons = new Map(statesForShowButtons); //--> error
@@ -336,26 +336,26 @@ export default function App() {
         return map;
     }
     //todo: change statesForAddButtons to mapOfAddButtonStates. ditto for ShowButtons
-    const [statesForAddButtons, setStatesForAddButtons] = useState(getInitialStatesForAddButtons(buttonInfo2));
+    const [statesForAddButtons, setStatesForAddButtons] = useState(getInitialStatesForAddButtons(categories));
     const changeButtonStateForAddButtons = (buttonName, newState, categoryIndex, subCategoryIndex) => {
 
         //change state of show buttons
         //get column of add button
-        //const categoryIndex = buttonInfo2.findIndex( category => {
+        //const categoryIndex = categories.findIndex( category => {
         //    category.subCategories.some( subCategory => {
         //        subCategory.name == buttonName;
         //    });
         //});
 
         //turn on show button, if off
-        //alert(JSON.stringify(buttonInfo2)); --> doesn't work
-        //alert(buttonInfo2);
+        //alert(JSON.stringify(categories)); --> doesn't work
+        //alert(categories);
         //alert(categoryIndex);
-        //alert(buttonInfo2[0].name);
-        //alert(buttonInfo2[4].name);
-        //alert(JSON.stringify(buttonInfo2[0]);
+        //alert(categories[0].name);
+        //alert(categories[4].name);
+        //alert(JSON.stringify(categories[0]);
         //alert(JSON.stringify(Array.from(statesForShowButtons.entries())));
-        const nameOfShowButton = buttonInfo2[categoryIndex].name;
+        const nameOfShowButton = categories[categoryIndex].name;
         //alert('nameOfShowButton: ' + nameOfShowButton);
         const showButtonIsPressed = statesForShowButtons.get(nameOfShowButton).isPressed;
         //alert('isPressed: ' + isPressed);
@@ -460,8 +460,8 @@ export default function App() {
                     setMode={setMode}
                     buttonInfo={buttonInfo}
                     setButtonInfo={setButtonInfo}
-                    buttonInfo2={buttonInfo2}
-                    setButtonInfo2={setButtonInfo2}
+                    categories={categories}
+                    setCategories={setCategories}
                     adminButtonInfo={adminButtonInfo}
                     setAdminButtonInfo={setAdminButtonInfo}
                     changeButtonStateForShowButtons={changeButtonStateForShowButtons}

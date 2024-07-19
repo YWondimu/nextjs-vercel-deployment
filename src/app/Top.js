@@ -98,7 +98,7 @@ export default function Top({
     setIsPressed, isPressed, 
     setMode, mode,
     setButtonInfo, buttonInfo,
-    setButtonInfo2, buttonInfo2,
+    setCategories, categories,
     setAdminButtonInfo, adminButtonInfo,
     changeButtonStateForShowButtons,
     changeButtonStateForAddButtons,
@@ -438,10 +438,10 @@ export default function Top({
             </div>
         );
     };
-    const buttons = getToggleButtons("Show", buttonInfo2);
+    const buttons = getToggleButtons("Show", categories);
     //const adminButtons = getToggleButtons("Add", adminButtonInfo);
     //const adminButtons = getAdminButtons("Add", adminButtonInfo);
-    const adminButtons = getAdminButtons2("Add", buttonInfo2);
+    const adminButtons = getAdminButtons2("Add", categories);
 
 
     return (
