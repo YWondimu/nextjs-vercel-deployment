@@ -257,6 +257,49 @@ export default function App() {
     }
     const [statesForShowButtons, setStatesForShowButtons] = useState(getInitialStatesForShowButtons(buttonInfo2));
     const changeButtonStateForShowButtons = (name, newState, categoryIndex, subCategoryIndex) => {
+
+
+        //turn off corresponding add button
+        //alert(JSON.stringify(buttonInfo2)); --> doesn't work
+        //alert(buttonInfo2);
+        //alert(categoryIndex);
+        //alert(buttonInfo2[0].name);
+        //alert(buttonInfo2[4].name);
+        //alert(JSON.stringify(buttonInfo2[0]);
+        //alert(JSON.stringify(Array.from(statesForShowButtons.entries())));
+
+        //needs to be an array
+        //alert(namesOfAddButtons);
+        //alert('nameOfShowButton: ' + nameOfShowButton);
+        //const addButtonIsPressed = statesForAddButtons.get(nameOfAddButton).isPressed;
+        //alert('isPressed: ' + isPressed);
+        if (newState.isPressed === false) {
+            //alert('1');
+            const namesOfAddButtons = buttonInfo2[categoryIndex].subCategories.map( subCategory => {
+                return subCategory.name;
+            });
+            //alert('2');
+            const mapOfAddButtons = new Map(statesForAddButtons);
+            //alert('3');
+            namesOfAddButtons.forEach( name => {
+                if (mapOfAddButtons.get(name).isPressed) {
+                    const newStateForAddButton = {isPressed: false};
+                    mapOfAddButtons.set(name, newStateForAddButton);
+                }
+            });
+            //alert('4');
+            setStatesForAddButtons(mapOfAddButtons);
+            //alert(JSON.stringify(Array.from(statesForAddButtons.entries())));
+            //alert('5');
+            //alert('in if');
+            //const 
+            //mapOfShowButtons.set(nameOfShowButton, newState);
+            //setStatesForShowButtons(mapOfShowButtons);
+        }
+        //todo: when turn off showButton, should turn off corresponding addButton
+        //alert('after if');
+
+
         //alert('in the function');
         //alert(name);
         //alert(JSON.stringify(newState));
@@ -264,13 +307,12 @@ export default function App() {
         //alert(typeof getInitialStatesForShowButtons(buttonInfo2));
         //alert(typeof statesForShowButtons);
         //alert(typeof new Map());
-        const map = new Map(statesForShowButtons); //--> error
-        
+        const mapOfShowButtons = new Map(statesForShowButtons); //--> error
         //alert(typeof map);
         //alert('2');
-        map.set(name, newState); //--> error
+        mapOfShowButtons.set(name, newState); //--> error
         //alert('3');
-        setStatesForShowButtons(map);
+        setStatesForShowButtons(mapOfShowButtons);
         //alert('4');
     }
 
