@@ -10,6 +10,9 @@ import { useState } from 'react';
 //zoom
 import { FaPlus, FaMinus } from 'react-icons/fa';
 
+// trash
+import { FaRegTrashAlt } from 'react-icons/fa';
+
 //washroom
 import { BiMaleFemale, BiFemale, BiMale } from 'react-icons/bi';
 import { FaFemale, FaMale, } from 'react-icons/fa';
@@ -458,13 +461,15 @@ export default function App() {
                 <button className="hide_button_top_panel" id="TESTING" onClick={hidePanels2}>
                     hide panels
                 </button> {/*for hide button*/}
-
                 <div className="zoom-buttons-container">
                     <FloatingButton>
                         <FaPlus size={20}/>
                     </FloatingButton>
                     <FloatingButton>
                         <FaMinus size={20}/>
+                    </FloatingButton>
+                    <FloatingButton>
+                        <FaRegTrashAlt size={20}/>
                     </FloatingButton>
                 </div>
 
