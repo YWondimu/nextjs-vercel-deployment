@@ -210,6 +210,9 @@ body {
         100% { transform: translateY(200%); }
     }
     /*------------------------------------------------------------------*/
+.top {
+    transition: max-height 0.5s ease;
+}
 .top, .bottom {
     /*for hide button*/
     /*transition: top 0.6s cubic-bezier(0.5,-0.5,0.5, 1.5), bottom 0.6s cubic-bezier(0.5,-0.5,0.5, 1.5);*/
@@ -770,14 +773,42 @@ button:active {
     /*background-color: red;*/
 }
 /*.hide_button_top_panel {*/
-.hide_button_top_panel, .admin_login {
+/*todo: can probably consolidate with hide_button_top_panel?*/
+.admin_login {
     /*TODO: change how this button looks, its kind of not in theme for now*/
     /*width: 100%;*/
-    /*position: absolute;*/
+    position: absolute;
     /*height: 30px;*/
     /*width: 110px;*/
-    /*top: 10px;*/
-    /*right: 10px;*/
+    --buffer: calc(var(--main-outer-border-thickness) + 2.5px);
+    top: var(--buffer);
+    right: calc(var(--buffer) + 100px);
+    z-index: var(--z-index-for-panel-hiding-button);
+
+    padding: 0px 10px; 
+    height: 30px;
+    border: 1px solid black;
+
+    /*---- blue styling ----*/
+    font-family: 'Open Sans', sans-serif;
+    font-size:12px;
+    text-decoration:none;
+
+    /*border-left:solid 1px #2ab7ec;*/
+    border: 0.1px solid black;
+
+    /*q: what does this do?*/
+    background-image: linear-gradient(0deg, rgb(44,160,202) 0%, rgb(62,184,229) 100%);
+    color: white;
+}
+.hide_button_top_panel{
+    /*TODO: change how this button looks, its kind of not in theme for now*/
+    /*width: 100%;*/
+    position: absolute;
+    /*height: 30px;*/
+    /*width: 110px;*/
+    top: 10px;
+    right: 10px;
     --buffer: calc(var(--main-outer-border-thickness) + 2.5px);
     top: var(--buffer);
     right: calc(var(--buffer) + 0px);

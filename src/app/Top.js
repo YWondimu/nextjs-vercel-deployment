@@ -1,6 +1,7 @@
 'use client'
 import { useState } from 'react';
 import ToggleButton from './ToggleButton';
+import { motion } from 'framer-motion';
 //import {
 //    //washroom
 //    BiMaleFemale, 
@@ -447,7 +448,7 @@ export default function Top({
 
 
     return (
-        <div className='top prevent_select'>
+        <motion.div className='top prevent_select' >
             {/*
         <div className='top prevent_select' onClick={handleClick}>
         <div className='top'>
@@ -496,7 +497,7 @@ export default function Top({
                 {/*
                 <div className="button_and_label_container">
                 */}
-                    {true && (
+                    {isAdmin && (
                         <div className="button_and_label_container">
                             <div className="button_container_label">
                                 add
@@ -557,7 +558,7 @@ export default function Top({
                     }
                 </ToggleButton>
                 */}
-        </div>
+        </motion.div>
     );
 }
 //room
