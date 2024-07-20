@@ -401,7 +401,8 @@ body {
     border: 5px solid red;
 }
 .canvas {
-    border: 5px solid purple;
+    /*border: 5px solid purple;*/
+    /*background-color: red;*/
     /*height: 250%;*/
     /*width: 250%;*/
     /*height: var(--height-of-middle-in-percent);*/
@@ -428,7 +429,7 @@ body {
     /*width: 50dvw;*/
 }
 .image {
-    border: 5px solid green;
+    /*border: 5px solid green;*/
     /*height: 100dvh;*/
     /*width: 100dvw;*/
     /*height: 50%;*/

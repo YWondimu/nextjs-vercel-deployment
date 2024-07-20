@@ -470,7 +470,12 @@ export default function App() {
                     statesForAddButtons={statesForAddButtons}
                 >
                 </Top>
-                <Middle isPressed={isPressed}>
+                <Middle 
+                    isPressed={isPressed}
+                    categories={categories}
+                    setCategories={setCategories}
+
+                >
                 </Middle>
                 <Bottom>
                     {JSON.stringify(mode)}
