@@ -492,8 +492,8 @@ export default function App() {
                         //onTouchStart={loginAdmin}
                         onClick={loginAdmin}
                     >
-                        admin login
-                    </button> 
+                    {isAdmin ? "admin logout" : "admin login"}
+                    </button>
                     <button 
                         className="hide_button_top_panel" 
                         id="TESTING" 
