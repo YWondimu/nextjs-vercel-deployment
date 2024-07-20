@@ -2,9 +2,13 @@
 import Top from './Top.js';
 import Middle from './Middle.js';
 import Bottom from './Bottom.js';
+import FloatingButton from './FloatingButton.jsx';
 import './styles.css';
 import { motion } from 'framer-motion';
 import { useState } from 'react';
+
+//zoom
+import { FaPlus, FaMinus } from 'react-icons/fa';
 
 //washroom
 import { BiMaleFemale, BiFemale, BiMale } from 'react-icons/bi';
@@ -441,6 +445,7 @@ export default function App() {
     const [addMode, setAddMode] = useState([]);
     const [mode, setMode] = useState({});
 
+
     return (
         <>
             <motion.div 
@@ -453,6 +458,16 @@ export default function App() {
                 <button className="hide_button_top_panel" id="TESTING" onClick={hidePanels2}>
                     hide panels
                 </button> {/*for hide button*/}
+
+                <div className="zoom-buttons-container">
+                    <FloatingButton>
+                        <FaPlus size={20}/>
+                    </FloatingButton>
+                    <FloatingButton>
+                        <FaMinus size={20}/>
+                    </FloatingButton>
+                </div>
+
                 <Top 
                     isPressed={isPressed} 
                     setIsPressed={setIsPressed} 

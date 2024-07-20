@@ -222,6 +222,7 @@ export default function Middle({
 
     let url;
     const testDrawImage = (e) => {
+        return; //stop for now
 
         //get img
         //const icon = categories[0].subCategories[0].icon;
