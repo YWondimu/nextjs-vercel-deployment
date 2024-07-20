@@ -423,6 +423,7 @@ export default function App() {
 
     }
     const hidePanels2 = (e) => {
+        alert('hide panels');
         const top = document.getElementsByClassName("top")[0];
         const bottom = document.getElementsByClassName("bottom")[0];
         const button = document.getElementsByClassName("hide_button_top_panel")[0];
@@ -444,6 +445,30 @@ export default function App() {
         setPanelsAreHidden( prev => !prev);
     }
     
+    const [isAdmin, setIsAdmin] = useState(false);
+    const loginAdmin = (e) => {
+        const top = document.getElementsByClassName("top")[0];
+        const bottom = document.getElementsByClassName("bottom")[0];
+        const button = document.getElementsByClassName("hide_button_top_panel")[0];
+        //console.log('admin clicked!');
+        alert('admin clicked!');
+
+        setIsAdmin( prev => !prev);
+        //if (!isAdmin) {
+        //    top.classList.remove("invisible");
+        //    bottom.classList.remove("invisible");
+        //    top.classList.add("visible");
+        //    bottom.classList.add("visible");
+        //    button.innerHTML = "hide panels";
+        //} else {
+        //    top.classList.add("invisible");
+        //    bottom.classList.add("invisible");
+        //    top.classList.remove("visible");
+        //    bottom.classList.remove("visible");
+        //    button.innerHTML = "show panels"; 
+        //}
+        //setPanelsAreHidden( prev => !prev);
+    }
     const [showMode, setShowMode] = useState([]);
     const [addMode, setAddMode] = useState([]);
     const [mode, setMode] = useState({});
@@ -458,9 +483,28 @@ export default function App() {
                 {/*
                 <button className="toggle_button hide_button_top_panel" id="TESTING" onClick={hidePanels2}>
                 */}
-                <button className="hide_button_top_panel" id="TESTING" onClick={hidePanels2}>
-                    hide panels
-                </button> {/*for hide button*/}
+                {/*
+                <div className="menu_buttons_container">
+                <div className="TEST">
+                    <button 
+                        className="admin_login" 
+                        //onTouchStart={loginAdmin}
+                        onClick={loginAdmin}
+                    >
+                        admin login
+                    </button> 
+                */}
+                    <button 
+                        className="hide_button_top_panel" 
+                        id="TESTING" 
+                        //onTouchStart={hidePanels2}
+                        onClick={hidePanels2}
+                    >
+                        hide panels
+                    </button>
+                {/*
+                </div>
+                */}
                 <div className="zoom-buttons-container">
                     <FloatingButton>
                         <FaPlus size={20}/>
@@ -488,6 +532,8 @@ export default function App() {
                     changeButtonStateForAddButtons={changeButtonStateForAddButtons}
                     statesForShowButtons={statesForShowButtons}
                     statesForAddButtons={statesForAddButtons}
+                    isAdmin={isAdmin}
+                    setIsAdmin={setIsAdmin}
                 >
                 </Top>
                 <Middle 

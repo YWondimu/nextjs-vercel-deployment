@@ -104,6 +104,8 @@ export default function Top({
     changeButtonStateForAddButtons,
     statesForShowButtons,
     statesForAddButtons,
+    isAdmin,
+    setIsAdmin,
 }) {
     ////initialized mode
     //room
@@ -491,16 +493,19 @@ export default function Top({
                 </button>
                 */}
             </div>
-            <div className="button_and_label_container">
                 {/*
                 <div className="button_and_label_container">
                 */}
-                    <div className="button_container_label">
-                        add
-                    </div>
-                    <div className="button_inner_container">
-                        {adminButtons}
-                    </div>
+                    {true && (
+                        <div className="button_and_label_container">
+                            <div className="button_container_label">
+                                add
+                            </div>
+                            <div className="button_inner_container">
+                                {adminButtons}
+                            </div>
+                        </div>
+                    )}
                 {/*
                 </div>
                 */}
@@ -552,7 +557,6 @@ export default function Top({
                     }
                 </ToggleButton>
                 */}
-            </div>
         </div>
     );
 }

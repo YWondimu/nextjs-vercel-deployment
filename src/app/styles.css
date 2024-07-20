@@ -745,10 +745,35 @@ button:active {
 /*||------------- PANEL HIDING BUTTON -------------*/
 /*for hide button*/
 /*#TESTING.hide_button_top_panel {*/
-.hide_button_top_panel {
+.menu_buttons_container {
+    /*position*/
+    position: absolute;
+    top: 12px;
+    right: 15px;
+    /*background-color: red;*/
+
+    /*border*/
+    /*border: 1px solid black;*/
+    /*margin: 10px;*/
+    /*background-color: red;*/
+}
+
+.TEST {
+    /*position*/
+    position: absolute;
+    top: 15px;
+    right: 15px;
+    border: 1px solid black;
+    pointer-events: none;
+    /*width: 100px;*/
+    /*height: 100px;*/
+    /*background-color: red;*/
+}
+/*.hide_button_top_panel {*/
+.hide_button_top_panel, .admin_login {
     /*TODO: change how this button looks, its kind of not in theme for now*/
     /*width: 100%;*/
-    position: absolute;
+    /*position: absolute;*/
     /*height: 30px;*/
     /*width: 110px;*/
     /*top: 10px;*/
@@ -797,6 +822,7 @@ button:active {
     /*border-top-right-radius: 5px;*/
     /*border-bottom-right-radius: 5px;*/
     /*----------------------*/
+    /*background-color: red;*/
 }
 /*q: why does using :active turn off hte onClick?*/
 .hide_button_top_panel:active {
