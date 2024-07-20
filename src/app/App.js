@@ -423,7 +423,7 @@ export default function App() {
 
     }
     const hidePanels2 = (e) => {
-        alert('hide panels');
+        //alert('hide panels');
         const top = document.getElementsByClassName("top")[0];
         const bottom = document.getElementsByClassName("bottom")[0];
         const button = document.getElementsByClassName("hide_button_top_panel")[0];
@@ -451,7 +451,7 @@ export default function App() {
         const bottom = document.getElementsByClassName("bottom")[0];
         const button = document.getElementsByClassName("hide_button_top_panel")[0];
         //console.log('admin clicked!');
-        alert('admin clicked!');
+        //alert('admin clicked!');
 
         setIsAdmin( prev => !prev);
         //if (!isAdmin) {
@@ -486,6 +486,7 @@ export default function App() {
                 {/*
                 <div className="menu_buttons_container">
                 <div className="TEST">
+                */}
                     <button 
                         className="admin_login" 
                         //onTouchStart={loginAdmin}
@@ -493,7 +494,6 @@ export default function App() {
                     >
                         admin login
                     </button> 
-                */}
                     <button 
                         className="hide_button_top_panel" 
                         id="TESTING" 
