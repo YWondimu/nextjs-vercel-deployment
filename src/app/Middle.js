@@ -42,6 +42,7 @@ export default function Middle({
     isPressed,
     categories,
     setCategories,
+    scale,
 }) {
 
     //const [listOfPoints, setListOfPoints] = useState([]);
@@ -309,6 +310,9 @@ export default function Middle({
                     transitionDelay: "0ms",
                 }}
                 //dragConstraints={{left: -50, right: 50, top: -50, bottom: 50 }}
+
+                animate={{ scale }}
+                transition={{ duration: 0.2 }}
             >
                 {/*
                     fileLocation

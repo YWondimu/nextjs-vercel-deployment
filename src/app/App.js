@@ -269,8 +269,6 @@ export default function App() {
     }
     const [statesForShowButtons, setStatesForShowButtons] = useState(getInitialStatesForShowButtons(categories));
     const changeButtonStateForShowButtons = (name, newState, categoryIndex, subCategoryIndex) => {
-
-
         //turn off corresponding add button
         //alert(JSON.stringify(categories)); --> doesn't work
         //alert(categories);
@@ -473,6 +471,15 @@ export default function App() {
     const [addMode, setAddMode] = useState([]);
     const [mode, setMode] = useState({});
 
+    const [scale, setScale] = useState(1);
+    const handleZoomIn = () => {
+        //setScale( prev => Math.min(prev+0.5, 5) );
+        setScale( prev => Math.min(prev*1.5, 5) );
+    };
+    const handleZoomOut = () => {
+        //setScale( prev => Math.max(prev-0.5, 0.2) );
+        setScale( prev => Math.max(prev*0.7, 0.5) );
+    };
 
     return (
         <>
@@ -506,10 +513,10 @@ export default function App() {
                 </div>
                 */}
                 <div className="zoom-buttons-container">
-                    <FloatingButton>
+                    <FloatingButton handleZoom={handleZoomIn}>
                         <FaPlus size={20}/>
                     </FloatingButton>
-                    <FloatingButton>
+                    <FloatingButton handleZoom={handleZoomOut}>
                         <FaMinus size={20}/>
                     </FloatingButton>
                     <FloatingButton>
@@ -540,7 +547,7 @@ export default function App() {
                     isPressed={isPressed}
                     categories={categories}
                     setCategories={setCategories}
-
+                    scale={scale}
                 >
                 </Middle>
                 <Bottom>

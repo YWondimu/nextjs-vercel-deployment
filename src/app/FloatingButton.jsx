@@ -2,12 +2,16 @@ import { useState } from 'react';
 import { FaPlus, FaMinus } from 'react-icons/fa';
 import { motion } from 'framer-motion';
 
-export default function FloatingButton( {children} ) {
+export default function FloatingButton( {
+    children,
+    handleZoom,
+} ) {
     const [isTouched, setIsTouched] = useState(false);
     const handleTouch = () => {
         //alert('new');
         setIsTouched(true);
         setTimeout( () => setIsTouched(false), 100);
+        handleZoom();
     }
     return (
         <>
