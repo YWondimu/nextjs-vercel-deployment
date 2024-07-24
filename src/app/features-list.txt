@@ -1,0 +1,34 @@
+-- mvp --
+floors
+structure is map of arrays of maps? or array of arrays?
+--> order can be based on a "buttonOrder" array
+add with add buttons -- they should stand out
+add to array
+show with show buttons
+persistence through text files
+scale to same size?
+touch should hide or show -- maybe all rooms should have a little circle to indicate that a room is showable? then a floating button allows user to show all rooms or just some? or they show based on the algo
+    -- eventually algo should be based on room size, room shows if the room size is large enough (james idea, makes sense)
+maybe show based on proximity and zoom?
+
+-- nice to add --
+- admin login password - hash lol
+- session storage
+    - admin is logged in
+    - button status
+    - label status?
+    - first time user?
+- tool tips - also tutorial button to reshow tool tips
+- help menu (question mark icon: ?)
+- panels: change panels to use arrows to show or hide, and cover all of top or bottom -- individual show or hide
+
+
+make sure i have these
+- room
+- washroom
+- stairs
+- fountains
+- vending machines
+- library?
+- benches?
+- exits?
