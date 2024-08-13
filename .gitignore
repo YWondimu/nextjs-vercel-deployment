@@ -43,3 +43,6 @@ localhost.crt
 localhost.key
 
 src/app/Session.vim
+
+# sensitive logs
+log-of-fix-for-connection-issue
