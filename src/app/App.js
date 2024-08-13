@@ -255,20 +255,24 @@ export default function App() {
         },
     ]);
 
-    
     //q: todo: can I change some of the names in the below like 13 lines to something shorter?
+    //q: instead of a map, should I use hte categories structure? might be good to have state be seperate from categories. hmm.
     const getInitialStatesForShowButtons = (categories) => {
         //make a mapping between name and isPressed
         const map = new Map();
         categories.forEach( category => {
             const name = category.name;
-            const state = {isPressed: false};
+            const icon = category.icon;
+            const state = {
+                isPressed: false,
+                icon: icon,
+            };
             map.set(name, state);
         });
         return map;
     }
     const [statesForShowButtons, setStatesForShowButtons] = useState(getInitialStatesForShowButtons(categories));
-    const changeButtonStateForShowButtons = (name, newState, categoryIndex, subCategoryIndex) => {
+    const changeButtonStateForShowButtons = (name, isPressed, categoryIndex, subCategoryIndex) => {
         //turn off corresponding add button
         //alert(JSON.stringify(categories)); --> doesn't work
         //alert(categories);
@@ -283,7 +287,8 @@ export default function App() {
         //alert('nameOfShowButton: ' + nameOfShowButton);
         //const addButtonIsPressed = statesForAddButtons.get(nameOfAddButton).isPressed;
         //alert('isPressed: ' + isPressed);
-        if (newState.isPressed === false) {
+        let oldState;
+        if (isPressed === false) {
             //alert('1');
             const namesOfAddButtons = categories[categoryIndex].subCategories.map( subCategory => {
                 return subCategory.name;
@@ -292,8 +297,13 @@ export default function App() {
             const mapOfAddButtons = new Map(statesForAddButtons);
             //alert('3');
             namesOfAddButtons.forEach( name => {
-                if (mapOfAddButtons.get(name).isPressed) {
-                    const newStateForAddButton = {isPressed: false};
+                oldState = mapOfAddButons.get(name);
+                //if (mapOfAddButtons.get(name).isPressed) {
+                if (oldState.isPressed) {
+                    const newStateForAddButton = {
+                        ...oldState,
+                        isPressed: isPressed,
+                    };
                     mapOfAddButtons.set(name, newStateForAddButton);
                 }
             });
@@ -320,6 +330,10 @@ export default function App() {
         const mapOfShowButtons = new Map(statesForShowButtons); //--> error
         //alert(typeof map);
         //alert('2');
+        let newState = {
+            ...oldState,
+            isPressed: isPressed,
+        }
         mapOfShowButtons.set(name, newState); //--> error
         //alert('3');
         setStatesForShowButtons(mapOfShowButtons);
@@ -342,7 +356,7 @@ export default function App() {
     }
     //todo: change statesForAddButtons to mapOfAddButtonStates. ditto for ShowButtons
     const [statesForAddButtons, setStatesForAddButtons] = useState(getInitialStatesForAddButtons(categories));
-    const changeButtonStateForAddButtons = (buttonName, newState, categoryIndex, subCategoryIndex) => {
+    const changeButtonStateForAddButtons = (buttonName, isPressed, categoryIndex, subCategoryIndex) => {
 
         //change state of show buttons
         //get column of add button
@@ -364,10 +378,16 @@ export default function App() {
         //alert('nameOfShowButton: ' + nameOfShowButton);
         const showButtonIsPressed = statesForShowButtons.get(nameOfShowButton).isPressed;
         //alert('isPressed: ' + isPressed);
-        if (newState.isPressed && !showButtonIsPressed ) {
+        let oldStateForShowButtons;
+        if (isPressed && !showButtonIsPressed ) {
             //alert('in if');
             const mapOfShowButtons = new Map(statesForShowButtons);
-            mapOfShowButtons.set(nameOfShowButton, newState);
+            oldStateForShowButtons = mapOfShowButtons.get(name);
+            const newStateForShowButton = {
+                ...oldStateForShowButtons,
+                isPressed: isPressed,
+            }
+            mapOfShowButtons.set(nameOfShowButton, newStateForShowButton);
             setStatesForShowButtons(mapOfShowButtons);
         }
         //todo: when turn off showButton, should turn off corresponding addButton
@@ -376,7 +396,10 @@ export default function App() {
         //change state of other show buttons
         const mapOfAddButtons = new Map(statesForAddButtons);
         for (let [key, value] of mapOfAddButtons) {
-            const newState = {isPressed: false};
+            const newState = {
+                ...value,
+                isPressed: false,
+            };
             mapOfAddButtons.set(key, newState);
             //alert('key: ' + key);
             //alert('newState: ' + newState.isPressed);
@@ -387,7 +410,12 @@ export default function App() {
         //    mapOfAddButtons.set(key, newState);
         //});
         //alert('newState: ' + JSON.stringify(newState));
-        mapOfAddButtons.set(buttonName, newState);
+        const oldStateForAddButton = mapOfAddButtons.get(name);
+        const newStateForAddButton = {
+            ...oldStateForAddButton,
+            isPressed: isPressed,
+        }
+        mapOfAddButtons.set(buttonName, newStateForAddButton);
         //alert(JSON.stringify(Array.from(mapOfAddButtons.entries())));
         setStatesForAddButtons(mapOfAddButtons);
 

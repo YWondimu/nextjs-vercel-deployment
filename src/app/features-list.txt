@@ -1,13 +1,13 @@
 -- mvp --
-floors
-structure is map of arrays of maps? or array of arrays?
+- 2hr floors
+- 3hr structure is map of arrays of maps? or array of arrays?
 --> order can be based on a "buttonOrder" array
-add with add buttons -- they should stand out
-add to array
-show with show buttons
-persistence through text files
-scale to same size?
-touch should hide or show -- maybe all rooms should have a little circle to indicate that a room is showable? then a floating button allows user to show all rooms or just some? or they show based on the algo
+- 4hr add with add buttons -- they should stand out
+- 1hr add to array
+- 2hr show with show buttons
+- 4hr persistence through text files
+- 2hr scale to same size?
+- 4hr touch should hide or show -- maybe all rooms should have a little circle to indicate that a room is showable? then a floating button allows user to show all rooms or just some? or they show based on the algo
     -- eventually algo should be based on room size, room shows if the room size is large enough (james idea, makes sense)
 maybe show based on proximity and zoom?
 
