@@ -45,6 +45,9 @@ export default function Middle({
     scale,
 }) {
 
+    //const [listOfPoints, setListOfPoints] = useState([]);
+    ////const [listOfPoints, setListOfPoints] = useState([1,3]);
+    //
     //// TODO: understand the resizeCanvas function!
     //// Function to resize the canvas
     function resizeCanvas(canvas) {
@@ -329,6 +332,29 @@ export default function Middle({
                 >
                 </canvas>
             </motion.div>
+            {/*
+            <div className="middle"
+            >
+            </div>
+            <motion.img 
+                className="svg image"
+                //className='image' 
+                drag 
+                dragMomentum={false}
+                dragElastic={0}
+                dragTransition={{bounceStiffness: 600, bounceDamping:20, timeConstant: 0}}
+                //dragTransition={{ timeConstant: 0 }}
+                // animate={{scale: 1}}
+                src={fileLocation}
+                alt=''
+                style={{
+                    willChange: "transform",
+                    transitionDelay: "0ms",
+                }}
+                //dragConstraints={{left: -50, right: 50, top: -50, bottom: 50 }}
+            >
+            </motion.img>
+            */}
         </>
     );
 }

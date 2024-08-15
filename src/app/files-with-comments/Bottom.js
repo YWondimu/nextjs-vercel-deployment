@@ -50,6 +50,21 @@ export default function Bottom({children}) {
     const [dragCurrentLocation, setDragCurrentLocation] = useState({x: undefined, y: undefined});
     const [dragEndLocation, setDragEndLocation] = useState({x: undefined, y: undefined});
 
+    //useEffect( () => {
+    //    //after tapEnd, wait tapInterval
+    //    setTimeout(() => {
+    //        //if tapInterval was longer than max, than tap finished
+    //        if (tapInterval > MAX_TAP_INTERVAL) {
+    //            //alert('in timeout');
+    //            //alert('in use effect');
+    //            //q: which to use of these two?
+    //            setTapState(state.finished); //q: is this useful? having a tapState variable? or should this useEffect 
+    //            setTapFinished(true); //q: is this useful? having a tapState variable? or should this useEffect 
+    //        }
+    //    }, MAX_TAP_INTERVAL);
+    //
+    //}, [tapEnd]);
+
     useEffect( () => {
             //continue only if tap
             if (tapStart - tapEnd < tapInterval) {
@@ -82,7 +97,31 @@ export default function Bottom({children}) {
                         setColor('blue');
                     }
                     break;
+                //case 1:
+                //    if (numOfFingers == 1) {
+                //        setColor('red');
+                //    } else {
+                //        //setColor('blue');
+                //    }
+                //    break;
+                //case 2:
+                //    if (numOfFingers == 1) {
+                //        setColor('green');
+                //    } else {
+                //        //setColor('purple');
+                //    }
+                //    break;
+                //case 3:
+                //    if (numOfFingers == 1) {
+                //        setColor('blue');
+                //    } else {
+                //        setColor('cyan');
+                //    }
+                //    break;
+                //default:
+                //    break;
             }
+            //alert(tapCount + ' ' + numOfFingers);
         //}
     //q: which to use of these two?
     //}, [tapState]);
@@ -94,10 +133,18 @@ export default function Bottom({children}) {
 
         setText(e.touches[0].clientX);
         setDragStartLocation({x:e.touches[0]?.clientX, y: e.touches[0]?.clientY});
+        //setDragStartLocation.x = e.touches[0]?.clientX;
+        //setDragStartLocation.y = e.touches[0]?.clientY;
+        //if (startRunning.current == true) {
+        //    alert('in if');
+        //    return;
+        //}
+        //alert('after start if');
         startRunning.current = true;
         let numOfFingers = e.touches.length;
         setNumOfFingers(numOfFingers);
 
+        //tapRefFingerNum.current = e.touches.length;
         tapRefCount.current = e.touches.length;
 
         setIsTouching(true);
@@ -114,6 +161,7 @@ export default function Bottom({children}) {
             position[i].y = e.touches[i]?.clientY;
             text += 'y: ' + position[i].y + '\n';
         }
+        //setText(text);
         setPosition(position);
         startRunning.current = false;
     }
@@ -127,18 +175,44 @@ export default function Bottom({children}) {
         let deltaY = current.y - dragStartLocation.y;
         const bottomDiv = document.querySelector('.bottom');
 
+        //this was me attempting to implement drag, but i htink that its done better by motion
+        //TODO: clean up code to remove code that implements drag?
+        //bottomDiv.style.transform = `translate(${deltaX}px, ${deltaY}px)`;
+
         setDragPrevLocation(prev);
         setDragCurrentLocation({x:e.touches[0]?.clientX, y: e.touches[0]?.clientY});
 
 
+        //setDragCurrentLocation({x:e.touches[0]?.clientX, y: e.touches[0]?.clientY});
+
+        //setDragCurrentLocation.x = e.touches[0]?.clientX;
+        //setDragCurrentLocation.y = e.touches[0]?.clientY;
+        //if (tapRefState.current != 'in-handleTouchStart') {
+        //    alert('in move if');
+        //    return;
+        //}
+        //alert('after move if');
+        //if (moveRunning.current == true) {
+        //    return;
+        //}
         moveRunning.current = true;
         setIsDragging(true);
         moveRunning.current = false;
+        //tapRefState.current = 'move-finished';
     }
 
     const handleTouchEnd = (e) => {
+        //setText( prev => prev + "\n 2-"+e.touches[0]?.clientX);
+        //setText("2-" + e.touches[0]?.clientX);
+
+        //setDragEndLocation({x:e.touches[0]?.clientX, y: e.touches[0]?.clientY});
         setDragCurrentLocation({x:e.touches[0]?.clientX, y: e.touches[0]?.clientY});
 
+        //setDragEndLocation.x = e.touches[0]?.clientX;
+        //setDragEndLocation.y = e.touches[0]?.clientY;
+
+
+        //alert('in end - before if: ' + tapRefCount.current);
         if (tapRefCount.current == 0) {
             //then this is the first touch
             //tapRefCount.current = e.touches.length;
@@ -156,6 +230,25 @@ export default function Bottom({children}) {
             tapRefCount.current = 0;
             //alert('in end - in else: ' + tapRefCount.current);
         }
+        //alert('in end - after if: ' + tapRefCount.current);
+
+
+        //if (tapRefState.current == 'endHandle-started') {
+        //    //alert('in start if');
+        //    alert('end in if');
+        //    return;
+        //}
+        //tapRefState.current = 'endHandle-started';
+        //alert('end after if');
+
+        //if (tapRefState.current != 'endhandle') {
+        //    //alert('in end if');
+        //    return;
+        //}
+        ////alert('after end if');
+        //if (endRunning.current == true) {
+        //    return;
+        //}
         endRunning.current = true;
         setIsDragging(false);
         setIsTouching(false);
@@ -177,7 +270,9 @@ export default function Bottom({children}) {
                 //q: which to use of these two?
                 setTapState(state.tapping);
                 setTapFinished(false);
+                //alert('setTapFinished false');
 
+                //setTapFinished(true);
             } else {
                 setText('num:' + numOfFingers);
                 //i think this works, but ... works only sometimes.
@@ -190,9 +285,14 @@ export default function Bottom({children}) {
                     setTapCount( prev => prev+1 );
                 //}
 
+                //alert('Start-End: ' + currentTime + ' ' + tapEnd + ' ' + (currentTime-tapEnd));
+                //alert(text + tapStart + ' ' + currentTime + ' ' + (currentTime-tapStart));
             }
         }
         endRunning.current = false;
+        //tapRefState.current = 'endhandle';
+        //alert('end before exit');
+        //tapRefState.current = 'endHandle-ended';
     }
 
     return (

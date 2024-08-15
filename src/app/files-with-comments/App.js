@@ -274,16 +274,31 @@ export default function App() {
     const [statesForShowButtons, setStatesForShowButtons] = useState(getInitialStatesForShowButtons(categories));
     const changeButtonStateForShowButtons = (name, isPressed, categoryIndex, subCategoryIndex) => {
         //turn off corresponding add button
+        //alert(JSON.stringify(categories)); --> doesn't work
+        //alert(categories);
+        //alert(categoryIndex);
+        //alert(categories[0].name);
+        //alert(categories[4].name);
+        //alert(JSON.stringify(categories[0]);
+        //alert(JSON.stringify(Array.from(statesForShowButtons.entries())));
 
         //needs to be an array
+        //alert(namesOfAddButtons);
+        //alert('nameOfShowButton: ' + nameOfShowButton);
+        //const addButtonIsPressed = statesForAddButtons.get(nameOfAddButton).isPressed;
+        //alert('isPressed: ' + isPressed);
         let oldState;
         if (isPressed === false) {
+            //alert('1');
             const namesOfAddButtons = categories[categoryIndex].subCategories.map( subCategory => {
                 return subCategory.name;
             });
+            //alert('2');
             const mapOfAddButtons = new Map(statesForAddButtons);
+            //alert('3');
             namesOfAddButtons.forEach( name => {
                 oldState = mapOfAddButons.get(name);
+                //if (mapOfAddButtons.get(name).isPressed) {
                 if (oldState.isPressed) {
                     const newStateForAddButton = {
                         ...oldState,
@@ -292,17 +307,37 @@ export default function App() {
                     mapOfAddButtons.set(name, newStateForAddButton);
                 }
             });
+            //alert('4');
             setStatesForAddButtons(mapOfAddButtons);
+            //alert(JSON.stringify(Array.from(statesForAddButtons.entries())));
+            //alert('5');
+            //alert('in if');
+            //const 
+            //mapOfShowButtons.set(nameOfShowButton, newState);
+            //setStatesForShowButtons(mapOfShowButtons);
         }
         //todo: when turn off showButton, should turn off corresponding addButton
+        //alert('after if');
 
+
+        //alert('in the function');
+        //alert(name);
+        //alert(JSON.stringify(newState));
+        //alert('1');
+        //alert(typeof getInitialStatesForShowButtons(categories));
+        //alert(typeof statesForShowButtons);
+        //alert(typeof new Map());
         const mapOfShowButtons = new Map(statesForShowButtons); //--> error
+        //alert(typeof map);
+        //alert('2');
         let newState = {
             ...oldState,
             isPressed: isPressed,
         }
         mapOfShowButtons.set(name, newState); //--> error
+        //alert('3');
         setStatesForShowButtons(mapOfShowButtons);
+        //alert('4');
     }
 
     //q: should i compbine the addbutton stuff with the showbutton stuff?
@@ -323,11 +358,29 @@ export default function App() {
     const [statesForAddButtons, setStatesForAddButtons] = useState(getInitialStatesForAddButtons(categories));
     const changeButtonStateForAddButtons = (buttonName, isPressed, categoryIndex, subCategoryIndex) => {
 
+        //change state of show buttons
+        //get column of add button
+        //const categoryIndex = categories.findIndex( category => {
+        //    category.subCategories.some( subCategory => {
+        //        subCategory.name == buttonName;
+        //    });
+        //});
+
         //turn on show button, if off
+        //alert(JSON.stringify(categories)); --> doesn't work
+        //alert(categories);
+        //alert(categoryIndex);
+        //alert(categories[0].name);
+        //alert(categories[4].name);
+        //alert(JSON.stringify(categories[0]);
+        //alert(JSON.stringify(Array.from(statesForShowButtons.entries())));
         const nameOfShowButton = categories[categoryIndex].name;
+        //alert('nameOfShowButton: ' + nameOfShowButton);
         const showButtonIsPressed = statesForShowButtons.get(nameOfShowButton).isPressed;
+        //alert('isPressed: ' + isPressed);
         let oldStateForShowButtons;
         if (isPressed && !showButtonIsPressed ) {
+            //alert('in if');
             const mapOfShowButtons = new Map(statesForShowButtons);
             oldStateForShowButtons = mapOfShowButtons.get(name);
             const newStateForShowButton = {
@@ -338,6 +391,7 @@ export default function App() {
             setStatesForShowButtons(mapOfShowButtons);
         }
         //todo: when turn off showButton, should turn off corresponding addButton
+        //alert('after if');
 
         //change state of other show buttons
         const mapOfAddButtons = new Map(statesForAddButtons);
@@ -347,15 +401,28 @@ export default function App() {
                 isPressed: false,
             };
             mapOfAddButtons.set(key, newState);
+            //alert('key: ' + key);
+            //alert('newState: ' + newState.isPressed);
         }
+        //alert(JSON.stringify(Array.from(mapOfAddButtons.entries())));
+        //mapOfAddButtons.forEach( (value, key) => {
+        //    const newState = {isPressed: false};
+        //    mapOfAddButtons.set(key, newState);
+        //});
+        //alert('newState: ' + JSON.stringify(newState));
         const oldStateForAddButton = mapOfAddButtons.get(name);
         const newStateForAddButton = {
             ...oldStateForAddButton,
             isPressed: isPressed,
         }
         mapOfAddButtons.set(buttonName, newStateForAddButton);
+        //alert(JSON.stringify(Array.from(mapOfAddButtons.entries())));
         setStatesForAddButtons(mapOfAddButtons);
 
+        //change state of add button
+        //const map = new Map(statesForAddButtons);
+        //map.set(buttonName, newState);
+        //setStatesForAddButtons(map);
     };
 
 
@@ -374,12 +441,15 @@ export default function App() {
         } else {
             top.style.top = "-500px";
             bottom.style.bottom = "-500px";
+            //top.style.top = "1000px";
+            //bottom.style.bottom = "1000px";
             button.innerHTML = "show panels";
         }
         setPanelsAreHidden( prev => !prev);
 
     }
     const hidePanels2 = (e) => {
+        //alert('hide panels');
         const top = document.getElementsByClassName("top")[0];
         const bottom = document.getElementsByClassName("bottom")[0];
         const button = document.getElementsByClassName("hide_button_top_panel")[0];
@@ -406,8 +476,24 @@ export default function App() {
         const top = document.getElementsByClassName("top")[0];
         const bottom = document.getElementsByClassName("bottom")[0];
         const button = document.getElementsByClassName("hide_button_top_panel")[0];
+        //console.log('admin clicked!');
+        //alert('admin clicked!');
 
         setIsAdmin( prev => !prev);
+        //if (!isAdmin) {
+        //    top.classList.remove("invisible");
+        //    bottom.classList.remove("invisible");
+        //    top.classList.add("visible");
+        //    bottom.classList.add("visible");
+        //    button.innerHTML = "hide panels";
+        //} else {
+        //    top.classList.add("invisible");
+        //    bottom.classList.add("invisible");
+        //    top.classList.remove("visible");
+        //    bottom.classList.remove("visible");
+        //    button.innerHTML = "show panels"; 
+        //}
+        //setPanelsAreHidden( prev => !prev);
     }
     const [showMode, setShowMode] = useState([]);
     const [addMode, setAddMode] = useState([]);
@@ -415,9 +501,11 @@ export default function App() {
 
     const [scale, setScale] = useState(1);
     const handleZoomIn = () => {
+        //setScale( prev => Math.min(prev+0.5, 5) );
         setScale( prev => Math.min(prev*1.5, 5) );
     };
     const handleZoomOut = () => {
+        //setScale( prev => Math.max(prev-0.5, 0.2) );
         setScale( prev => Math.max(prev*0.7, 0.5) );
     };
 
@@ -427,8 +515,16 @@ export default function App() {
                 className="manual-viewport prevent_select"
                 //drag
             >
+                {/*
+                <button className="toggle_button hide_button_top_panel" id="TESTING" onClick={hidePanels2}>
+                */}
+                {/*
+                <div className="menu_buttons_container">
+                <div className="TEST">
+                */}
                     <button 
                         className="admin_login" 
+                        //onTouchStart={loginAdmin}
                         onClick={loginAdmin}
                     >
                     {isAdmin ? "admin logout" : "admin login"}
@@ -436,10 +532,14 @@ export default function App() {
                     <button 
                         className="hide_button_top_panel" 
                         id="TESTING" 
+                        //onTouchStart={hidePanels2}
                         onClick={hidePanels2}
                     >
                         hide panels
                     </button>
+                {/*
+                </div>
+                */}
                 <div className="zoom-buttons-container">
                     <FloatingButton handleZoom={handleZoomIn}>
                         <FaPlus size={20}/>
