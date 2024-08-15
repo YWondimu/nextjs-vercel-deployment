@@ -60,6 +60,110 @@ import { FaLongArrowAltLeft, FaLongArrowAltRight, FaLongArrowAltUp, FaLongArrowA
 
 export default function App() {
 
+    const [buttonState, setButtonState] = useState({
+        visibilityButtons: {
+            room: {
+                isActive: false,
+                icon: <IoTextSharp style={{pointerEvents: 'none'}}/>,
+            },
+            washroom: {
+                isActive: false,
+                icon: <BiMaleFemale style={{pointerEvents: 'none'}}/>,
+            },
+            foodAndDrink: {
+                isActive: false,
+                icon: <IoCafe style={{pointerEvents: 'none'}}/>,
+            },
+            accessPoint: {
+                isActive: false,
+                icon: <FaStairs style={{pointerEvents: 'none'}}/>,
+            },
+            seating: {
+                isActive: false,
+                icon: <MdChair style={{pointerEvents: 'none'}}/>,
+            },
+        }, 
+        creationButtons: {
+            rooms: {
+                isActive: false,
+                category: "room",
+                icon: <IoTextSharp style={{pointerEvents: 'none'}}/>,
+            },
+            genderNeutralWashroom: {
+                isActive: false,
+                category: "washroom",
+                icon: <BiMaleFemale style={{pointerEvents: 'none'}}/>,
+            },
+            femaleWashroom: {
+                isActive: false,
+                category: "washroom",
+                icon: <FaFemale style={{pointerEvents: 'none'}}/>,
+            },
+            maleWashrooms: {
+                isActive: false,
+                category: "washroom",
+                icon: <FaMale style={{pointerEvents: 'none'}}/>,
+            },
+            foodStore: {
+                isActive: false,
+                category: "foodAndDrink",
+                icon: <IoCafe style={{pointerEvents: 'none'}}/>,
+            },
+            vendingMachine: {
+                isActive: false,
+                category: "foodAndDrink",
+                icon: <GiVendingMachine style={{pointerEvents: 'none'}}/>,
+            },
+            waterFountain: {
+                isActive: false,
+                category: "foodAndDrink",
+                icon: <IoWater style={{pointerEvents: 'none'}}/>,
+            },
+            stairs: {
+                isActive: false,
+                category: "accessPoint",
+                icon: <FaStairs style={{pointerEvents: 'none'}}/>,
+            },
+            elevator: {
+                isActive: false,
+                category: "accessPoint",
+                icon: <GrElevator style={{pointerEvents: 'none'}}/>,
+            },
+            entranceExit: {
+                isActive: false,
+                category: "accessPoint",
+                icon: <IoMdExit style={{pointerEvents: 'none'}}/>,
+            },
+            seating: {
+                isActive: false,
+                category: "accessPoint",
+                icon: <MdChair style={{pointerEvents: 'none'}}/>,
+            },
+        },
+
+    });
+    const changeButtonIsActive = (section, buttonKey, isActive) => {
+        //code for debugging
+        //const message = ''
+        //    + 'section: ' + section + '\n'
+        //    + 'buttonKey: ' + buttonKey + '\n'
+        //    + 'isActive: ' + isActive + '\n';
+        //alert(message);
+        //alert(JSON.stringify(buttonState));
+        setButtonState((prevState) => ({
+            ...prevState,  // Preserve the other parts of the state
+            [section]: {
+                ...prevState[section],  // Preserve the other buttons in this section
+                [buttonKey]: {
+                    ...prevState[section][buttonKey],  // Preserve other properties of this button
+                    isActive: isActive,  // Toggle isActive
+                },
+            },
+        }));
+    };
+    // Example usage for the 'room' button in 'visibilityButtons'
+    //changeButtonIsActive('visibilityButtons', 'room', true);
+
     //todo: clean - delete buttonInfo and adminButtonInfo structures, replace with the new categories data structure
     const [buttonInfo, setButtonInfo] = useState([
         {
@@ -400,7 +504,7 @@ export default function App() {
         }
         setPanelsAreHidden( prev => !prev);
     }
-    
+
     const [isAdmin, setIsAdmin] = useState(false);
     const loginAdmin = (e) => {
         const top = document.getElementsByClassName("top")[0];
