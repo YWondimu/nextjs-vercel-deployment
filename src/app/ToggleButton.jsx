@@ -93,11 +93,8 @@ export default function ToggleButton({
 
             //todo: chatgpt gave some tips for making this work, one of which is to use ngrok to craete an https connection on local wifi
             //todo: once that works, add to handleTouchStart
-            if ("vibrate" in navigator) { //only attempt to vibrate if vibration supported
-                navigator.vibrate(1000);
-            } else {
-                //alert(navigator.userAgent);
-                //alert(navigator.vibrate);
+            if (window.navigator && window.navigator.vibrate) { //only attempt to vibrate if vibration supported
+                window.navigator.vibrate(1000);
             }
         }
     }
