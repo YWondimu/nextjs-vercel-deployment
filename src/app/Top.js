@@ -2,8 +2,7 @@
 import { useState } from 'react';
 import ToggleButton from './ToggleButton';
 import { motion } from 'framer-motion';
-//washroom
-import { BiMaleFemale, BiFemale, BiMale } from 'react-icons/bi';
+//washroom import { BiMaleFemale, BiFemale, BiMale } from 'react-icons/bi';
 import { FaFemale, FaMale, } from 'react-icons/bi';
 
 //food
@@ -42,37 +41,15 @@ import { FaArrowLeft, FaArrowRight, FaArrowUp, FaArrowDown } from 'react-icons/f
 import { FaLongArrowAltLeft, FaLongArrowAltRight, FaLongArrowAltUp, FaLongArrowAltDown } from 'react-icons/fa';
 
 export default function Top({ 
-    setIsPressed, isPressed, 
-    setMode, mode,
-    setButtonInfo, buttonInfo,
-    setCategories, categories,
-    setAdminButtonInfo, adminButtonInfo,
-    changeButtonStateForShowButtons,
+    categories,
+    setAdminButtonInfo,
     changeButtonStateForAddButtons,
-    statesForShowButtons,
     statesForAddButtons,
     isAdmin,
-    setIsAdmin,
+    buttonState,
+    setButtonState,
+    changeButtonIsActive,
 }) {
-    const initialMode = {};
-
-    const [tappedWhenPressed, setTappedWhenPressed] = useState(false);
-    const handleTouchStart = (e) => {
-        if (isPressed) {
-            setTappedWhenPressed(true);
-            return;
-        } else {
-            setTappedWhenPressed(false);
-            e.target.classList.add("pressed");
-            setIsPressed(true);
-        }
-    }
-    const handleTouchEnd = (e) => {
-        if (tappedWhenPressed) {
-            e.target.classList.remove("pressed");
-            setIsPressed(false);
-        }
-    }
 
     const valuesForShow = [];
     const valuesForAdd = [];
@@ -83,47 +60,11 @@ export default function Top({
         valuesForAdd.push(false);
     }
 
-    const getToggleButtons = (rowName, buttonInfo) => {
-        let length = buttonInfo.length;
-        let buttons = [];
-        for (let i = 0; i < length; i++) {
-            const category = buttonInfo[i];
-            let isLastButton = false;
-            if (i === length-1) {
-                isLastButton = true;
-            }
-            const name = category.name;
-            const icon = category.icon !== null ? category.icon : "";
-            let debugging = true;
-            buttons.push(
-                <ToggleButton 
-                    key={i} 
-                    isShowButton={true}
-                    categoryIndex={i}
-                    subCategoryIndex={null}
-                    name={name}
-                    buttonId={i}
-                    buttonInfo={buttonInfo}
-                    setButtonInfo={setButtonInfo}
-                    isLastButton={isLastButton}
-
-                    isPressed={statesForShowButtons.get(category.name).isPressed}
-                    changeButtonState={changeButtonStateForShowButtons}
-                    debugging={debugging}
-                >
-                    {icon}
-                </ToggleButton>
-            );
-        }
-        return buttons;
-    };
     const getAdminButtons2 = (rowName, buttonCategories) => {
-        let numOfCategories = buttonCategories.length;
         //todo: figure out the lastButton class
         let row = [];
         buttonCategories.forEach( (category, index) => {
             const subCategoriesArray = category.subCategories;
-            let columnLength = subCategoriesArray.length;
             let column = [];
                 subCategoriesArray.forEach( (subCategory, subIndex) => {
                     column.push(
@@ -136,14 +77,11 @@ export default function Top({
                             name={subCategory.name}
                             buttonId={subIndex}
                             //todo: change to buttonCategories or somethng, in toggle button compoennt?
-                        //todo: or just delete the below i think. if i want hte toggle button to use the info, i should pass the specific info in? 
-                        //ORRR i think i should pass the info and handle all the stuff in the toggle button? like getting hte icon and name. hmmm. ill go with the previous approach instead for now. ill pass in specific stuff. i htink. hyeah.
+                            //todo: or just delete the below i think. if i want hte toggle button to use the info, i should pass the specific info in? 
+                            //ORRR i think i should pass the info and handle all the stuff in the toggle button? like getting hte icon and name. hmmm. ill go with the previous approach instead for now. ill pass in specific stuff. i htink. hyeah.
                             buttonInfo={subCategory}
                             //todo: change name of setButtonInfo property for readability? might cause confusion with the "actual" setButtonInfo function, compared with setAdminButtonInfo
                             setButtonInfo={setAdminButtonInfo}
-                            //isLastButton={isLastButton}
-                            //statesForShowButtons={statesForShowButtons}
-                            //statesForAddButtons={statesForAddButtons}
                             isPressed={statesForAddButtons.get(subCategory.name).isPressed}
                             changeButtonState={changeButtonStateForAddButtons}
                         >
@@ -163,8 +101,27 @@ export default function Top({
             </div>
         );
     };
-    const buttons = getToggleButtons("Show", categories);
     const adminButtons = getAdminButtons2("Add", categories);
+    const visibilityToggleButtons = Object.entries(buttonState.visibilityButtons).map( ([key, value], index, array) => {
+        const buttonName = key;
+        const button = value;
+        //alert('length: ' + array.length);
+        const isLastButton = index === array.length - 1;
+        return (
+            <ToggleButton 
+                key={buttonName} 
+                name={buttonName}
+                isLastButton={isLastButton}
+                typeOfButton={'visibilityButtons'}
+                changeButtonIsActive={changeButtonIsActive}
+                isActive={button.isActive}
+                //debugging
+                debugging={false}
+            >
+                {button.icon}
+            </ToggleButton>
+        );
+    });
 
 
     return (
@@ -174,7 +131,7 @@ export default function Top({
                         show
                     </div>
                     <div className="button_inner_container">
-                        {buttons}
+                        {visibilityToggleButtons}
                     </div>
             </div>
                     {isAdmin && (
@@ -190,11 +147,3 @@ export default function Top({
         </motion.div>
     );
 }
-//room
-//washroom
-//stairs
-//fountinas
-//vending machines
-//library?
-//benches?
-//exits?

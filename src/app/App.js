@@ -555,7 +555,6 @@ export default function App() {
                         <FaRegTrashAlt size={20}/>
                     </FloatingButton>
                 </div>
-
                 <Top 
                     isPressed={isPressed} 
                     setIsPressed={setIsPressed} 
@@ -573,6 +572,10 @@ export default function App() {
                     statesForAddButtons={statesForAddButtons}
                     isAdmin={isAdmin}
                     setIsAdmin={setIsAdmin}
+
+                    buttonState ={buttonState}
+                    setButtonState ={setButtonState}
+                    changeButtonIsActive={changeButtonIsActive}
                 >
                 </Top>
                 <Middle 
