@@ -102,15 +102,12 @@ export default function Top({
         );
     };
     const adminButtons = getAdminButtons2("Add", categories);
-    //const creationButtons2DArray = getCreationButtons2DArray(buttonState);
-    //const creationButtons2DArray = 2;
-    //alert('return: ' + creationButtons2DArray);
     const getCreationButtons2DArray = (buttonState, changeButtonIsActive) => {
 
         //get creationButtons object by destructuring buttonState object
         const { creationButtons } = buttonState;
 
-         //Create groupedButtons object, where each field is a category name, and has an array of button objects
+         //Create groupedButtons object, where each field is a category name, and has an array of button objects for that category
         const groupedButtons = {};
         Object.keys(creationButtons).forEach((buttonKey) => {
             //alert(buttonKey);
@@ -123,7 +120,7 @@ export default function Top({
                 groupedButtons[category] = [];
             }
 
-            //groupedButtons has "category" fields, that each have an array of {key, buttonInfo} objects
+            //add the buttonInfo to the appropriate category array
             groupedButtons[category].push({
                 key: buttonKey,
                 //button: buttonInfo,
@@ -131,10 +128,11 @@ export default function Top({
             });
         });
 
-        //iterate through each category field in groupedButtons E.g. groupedButtons.stairs, groupedButtons.rooms, whatever
+        //iterate through groupedButtons, and 
+        //create a row of columns, where the columns are ToggleButtons for a particular category
         const row = Object.keys(groupedButtons).map( (category) => {
-            //for each category, make a column array that has a ToggleButton for each button
-            const categoryButtons = groupedButtons[category];
+            //for each category, make a column array that has a ToggleButton component for each buttonInfo
+            const categoryButtons = groupedButtons[category]; //NOTE: typescript would be good here as an indicator that this is an array, AND to have hte compiler check that it actually is an array
             const column = categoryButtons.map((currentButton, index) => {
                 const isLastButton = index == categoryButtons.length - 1;
                 return (
@@ -156,7 +154,7 @@ export default function Top({
                         isPressed={currentButton.isActive}
                         changeButtonState={changeButtonStateForAddButtons}
                     >
-                        {buttons.icon}
+                        {currentButton.icon}
                     </ToggleButton>
                 );
             });
@@ -183,18 +181,7 @@ export default function Top({
         );
         //return 'test';
     };
-    //const testFunction = (num) => {
-    //    return num + 1;
-    //};
-    //const creationButtons2DArray = 2;
-    const creationButtons2DArray = getCreationButtons2DArray(buttonState, changeButtonIsActive);
-    //const creationButtons2DArray = testFunction(1);
-    //const myVar = '2'; const myVar2 = 2;
-    //alert('return: ' + 2);
-    //alert('return myVar: ' + myVar);
-    //alert('return myVar2: ' + myVar2);
-    //alert('return creationButtons2DArray: ' + creationButtons2DArray);
-    //alert('return creationButtons2DArray testFunction: ' + creationButtons2DArray);
+    const creationButtons = getCreationButtons2DArray(buttonState, changeButtonIsActive);
     const visibilityToggleButtons = Object.entries(buttonState.visibilityButtons).map( ([key, value], index, array) => {
         const buttonName = key;
         const button = value;
@@ -215,122 +202,10 @@ export default function Top({
             </ToggleButton>
         );
     });
-    //const getAdminButtons2 = (buttonState) => {
-    //    const { creationButtons } = buttonState;
-    //
-    //    // Group buttons by category
-    //    const groupedButtons = {};
-    //    Object.keys(creationButtons).forEach((buttonKey) => {
-    //        const button = creationButtons[buttonKey];
-    //        const { category } = button;
-    //
-    //        if (!groupedButtons[category]) {
-    //            groupedButtons[category] = [];
-    //        }
-    //
-    //        groupedButtons[category].push(
-    //            <ToggleButton 
-    //                className="admin-button"
-    //                isAddButton={true}
-    //                key={buttonKey}
-    //                name={buttonKey}
-    //                buttonId={buttonKey}
-    //                buttonInfo={button}
-    //                setButtonInfo={setAdminButtonInfo}
-    //                isPressed={buttonState.creationButtons[buttonKey].isActive}
-    //                changeButtonState={changeButtonStateForAddButtons}
-    //            >
-    //                {button.icon}
-    //            </ToggleButton>
-    //        );
-    //    });
-    //
-    //    // Create the 2D array (row of columns)
-    //    const rows = Object.keys(groupedButtons).map((category, index) => (
-    //        <div key={category} className="admin-button-column">
-    //            {groupedButtons[category]}
-    //        </div>
-    //    ));
-    //
-    //    return (
-    //        <div className="admin-button-row">
-    //            {rows}
-    //        </div>
-    //    );
-    //};
-    //const testFunction = (num) => {
-    //    return num + 1;
-    //};
-    //const creationButtons = Object.entries(buttonState.creationButtons).map( ([key, value], index, array) => {
-    //    const buttonName = key;
-    //    const button = value;
-    //    //alert('length: ' + array.length);
-    //    const isLastButton = index === array.length - 1;
-    //    return (
-    //        <ToggleButton 
-    //            key={buttonName} 
-    //            name={buttonName}
-    //            isLastButton={isLastButton}
-    //            typeOfButton={'visibilityButtons'}
-    //            changeButtonIsActive={changeButtonIsActive}
-    //            isActive={button.isActive}
-    //            //debugging
-    //            debugging={false}
-    //        >
-    //            {button.icon}
-    //        </ToggleButton>
-    //    );
-    //});
-    //const getAdminButtons2 = (rowName, buttonCategories) => {
-    //    //todo: figure out the lastButton class
-    //    let row = [];
-    //    buttonCategories.forEach( (category, index) => {
-    //        const subCategoriesArray = category.subCategories;
-    //        let column = [];
-    //            subCategoriesArray.forEach( (subCategory, subIndex) => {
-    //                column.push(
-    //                    <ToggleButton 
-    //                        className="admin-button"
-    //                        isAddButton={true}
-    //                        categoryIndex={index}
-    //                        subCategoryIndex={subIndex}
-    //                        key={subIndex} 
-    //                        name={subCategory.name}
-    //                        buttonId={subIndex}
-    //                        //todo: change to buttonCategories or somethng, in toggle button compoennt?
-    //                        //todo: or just delete the below i think. if i want hte toggle button to use the info, i should pass the specific info in? 
-    //                        //ORRR i think i should pass the info and handle all the stuff in the toggle button? like getting hte icon and name. hmmm. ill go with the previous approach instead for now. ill pass in specific stuff. i htink. hyeah.
-    //                        buttonInfo={subCategory}
-    //                        //todo: change name of setButtonInfo property for readability? might cause confusion with the "actual" setButtonInfo function, compared with setAdminButtonInfo
-    //                        setButtonInfo={setAdminButtonInfo}
-    //                        isPressed={statesForAddButtons.get(subCategory.name).isPressed}
-    //                        changeButtonState={changeButtonStateForAddButtons}
-    //                    >
-    //                        {subCategory.icon}
-    //                    </ToggleButton>
-    //                );
-    //            });
-    //        row.push(
-    //            <div className="admin-button-column">
-    //                {column}
-    //            </div>
-    //        );
-    //    });
-    //    return (
-    //        <div className="admin-button-row">
-    //            {row}
-    //        </div>
-    //    );
-    //};
 
 
-    //const giveDebugMessage = () => {
-        //const message = creationButtons2DArray;
-        //alert(message);
-    //}
     return (
-        //<motion.div className='top prevent_select' onTouchStart={giveDebugMessage}>
-        <motion.div className='top prevent_select'>
+        <motion.div className='top prevent_select' >
             <div className="button_and_label_container">
                     <div className="button_container_label">
                         show
@@ -345,10 +220,7 @@ export default function Top({
                                 add
                             </div>
                             <div className="button_inner_container">
-                                {/*
-                                    {adminButtons}
-                                */}
-                                {creationButtons2DArray}
+                                {creationButtons}
                             </div>
                         </div>
                     )}
