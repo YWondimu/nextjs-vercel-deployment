@@ -61,7 +61,8 @@ import { FaLongArrowAltLeft, FaLongArrowAltRight, FaLongArrowAltUp, FaLongArrowA
 export default function App() {
 
     const [buttonState, setButtonState] = useState({
-        visibilityButtons: {
+        //NOTE: i think for the sake of consistency and avoiding error, i will use singular for for all of the below, not plural --> Or! I should make them plural, not singular? that probably makes more sense?
+        visibilityButtons: { //TODO: change all visibilityButtons to visibilituButton
             room: {
                 isActive: false,
                 icon: <IoTextSharp style={{pointerEvents: 'none'}}/>,
@@ -83,8 +84,8 @@ export default function App() {
                 icon: <MdChair style={{pointerEvents: 'none'}}/>,
             },
         }, 
-        creationButtons: {
-            rooms: {
+        creationButtons: { //TODO: change all visibilityButtons to visibilituButton
+            room: {
                 isActive: false,
                 category: "room",
                 icon: <IoTextSharp style={{pointerEvents: 'none'}}/>,
@@ -119,7 +120,7 @@ export default function App() {
                 category: "foodAndDrink",
                 icon: <IoWater style={{pointerEvents: 'none'}}/>,
             },
-            stairs: {
+            stair: {
                 isActive: false,
                 category: "accessPoint",
                 icon: <FaStairs style={{pointerEvents: 'none'}}/>,
@@ -136,7 +137,7 @@ export default function App() {
             },
             seating: {
                 isActive: false,
-                category: "accessPoint",
+                category: "seating",
                 icon: <MdChair style={{pointerEvents: 'none'}}/>,
             },
         },
