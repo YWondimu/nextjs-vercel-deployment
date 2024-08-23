@@ -8,6 +8,7 @@ export default function ToggleButton({
     isLastButton,
     typeOfButton,
     changeButtonIsActive,
+    handleCreationButtonClick,
     isActive,
 }) {
 
@@ -20,13 +21,15 @@ export default function ToggleButton({
             return;
         } else {
             setTappedWhenPressed(false);
-            changeButtonIsActive(typeOfButton, name, true);
+            //changeButtonIsActive(typeOfButton, name, true);
+            handleCreationButtonClick(name);
         }
     }
     const handleTouchEnd = (e) => {
         if (tappedWhenPressed) {
             //alert('change to false');
-            changeButtonIsActive(typeOfButton, name, false)
+            //changeButtonIsActive(typeOfButton, name, false)
+            handleCreationButtonClick(name);
 
             //todo: chatgpt gave some tips for making this work, one of which is to use ngrok to craete an https connection on local wifi
             //todo: once that works, add to handleTouchStart

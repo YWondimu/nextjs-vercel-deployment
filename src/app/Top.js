@@ -103,7 +103,33 @@ export default function Top({
     };
     const adminButtons = getAdminButtons2("Add", categories);
     const getCreationButtons2DArray = (buttonState, changeButtonIsActive) => {
-
+        const handleCreationButtonClick = (buttonKey) => {
+            alert('in handle');
+            setButtonState((prevState) => {
+                const { category } = prevState.creationButtons[buttonKey];
+                // Step 1: Turn off all other creationButtons
+                const updatedCreationButtons = Object.keys(prevState.creationButtons).reduce((acc, key) => {
+                    acc[key] = {
+                        ...prevState.creationButtons[key],
+                        isActive: key === buttonKey // Only activate the pressed button
+                    };
+                    return acc;
+                }, {});
+                // Step 2: Activate the corresponding visibilityButton
+                const updatedVisibilityButtons = {
+                    ...prevState.visibilityButtons,
+                    [category]: {
+                        ...prevState.visibilityButtons[category],
+                        isActive: true
+                    }
+                };
+                return {
+                    ...prevState,
+                    creationButtons: updatedCreationButtons,
+                    visibilityButtons: updatedVisibilityButtons
+                };
+            });
+        };
         //get creationButtons object by destructuring buttonState object
         const { creationButtons } = buttonState;
 
@@ -153,6 +179,7 @@ export default function Top({
                         setButtonInfo={setAdminButtonInfo}
                         isPressed={currentButton.isActive}
                         changeButtonState={changeButtonStateForAddButtons}
+                        handleCreationButtonClick={handleCreationButtonClick}
                     >
                         {currentButton.icon}
                     </ToggleButton>
