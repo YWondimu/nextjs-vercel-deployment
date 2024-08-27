@@ -101,38 +101,83 @@ export default function Top({
             </div>
         );
     };
-    const adminButtons = getAdminButtons2("Add", categories);
-    const getCreationButtons2DArray = (buttonState, changeButtonIsActive) => {
-        const handleCreationButtonClick = (buttonKey) => {
-            alert('in handle');
-            setButtonState((prevState) => {
-                const { category } = prevState.creationButtons[buttonKey];
-                // Step 1: Turn off all other creationButtons
-                const updatedCreationButtons = Object.keys(prevState.creationButtons).reduce((acc, key) => {
-                    acc[key] = {
-                        ...prevState.creationButtons[key],
-                        isActive: key === buttonKey // Only activate the pressed button
-                    };
+
+    const handleVisibilityButtonClick = (buttonKey) => {
+        setButtonState( (prevState) => {
+            //alert(JSON.stringify(prevState.visibilityButtons[buttonKey]));
+            const isCurrentlyActive = prevState.visibilityButtons[buttonKey].isActive;
+            const category = buttonKey;
+            // Toggle the visibility button
+            const updatedVisibilityButtons = {
+                ...prevState.visibilityButtons,
+                [buttonKey]: {
+                    ...prevState.visibilityButtons[buttonKey],
+                    isActive: !isCurrentlyActive
+                }
+            };
+            //alert('2: ' + JSON.stringify(prevState.visibilityButtons));
+            //alert('3: ' + JSON.stringify(updatedVisibilityButtons));
+            // If the visibility button is being unpressed, unpress the corresponding creation buttons
+            let updatedCreationButtons = { ...prevState.creationButtons };
+            //let updatedCreationButtons =  prevState.creationButtons;
+            if (isCurrentlyActive) {
+                updatedCreationButtons = Object.keys(prevState.creationButtons).reduce( (acc, key) => {
+                //alert(JSON.stringify(prevState.visibilityButtons[buttonKey]));
+                    if (prevState.creationButtons[key].category === category) {
+                        acc[key] = {
+                            ...prevState.creationButtons[key],
+                            isActive: false
+                        }
+                    } else {
+                        acc[key] = prevState.creationButtons[key];
+                    }
                     return acc;
                 }, {});
-                // Step 2: Activate the corresponding visibilityButton
-                const updatedVisibilityButtons = {
+            }
+            //alert('1: ' + JSON.stringify(prevState));
+            //alert('2: ' + JSON.stringify(prevState.creationButtons));
+            //alert('3: ' + JSON.stringify(updatedVisibilityButtons));
+            return {
+                ...prevState,
+                visibilityButtons: updatedVisibilityButtons,
+                creationButtons: updatedCreationButtons
+            };
+        });
+    };
+    const handleCreationButtonClick = (buttonKey) => {
+        setButtonState( (prevState) => {
+            const category = prevState.creationButtons[buttonKey].category;
+            // Turn off all other creation buttons and toggle the clicked one
+            const updatedCreationButtons = Object.keys(prevState.creationButtons).reduce( (acc, key) => {
+                acc[key] = {
+                    ...prevState.creationButtons[key],
+                    isActive: key === buttonKey ? !prevState.creationButtons[key].isActive : false
+                };
+                return acc;
+            }, {});
+            // If the creation button is being pressed, ensure the corresponding visibility button is active
+            let updatedVisibilityButtons = { ...prevState.visibilityButtons };
+            if (!prevState.creationButtons[buttonKey].isActive) {
+                //alert('hi');
+                updatedVisibilityButtons = {
                     ...prevState.visibilityButtons,
                     [category]: {
                         ...prevState.visibilityButtons[category],
                         isActive: true
                     }
-                };
-                return {
-                    ...prevState,
-                    creationButtons: updatedCreationButtons,
-                    visibilityButtons: updatedVisibilityButtons
-                };
-            });
-        };
+                }
+            }
+            return {
+                ...prevState,
+                creationButtons: updatedCreationButtons,
+                visibilityButtons: updatedVisibilityButtons
+            }
+        });
+    }
+
+    const getCreationButtons2DArray = (buttonState, changeButtonIsActive) => {
         //get creationButtons object by destructuring buttonState object
         const { creationButtons } = buttonState;
-
          //Create groupedButtons object, where each field is a category name, and has an array of button objects for that category
         const groupedButtons = {};
         Object.keys(creationButtons).forEach((buttonKey) => {
@@ -140,12 +185,10 @@ export default function Top({
             const buttonInfo = creationButtons[buttonKey];
             //const { category } = buttonInfo;
             const category = buttonInfo.category;
-
             //if the category is not yet in the groupedButtons object, add the category, with an empty array as its value
             if (!groupedButtons[category]) {
                 groupedButtons[category] = [];
             }
-
             //add the buttonInfo to the appropriate category array
             groupedButtons[category].push({
                 key: buttonKey,
@@ -153,7 +196,6 @@ export default function Top({
                 ...buttonInfo,
             });
         });
-
         //iterate through groupedButtons, and 
         //create a row of columns, where the columns are ToggleButtons for a particular category
         const row = Object.keys(groupedButtons).map( (category) => {
@@ -161,6 +203,12 @@ export default function Top({
             const categoryButtons = groupedButtons[category]; //NOTE: typescript would be good here as an indicator that this is an array, AND to have hte compiler check that it actually is an array
             const column = categoryButtons.map((currentButton, index) => {
                 const isLastButton = index == categoryButtons.length - 1;
+                const message = '' +
+                'category: ' + category +
+                'buttonKey: ' + currentButton.key +
+                'isLastButton: ' + isLastButton +
+                '';
+                //alert(message);
                 return (
                     <ToggleButton 
                         key={currentButton.key} 
@@ -179,7 +227,7 @@ export default function Top({
                         setButtonInfo={setAdminButtonInfo}
                         isPressed={currentButton.isActive}
                         changeButtonState={changeButtonStateForAddButtons}
-                        handleCreationButtonClick={handleCreationButtonClick}
+                        onTouch={handleCreationButtonClick}
                     >
                         {currentButton.icon}
                     </ToggleButton>
@@ -216,7 +264,7 @@ export default function Top({
         const isLastButton = index === array.length - 1;
         return (
             <ToggleButton 
-                key={buttonName} 
+                key={buttonName}
                 name={buttonName}
                 isLastButton={isLastButton}
                 typeOfButton={'visibilityButtons'}
@@ -224,6 +272,7 @@ export default function Top({
                 isActive={button.isActive}
                 //debugging
                 debugging={false}
+                onTouch={handleVisibilityButtonClick}
             >
                 {button.icon}
             </ToggleButton>
