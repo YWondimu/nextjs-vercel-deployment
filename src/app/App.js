@@ -6,57 +6,7 @@ import FloatingButton from './FloatingButton.jsx';
 import './styles.css';
 import { motion } from 'framer-motion';
 import { useState } from 'react';
-
-//zoom
-import { FaPlus, FaMinus } from 'react-icons/fa';
-
-// trash
-import { FaRegTrashAlt } from 'react-icons/fa';
-
-//washroom
-import { BiMaleFemale, BiFemale, BiMale } from 'react-icons/bi';
-import { FaFemale, FaMale, } from 'react-icons/fa';
-import { LiaFemaleSolid, LiaMaleSolid, } from 'react-icons/lia';
-
-//food
-import { GrCafeteria } from 'react-icons/gr';
-import { IoCafe, IoFastFood, IoWater } from 'react-icons/io5';
-import { LuGlassWater } from 'react-icons/lu';
-import { MdWaterDrop, MdEmojiFood } from 'react-icons/md';
-import { GiVendingMachine } from 'react-icons/gi';
-import { PiBowlFoodFill, PiBowlFoodDuotone, } from 'react-icons/gi';
-
-//exits
-import { FaStairs, FaElevator } from 'react-icons/fa6';
-import { MdOutlineStairs, MdStairs, MdElevator, MdOutlineElevator } from 'react-icons/md';
-import { GrElevator } from 'react-icons/gr';
-import { Gi3dStaris, GiStairs } from 'react-icons/gi';
-import { RxExit } from 'react-icons/rx';
-import { ImExit } from 'react-icons/im';
-import { IoExit, IoMdExit } from 'react-icons/io';
-
-//seating areas
-import { MdChair, MdOutlineChair } from 'react-icons/md';
-import { PiChairBold, PiChair } from 'react-icons/pi';
-//accessibility
-import { PiWheelchairmotion } from 'react-icons/pi';
-//roooms
-import { IoText } from 'react-icons/io5';
-import { IoTextSharp } from 'react-icons/io5';
-import { piDesk, piDeskBold, piDeskDuotone, piDeskFill, } from 'react-icons/pi';
-
-//pins
-import { IoMdPin } from 'react-icons/io';
-import { MdLoationPin } from 'react-icons/md';
-import { LuMapPin } from 'react-icons/lu';
-
-//help
-import { BsFillQuestionCircleFill, BsQuestionCircleFill } from 'react-icons/bs';
-import { FaQuestion, FaQuestionCircle } from 'react-icons/bs';
-
-//arrows (eg for exits, or pins)
-import { FaArrowLeft, FaArrowRight, FaArrowUp, FaArrowDown } from 'react-icons/fa';
-import { FaLongArrowAltLeft, FaLongArrowAltRight, FaLongArrowAltUp, FaLongArrowAltDown } from 'react-icons/fa';
+import icons from './icons'
 
 export default function App() {
 
@@ -65,83 +15,100 @@ export default function App() {
         visibilityButtons: { //TODO: change all visibilityButtons to visibilituButton
             room: {
                 isActive: false,
-                icon: <IoTextSharp style={{pointerEvents: 'none'}}/>,
+                //icon: 'x',
+                icon: icons.room,
             },
             washroom: {
                 isActive: false,
-                icon: <BiMaleFemale style={{pointerEvents: 'none'}}/>,
+                //icon: 'x',
+                icon: icons.washroom,
             },
             foodAndDrink: {
                 isActive: false,
-                icon: <IoCafe style={{pointerEvents: 'none'}}/>,
+                //icon: 'x',
+                icon: icons.foodAndDrink,
             },
             accessPoint: {
                 isActive: false,
-                icon: <FaStairs style={{pointerEvents: 'none'}}/>,
+                //icon: 'x',
+                icon: icons.accessPoint,
             },
             seating: {
                 isActive: false,
-                icon: <MdChair style={{pointerEvents: 'none'}}/>,
+                //icon: 'x',
+                icon: icons.seating,
             },
         }, 
         creationButtons: { //TODO: change all visibilityButtons to visibilituButton
             room: {
                 isActive: false,
                 category: "room",
-                icon: <IoTextSharp style={{pointerEvents: 'none'}}/>,
+                //icon: 'x',
+                icon: icons.room,
             },
             genderNeutralWashroom: {
                 isActive: false,
                 category: "washroom",
-                icon: <BiMaleFemale style={{pointerEvents: 'none'}}/>,
+                //icon: 'x',
+                icon: icons.washroom,
             },
             femaleWashroom: {
                 isActive: false,
                 category: "washroom",
-                icon: <FaFemale style={{pointerEvents: 'none'}}/>,
+                //icon: 'x',
+                icon: icons.femaleWashroom
             },
+            //TODO: change the below to singular maleWashrooms
             maleWashrooms: {
                 isActive: false,
                 category: "washroom",
-                icon: <FaMale style={{pointerEvents: 'none'}}/>,
+                //icon: 'x',
+                icon: icons.maleWashroom,
             },
             foodStore: {
                 isActive: false,
                 category: "foodAndDrink",
-                icon: <IoCafe style={{pointerEvents: 'none'}}/>,
+                //icon: 'x',
+                icon: icons.foodAndDrink,
             },
             vendingMachine: {
                 isActive: false,
                 category: "foodAndDrink",
-                icon: <GiVendingMachine style={{pointerEvents: 'none'}}/>,
+                //icon: 'x',
+                icon: icons.vendingMachine,
             },
             waterFountain: {
                 isActive: false,
                 category: "foodAndDrink",
-                icon: <IoWater style={{pointerEvents: 'none'}}/>,
+                //icon: 'x',
+                icon: icons.waterFountain,
             },
             stair: {
                 isActive: false,
                 category: "accessPoint",
-                icon: <FaStairs style={{pointerEvents: 'none'}}/>,
+                //icon: 'x',
+                icon: icons.stair,
             },
             elevator: {
                 isActive: false,
                 category: "accessPoint",
-                icon: <GrElevator style={{pointerEvents: 'none'}}/>,
+                //icon: 'x',
+                icon: icons.elevator,
             },
+            //TODO: rename to entranceAndExit?
             entranceExit: {
                 isActive: false,
                 category: "accessPoint",
-                icon: <IoMdExit style={{pointerEvents: 'none'}}/>,
+                //icon: 'x',
+                icon: icons.entranceAndExit,
             },
             seating: {
                 isActive: false,
                 category: "seating",
-                icon: <MdChair style={{pointerEvents: 'none'}}/>,
+                //icon: 'x',
+                icon: icons.seating,
             },
         },
-
     });
     const changeButtonIsActive = (section, buttonKey, isActive) => {
         //code for debugging
@@ -169,27 +136,27 @@ export default function App() {
     const [buttonInfo, setButtonInfo] = useState([
         {
             name: "room",
-            icon: <IoTextSharp style={{pointerEvents: 'none'}}/>,
+            icon: icons.room,
             isPressed: false,
         },
         {
             name: "washroom",
-            icon: <BiMaleFemale style={{pointerEvents: 'none'}}/>,
+            icon: icons.washroom,
             isPressed: false,
         },
         {
             name: "food",
-            icon: <IoCafe style={{pointerEvents: 'none'}}/>,
+            icon: icons.foodAndDrink,
             isPressed: false,
         },
         {
             name: "transport",
-            icon: <FaStairs style={{pointerEvents: 'none'}}/>,
+            icon: icons.entranceAndExit,
             isPressed: false,
         },
         {
             name: "seating",
-            icon: <MdChair style={{pointerEvents: 'none'}}/>,
+            icon: icons.seating,
             isPressed: false,
         },
     ]);
@@ -197,65 +164,65 @@ export default function App() {
         [
             {
                 name: "room",
-                icon: <IoTextSharp style={{pointerEvents: 'none'}}/>,
+                icon: icons.room,
                 isPressed: false,
             },
         ],
         [
             {
                 name: "washroom-unisex",
-                icon: <BiMaleFemale style={{pointerEvents: 'none'}}/>,
+                icon: icons.washroom,
                 isPressed: false,
             },
             {
                 name: "washroom-female",
-                icon: <FaFemale style={{pointerEvents: 'none'}}/>,
+                icon: icons.femaleWashroom,
                 isPressed: false,
             },
             {
                 name: "washroom-male",
-                icon: <FaMale style={{pointerEvents: 'none'}}/>,
+                icon: icons.maleWashroom,
                 isPressed: false,
             },
         ],
         [
             {
                 name: "food-store",
-                icon: <IoCafe style={{pointerEvents: 'none'}}/>,
+                icon: icons.foodAndDrink,
                 isPressed: false,
             },
             {
                 name: "food-vending-machine",
-                icon: <GiVendingMachine style={{pointerEvents: 'none'}}/>,
+                icon: icons.vendingMachine,
                 isPressed: false,
             },
             {
                 name: "food-water-fountain",
-                icon: <IoWater style={{pointerEvents: 'none'}}/>,
+                icon: icons.waterFountain,
                 isPressed: false,
             },
         ],
         [
             {
                 name: "transport-stairs",
-                icon: <FaStairs style={{pointerEvents: 'none'}}/>,
+                icon: icons.stair,
                 isPressed: false,
             },
             {
                 name: "transport-elevator",
-                icon: <GrElevator style={{pointerEvents: 'none'}}/>,
+                icon: icons.elevator,
                 isPressed: false,
             },
             {
                 name: "transport-exit",
-                icon: <IoMdExit style={{pointerEvents: 'none'}}/>,
+                icon: icons.entranceAndExit,
                 isPressed: false,
             },
         ],
         [
             {
                 name: "seating",
-                icon: <MdChair style={{pointerEvents: 'none'}}/>,
+                icon: icons.seating,
                 isPressed: false,
             },
         ],
@@ -265,95 +232,95 @@ export default function App() {
     const [categories, setCategories] = useState([
         {
             name: "named-location",
-            icon: <IoTextSharp style={{pointerEvents: 'none'}}/>,
+            icon: icons.room,
             isPressed: false,
             subCategories: 
             [
                 {
                     name: "room",
-                    icon: <IoTextSharp style={{pointerEvents: 'none'}}/>,
+                    icon: icons.room,
                     isPressed: false,
                 },
             ],
         },
         {
             name: "washroom",
-            icon: <BiMaleFemale style={{pointerEvents: 'none'}}/>,
+            icon: icons.washroom,
             isPressed: false,
             subCategories:
                 [
                     {
                         name: "washroom-unisex",
-                        icon: <BiMaleFemale style={{pointerEvents: 'none'}}/>,
+                        icon: icons.washroom,
                         isPressed: false,
                     },
                     {
                         name: "washroom-female",
-                        icon: <FaFemale style={{pointerEvents: 'none'}}/>,
+                        icon: icons.femaleWashroom,
                         isPressed: false,
                     },
                     {
                         name: "washroom-male",
-                        icon: <FaMale style={{pointerEvents: 'none'}}/>,
+                        icon: icons.maleWashroom,
                         isPressed: false,
                     },
                 ],
         },
         {
             name: "food-and-drink",
-            icon: <IoCafe style={{pointerEvents: 'none'}}/>,
+            icon: icons.foodAndDrink,
             isPressed: false,
             subCategories:
                 [
                     {
                         name: "store",
-                        icon: <IoCafe style={{pointerEvents: 'none'}}/>,
+                        icon: icons.foodStore,
                         isPressed: false,
                     },
                     {
                         name: "vending-machine",
-                        icon: <GiVendingMachine style={{pointerEvents: 'none'}}/>,
+                        icon: icons.vendingMachine,
                         isPressed: false,
                     },
                     {
                         name: "water-fountain",
-                        icon: <IoWater style={{pointerEvents: 'none'}}/>,
+                        icon: icons.waterFountain,
                         isPressed: false,
                     },
                 ],
         },
         {
             name: "transportation",
-            icon: <FaStairs style={{pointerEvents: 'none'}}/>,
+            icon: icons.stair,
             isPressed: false,
             subCategories: 
                 [
                     {
                         name: "stairs",
-                        icon: <FaStairs style={{pointerEvents: 'none'}}/>,
+                        icon: icons.stair,
                         isPressed: false,
                     },
                     {
                         name: "elevator",
-                        icon: <GrElevator style={{pointerEvents: 'none'}}/>,
+                        icon: icons.elevator,
                         isPressed: false,
                     },
                     {
                         name: "exit",
-                        icon: <IoMdExit style={{pointerEvents: 'none'}}/>,
+                        icon: icons.entranceAndExit,
                         isPressed: false,
                     },
                 ],
         },
         {
             name: "seating",
-            icon: <MdChair style={{pointerEvents: 'none'}}/>,
+            icon: icons.seating,
             isPressed: false,
             subCategories: 
             [
                 {
                     name: "seating",
-                    icon: <MdChair style={{pointerEvents: 'none'}}/>,
+                    icon: icons.seating,
                     isPressed: false,
                 },
             ],
@@ -547,13 +514,13 @@ export default function App() {
                     </button>
                 <div className="zoom-buttons-container">
                     <FloatingButton handleZoom={handleZoomIn}>
-                        <FaPlus size={20}/>
+                        {icons.plusSign}
                     </FloatingButton>
                     <FloatingButton handleZoom={handleZoomOut}>
-                        <FaMinus size={20}/>
+                        {icons.minusSign}
                     </FloatingButton>
                     <FloatingButton>
-                        <FaRegTrashAlt size={20}/>
+                       {icons.trashCan}
                     </FloatingButton>
                 </div>
                 <Top 

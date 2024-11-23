@@ -52,15 +52,21 @@ import { FaLongArrowAltLeft, FaLongArrowAltRight, FaLongArrowAltUp, FaLongArrowA
 const icons = {
     room: <IoTextSharp style={{pointerEvents: 'none'}}/>,
     genderNeutralWashroom: <BiMaleFemale style={{pointerEvents: 'none'}}/>,
+    washroom: <BiMaleFemale style={{pointerEvents: 'none'}}/>,
     femaleWashroom: <FaFemale style={{pointerEvents: 'none'}}/>,
     maleWashroom: <FaMale style={{pointerEvents: 'none'}}/>,
     foodStore: <IoCafe style={{pointerEvents: 'none'}}/>,
+    foodAndDrink: <IoCafe style={{pointerEvents: 'none'}}/>,
     vendingMachine: <GiVendingMachine style={{pointerEvents: 'none'}}/>,
     waterFountain: <IoWater style={{pointerEvents: 'none'}}/>,
     stair: <FaStairs style={{pointerEvents: 'none'}}/>,
     elevator: <GrElevator style={{pointerEvents: 'none'}}/>,
     entranceAndExit: <IoMdExit style={{pointerEvents: 'none'}}/>,
+    accessPoint: <IoMdExit style={{pointerEvents: 'none'}}/>,
     seating: <MdChair style={{pointerEvents: 'none'}}/>,
+    plusSign: <FaPlus size={20}/>,
+    minusSign: <FaMinus size={20}/>,
+    trashCan: <FaRegTrashAlt size={20}/>,
 }
 
 export default icons
