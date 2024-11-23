@@ -50,23 +50,29 @@ import { FaArrowLeft, FaArrowRight, FaArrowUp, FaArrowDown } from 'react-icons/f
 import { FaLongArrowAltLeft, FaLongArrowAltRight, FaLongArrowAltUp, FaLongArrowAltDown } from 'react-icons/fa';
 
 const icons = {
-    room: <IoTextSharp style={{pointerEvents: 'none'}}/>,
-    genderNeutralWashroom: <BiMaleFemale style={{pointerEvents: 'none'}}/>,
-    washroom: <BiMaleFemale style={{pointerEvents: 'none'}}/>,
-    femaleWashroom: <FaFemale style={{pointerEvents: 'none'}}/>,
-    maleWashroom: <FaMale style={{pointerEvents: 'none'}}/>,
-    foodStore: <IoCafe style={{pointerEvents: 'none'}}/>,
-    foodAndDrink: <IoCafe style={{pointerEvents: 'none'}}/>,
-    vendingMachine: <GiVendingMachine style={{pointerEvents: 'none'}}/>,
-    waterFountain: <IoWater style={{pointerEvents: 'none'}}/>,
-    stair: <FaStairs style={{pointerEvents: 'none'}}/>,
+    accessPoint: <IoMdExit style={{pointerEvents: 'none'}}/>,
+    cafe: "",
+    cafeteria: "",
+    classroom: "",
     elevator: <GrElevator style={{pointerEvents: 'none'}}/>,
     entranceAndExit: <IoMdExit style={{pointerEvents: 'none'}}/>,
-    accessPoint: <IoMdExit style={{pointerEvents: 'none'}}/>,
-    seating: <MdChair style={{pointerEvents: 'none'}}/>,
-    plusSign: <FaPlus size={20}/>,
+    femaleWashroom: <FaFemale style={{pointerEvents: 'none'}}/>,
+    foodAndDrink: <IoCafe style={{pointerEvents: 'none'}}/>,
+    foodStore: <IoCafe style={{pointerEvents: 'none'}}/>,
+    genderNeutralWashroom: <BiMaleFemale style={{pointerEvents: 'none'}}/>,
+    library: "",
+    lounge: "",
+    room: <IoTextSharp style={{pointerEvents: 'none'}}/>,
+    maleWashroom: <FaMale style={{pointerEvents: 'none'}}/>,
     minusSign: <FaMinus size={20}/>,
+    office: "",
+    plusSign: <FaPlus size={20}/>,
+    seating: <MdChair style={{pointerEvents: 'none'}}/>,
+    stair: <FaStairs style={{pointerEvents: 'none'}}/>,
     trashCan: <FaRegTrashAlt size={20}/>,
+    vendingMachine: <GiVendingMachine style={{pointerEvents: 'none'}}/>,
+    washroom: <BiMaleFemale style={{pointerEvents: 'none'}}/>,
+    waterFountain: <IoWater style={{pointerEvents: 'none'}}/>,
 }
 
-export default icons
+export default icons;

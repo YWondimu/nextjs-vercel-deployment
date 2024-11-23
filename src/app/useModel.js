@@ -1,4 +1,6 @@
 import { useState } from 'react';
+import { initialCategories } from './initialCategories';
+import { initialFloors } from './initialFloors';
 
 function useModel() {
 
@@ -15,81 +17,48 @@ function useModel() {
     //icons?
     //types of shapes and colors
 
-
     //feature template
     //{
     //    id:,
+    //    label:,
     //    type:,
     //    subtype:,
     //    position: {x:,y:},
     //    floorNumber:,
+    //    isAccessible:,
     //    isSelected:,
     //    isVisible:,
     //}
     const [features, setFeatures] = useState([
     ]);
-    function areEqual(obj1, obj2) {
+    function areEquivalent(obj1, obj2) {
         return (
-            (obj1.id === obj2.id) &&
+            (obj1.label === obj2.label) &&
             (obj1.type === obj2.type) &&
             (obj1.subtype === obj2.subtype) &&
             (obj1.position === obj2.position) &&
             (obj1.floorNumber === obj2.floorNumber)
+            (obj1.isAccessible === obj2.isAccessible)
         );
     }
-    function featureExists(obj1) {
-        exists = features.some(obj1 => areEqual(obj1,obj2));
+    function equivalentFeatureExists(obj1) {
+        exists = features.some(obj1 => areEquivalent(obj1,obj2));
         return exists;
     }
     function addFeature(newFeature) {
     }
     function updateFeature(updatedFeature) {
+        id = updatedFeature.id;
     }
     function removeFeature(featureId) {
     }
     function getFeatures() {
     }
 
-    //floor
-    //{
-    //  name:
-    //  description:?
-    //  imageUrl:
-    //  leevl:
-    //}
+    const [categories, setCategories] = useState(initialCategories);
+
     const folder = '/unb-floors-with-shadow/'
-    const [floors, setFloors] = useState([
-        {
-            name: "A",
-            imageUrl: folder + 'floor-a',
-            level: -2,
-        },
-        {
-            name: "B",
-            imageUrl: folder + 'floor-b',
-            level: -1,
-        },
-        {
-            name: "C",
-            imageUrl: folder + 'floor-c',
-            level: 1,
-        },
-        {
-            name: "D",
-            imageUrl: folder + 'floor-d',
-            level: 2,
-        },
-        {
-            name: "E",
-            imageUrl: folder + 'floor-e',
-            level: 3,
-        },
-        {
-            name: "F",
-            imageUrl: folder + 'floor-f',
-            level: 4,
-        },
-    ]);
+    const [floors, setFloors] = useState(initialFloors);
     function sortFloors(direction) {
         factor = 1;
         if (direction === 'asc') factor = 1;
