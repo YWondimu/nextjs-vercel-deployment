@@ -1,6 +1,6 @@
 'use client'
 const { v4: uuidv4 } = require('uuid');
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import { motion } from 'framer-motion';
 import NextImage from 'next/image'; //importing as "NextImage" in order not to conflict with the global Image constructor
 import { BiMaleFemale, BiFemale, BiMale } from 'react-icons/bi';
@@ -44,6 +44,8 @@ export default function Middle({
     setCategories,
     scale,
 }) {
+
+    const canvasRef = useRef(null);
 
     //// TODO: understand the resizeCanvas function!
     //// Function to resize the canvas
@@ -285,6 +287,204 @@ export default function Middle({
         };
     }, );
 
+    const drawFeature = (ctx, feature) => {
+        alert('drawing features');
+        const {x, y} = feature.position;
+        const size = 500; // Sizes of the square
+        const radius = 10; // Radius for the rounded corners
+
+        // Draw shadow
+        ctx.save();
+        ctx.shadowColor = 'rgba(0, 0, 0, 0.5)';
+        ctx.shadowBlur = 10;
+        ctx.shadowOffsetX = 5;
+        ctx.shadowOffsetY = 5;
+
+
+        let controlX = 0;
+        let controlY = 0;
+        let endX = 0;
+        let endY = 0;
+
+        let cornerX1 = x;
+        let cornerY1 = y;
+        let cornerX2 = x+size;
+        let cornerY2 = y;
+        let cornerX3 = x+size;
+        let cornerY3 = y+size;
+        let cornerX4 = x;
+        let cornerY4 = y+size;
+
+        // Draw square with rounded corners
+        ctx.beginPath();
+        ctx.moveTo(x+radius, y);
+        ctx.lineTo(x+size-radius, y); //top line
+        ctx.quadraticCurveTo(x+size, y, x+size, y+radius) ;//top right corner
+        ctx.lineTo(x+size, y+size-radius); //right line
+        ctx.quadraticCurveTo(x+size, y+size, x+size-radius, y+size); //bottom right corner
+        ctx.lineTo(x+radius, y+size); //bottom line
+        ctx.quadraticCurveTo(x, y+size, x, y+size-radius); //bottom left corner
+        ctx.lineTo(x, y+radius); //left line
+        ctx.quadraticCurveTo(x, y, x+radius, y) //top left corner
+        ctx.closePath();
+    }
+
+    useEffect( () => {
+        const canvas = canvasRef.current;
+
+        // Set the canvas's internal resolution to match its displayed size
+        const rect = canvas.getBoundingClientRect();
+        canvas.width = rect.width;
+        canvas.height = rect.height;
+
+        const ctx = canvas.getContext('2d');
+
+        const testDraw2 = (e) => {
+            const x = (e.touches[0].clientX - rect.left);
+            const y = (e.touches[0].clientY - rect.top);
+
+            ctx.clearRect(0, 0, canvas.width, canvas.height); // Clear the canvas
+
+
+            const square = true;
+            if (square) {
+                // Draw shadow
+                ctx.save();
+                ctx.shadowColor = 'rgba(0, 0, 0, 0.5)';
+                ctx.shadowBlur = 10;
+                ctx.shadowOffsetX = 5;
+                ctx.shadowOffsetY = 5;
+                // Draw square with rounded corners
+                ctx.beginPath();
+                const size = 500; // Sizes of the square
+                const radius = 10; // Radius for the rounded corners
+                ctx.moveTo(x+radius, y);
+                ctx.lineTo(x+size-radius, y); //top line
+                ctx.quadraticCurveTo(x+size, y, x+size, y+radius) ;//top right corner
+                ctx.lineTo(x+size, y+size-radius); //right line
+                ctx.quadraticCurveTo(x+size, y+size, x+size-radius, y+size); //bottom right corner
+                ctx.lineTo(x+radius, y+size); //bottom line
+                ctx.quadraticCurveTo(x, y+size, x, y+size-radius); //bottom left corner
+                ctx.lineTo(x, y+radius); //left line
+                ctx.quadraticCurveTo(x, y, x+radius, y) //top left corner
+                ctx.closePath();
+                ctx.restore();
+            } else {
+                // Draw the circle
+                ctx.beginPath();
+                const radius = 50;
+                const startAngle = 0;
+                const endAngle = 2*Math.PI;
+                ctx.beginPath();
+                ctx.arc(x, y, radius, startAngle, endAngle);
+                ctx.fillStyle = 'red';
+                ctx.fill();
+                ctx.closePath();
+            }
+        };
+
+        canvas.addEventListener('touchstart', testDraw2);
+        return () => {
+            canvas.removeEventListener('touchstart', testDraw2);
+        };
+    }, []);
+    const testDraw2 = (e) => {
+        //alert('in test draw2');
+        const canvas = canvasRef.current;
+        const ctx = canvas.getContext('2d');
+
+        const rect = canvas.getBoundingClientRect();
+
+        const scaleX = canvas.width / rect.width;
+        const scaleY = canvas.height / rect.height;
+
+        alert(canvas.width);
+        alert(rect.width);
+
+        const x = (e.touches[0].clientX - canvas.getBoundingClientRect().left) * scaleX;
+        const y = (e.touches[0].clientY - canvas.getBoundingClientRect().top) * scaleY;
+
+        ctx.clearRect(0,0,canvas.width, canvas.height);
+
+        //const x = 400;
+        //const y = 300;
+        //const x = e.touches[0].clientX;
+        //const y = e.touches[0].clientY;
+        //alert('x: ' + e.touches[0].clientX);
+        //alert('x: ' + x);
+        const radius = 5;
+        const startAngle = 0;
+        const endAngle = 2*Math.PI;
+        ctx.beginPath();
+        ctx.arc(x, y, radius, startAngle, endAngle);
+        ctx.fillStyle = 'red';
+        ctx.fill();
+        ctx.closePath();
+    }
+
+    const [features, setFeatures] = useState([]);
+    const addFeature = (position, icon, category) => {
+        const newFeature = {
+            id: `feature-${features.length}`,
+            category,
+            position,
+            icon,
+        };
+        setFeatures([...features, newFeature]);
+    };
+    const handleMapTouch = (e) => {
+        testDraw2(e);
+        //alert('type: ' + e.type);
+        //alert(JSON.stringify(Object.keys(e)));
+        //alert(e.touches[0].clientX);
+        //alert(JSON.stringify(features));
+        //const touch = e.touches[0];
+        //const position = {x: touch.clientX, y: touch.clientY};
+        //const currentIcon = 'testIcon';
+        //const currentCategory = 'testCategory';
+        //addFeature(position, currentIcon, currentCategory);
+    }
+    useEffect( () => {
+        const canvas = canvasRef.current;
+        const ctx = canvas.getContext('2d');
+        features.forEach( (feature) => {
+            drawFeature(ctx, feature);
+        });
+    }, [features]);
+
+
+    //CHATGPT SUGGESTIONS FOR HANDLING ZOOM AND PAN
+    //let offsetX = 0;
+    //let offsetY = 0;
+    //const handlePan = (dx, dy) => {
+    //  offsetX += dx;
+    //  offsetY += dy;
+    //  // Clear the canvas
+    //  ctx.clearRect(0, 0, canvas.width, canvas.height);
+    //  // Save the current context state
+    //  ctx.save();
+    //  // Apply the translation (panning)
+    //  ctx.translate(offsetX, offsetY);
+    //  // Redraw the content
+    //  drawContent(ctx);
+    //  // Restore the context to its original state (if needed for further operations)
+    //  ctx.restore();
+    //};
+    //const zoomLevel = 1.0;
+    //const handleZoom = (zoomFactor) => {
+    //  zoomLevel *= zoomFactor;
+    //  // Clear the canvas
+    //  ctx.clearRect(0, 0, canvas.width, canvas.height);
+    //  // Save the current context state
+    //  ctx.save();
+    //  // Scale the canvas context
+    //  ctx.scale(zoomLevel, zoomLevel);
+    //  // Redraw the content
+    //  drawContent(ctx);
+    //  // Restore the context to its original state (if needed for further operations)
+    //  ctx.restore();
+    //};
+
     return (
         <>
 
@@ -326,6 +526,8 @@ export default function Middle({
                 <canvas 
                     className="canvas"
                     id="canvas"
+                    //onTouchStart={handleMapTouch}
+                    ref={canvasRef}
                 >
                 </canvas>
             </motion.div>
